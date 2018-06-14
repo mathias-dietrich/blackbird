@@ -11,8 +11,21 @@
 		40C14A7020D2BEDF00EDDE27 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C14A6F20D2BEDF00EDDE27 /* ViewController.m */; };
 		40C14A7220D2BEE000EDDE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40C14A7120D2BEE000EDDE27 /* Assets.xcassets */; };
 		40C14A7520D2BEE000EDDE27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40C14A7320D2BEE000EDDE27 /* Main.storyboard */; };
-		40C14A7820D2BEE000EDDE27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C14A7720D2BEE000EDDE27 /* main.m */; };
-		40C14A8A20D2C0BA00EDDE27 /* NSView+UI.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C14A8920D2C0BA00EDDE27 /* NSView+UI.m */; };
+		40C14A7820D2BEE000EDDE27 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 40C14A7720D2BEE000EDDE27 /* main.mm */; };
+		40C14A8A20D2C0BA00EDDE27 /* NSView+UI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 40C14A8920D2C0BA00EDDE27 /* NSView+UI.mm */; };
+		40DBFA6120D2DD37005529E1 /* BlackQueen.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5520D2DD36005529E1 /* BlackQueen.png */; };
+		40DBFA6220D2DD37005529E1 /* BlackKnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5620D2DD36005529E1 /* BlackKnight.png */; };
+		40DBFA6320D2DD37005529E1 /* WhitePawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5720D2DD36005529E1 /* WhitePawn.png */; };
+		40DBFA6420D2DD37005529E1 /* BlackBishop.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5820D2DD36005529E1 /* BlackBishop.png */; };
+		40DBFA6520D2DD37005529E1 /* WhiteKnight.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5920D2DD36005529E1 /* WhiteKnight.png */; };
+		40DBFA6620D2DD37005529E1 /* WhiteQueen.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5A20D2DD36005529E1 /* WhiteQueen.png */; };
+		40DBFA6720D2DD37005529E1 /* WhiteRook.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5B20D2DD36005529E1 /* WhiteRook.png */; };
+		40DBFA6820D2DD37005529E1 /* BlackRook.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5C20D2DD36005529E1 /* BlackRook.png */; };
+		40DBFA6920D2DD37005529E1 /* BlackKing.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5D20D2DD36005529E1 /* BlackKing.png */; };
+		40DBFA6A20D2DD37005529E1 /* WhiteKing.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5E20D2DD36005529E1 /* WhiteKing.png */; };
+		40DBFA6B20D2DD37005529E1 /* BlackPawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5F20D2DD37005529E1 /* BlackPawn.png */; };
+		40DBFA6C20D2DD37005529E1 /* WhiteBishop.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA6020D2DD37005529E1 /* WhiteBishop.png */; };
+		40DBFA7A20D2FDE5005529E1 /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40DBFA7820D2FDE5005529E1 /* Engine.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +37,26 @@
 		40C14A7120D2BEE000EDDE27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		40C14A7420D2BEE000EDDE27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		40C14A7620D2BEE000EDDE27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		40C14A7720D2BEE000EDDE27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		40C14A7720D2BEE000EDDE27 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		40C14A7920D2BEE000EDDE27 /* Blackbird.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Blackbird.entitlements; sourceTree = "<group>"; };
-		40C14A8820D2C0BA00EDDE27 /* NSView+UI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+UI.h"; sourceTree = "<group>"; };
-		40C14A8920D2C0BA00EDDE27 /* NSView+UI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+UI.m"; sourceTree = "<group>"; };
+		40C14A8820D2C0BA00EDDE27 /* NSView+UI.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; path = "NSView+UI.h"; sourceTree = "<group>"; };
+		40C14A8920D2C0BA00EDDE27 /* NSView+UI.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = "NSView+UI.mm"; sourceTree = "<group>"; };
+		40DBFA5520D2DD36005529E1 /* BlackQueen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackQueen.png; sourceTree = "<group>"; };
+		40DBFA5620D2DD36005529E1 /* BlackKnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackKnight.png; sourceTree = "<group>"; };
+		40DBFA5720D2DD36005529E1 /* WhitePawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhitePawn.png; sourceTree = "<group>"; };
+		40DBFA5820D2DD36005529E1 /* BlackBishop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackBishop.png; sourceTree = "<group>"; };
+		40DBFA5920D2DD36005529E1 /* WhiteKnight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteKnight.png; sourceTree = "<group>"; };
+		40DBFA5A20D2DD36005529E1 /* WhiteQueen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteQueen.png; sourceTree = "<group>"; };
+		40DBFA5B20D2DD36005529E1 /* WhiteRook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteRook.png; sourceTree = "<group>"; };
+		40DBFA5C20D2DD36005529E1 /* BlackRook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackRook.png; sourceTree = "<group>"; };
+		40DBFA5D20D2DD36005529E1 /* BlackKing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackKing.png; sourceTree = "<group>"; };
+		40DBFA5E20D2DD36005529E1 /* WhiteKing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteKing.png; sourceTree = "<group>"; };
+		40DBFA5F20D2DD37005529E1 /* BlackPawn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlackPawn.png; sourceTree = "<group>"; };
+		40DBFA6020D2DD37005529E1 /* WhiteBishop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WhiteBishop.png; sourceTree = "<group>"; };
+		40DBFA7620D2F899005529E1 /* Model.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; path = Model.hpp; sourceTree = "<group>"; };
+		40DBFA7820D2FDE5005529E1 /* Engine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Engine.cpp; sourceTree = "<group>"; };
+		40DBFA7920D2FDE5005529E1 /* Engine.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Engine.hpp; sourceTree = "<group>"; };
+		40DBFA7B20D2FFFA005529E1 /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +89,8 @@
 		40C14A6A20D2BEDF00EDDE27 /* Blackbird */ = {
 			isa = PBXGroup;
 			children = (
+				40DBFA7120D2F1B4005529E1 /* engine */,
+				40DBFA5420D2DCE2005529E1 /* img */,
 				40C14A6B20D2BEDF00EDDE27 /* AppDelegate.h */,
 				40C14A6C20D2BEDF00EDDE27 /* AppDelegate.m */,
 				40C14A6E20D2BEDF00EDDE27 /* ViewController.h */,
@@ -67,12 +98,42 @@
 				40C14A7120D2BEE000EDDE27 /* Assets.xcassets */,
 				40C14A7320D2BEE000EDDE27 /* Main.storyboard */,
 				40C14A7620D2BEE000EDDE27 /* Info.plist */,
-				40C14A7720D2BEE000EDDE27 /* main.m */,
+				40C14A7720D2BEE000EDDE27 /* main.mm */,
 				40C14A7920D2BEE000EDDE27 /* Blackbird.entitlements */,
 				40C14A8820D2C0BA00EDDE27 /* NSView+UI.h */,
-				40C14A8920D2C0BA00EDDE27 /* NSView+UI.m */,
+				40C14A8920D2C0BA00EDDE27 /* NSView+UI.mm */,
 			);
 			path = Blackbird;
+			sourceTree = "<group>";
+		};
+		40DBFA5420D2DCE2005529E1 /* img */ = {
+			isa = PBXGroup;
+			children = (
+				40DBFA5820D2DD36005529E1 /* BlackBishop.png */,
+				40DBFA5D20D2DD36005529E1 /* BlackKing.png */,
+				40DBFA5620D2DD36005529E1 /* BlackKnight.png */,
+				40DBFA5F20D2DD37005529E1 /* BlackPawn.png */,
+				40DBFA5520D2DD36005529E1 /* BlackQueen.png */,
+				40DBFA5C20D2DD36005529E1 /* BlackRook.png */,
+				40DBFA6020D2DD37005529E1 /* WhiteBishop.png */,
+				40DBFA5E20D2DD36005529E1 /* WhiteKing.png */,
+				40DBFA5920D2DD36005529E1 /* WhiteKnight.png */,
+				40DBFA5720D2DD36005529E1 /* WhitePawn.png */,
+				40DBFA5A20D2DD36005529E1 /* WhiteQueen.png */,
+				40DBFA5B20D2DD36005529E1 /* WhiteRook.png */,
+			);
+			path = img;
+			sourceTree = "<group>";
+		};
+		40DBFA7120D2F1B4005529E1 /* engine */ = {
+			isa = PBXGroup;
+			children = (
+				40DBFA7620D2F899005529E1 /* Model.hpp */,
+				40DBFA7820D2FDE5005529E1 /* Engine.cpp */,
+				40DBFA7920D2FDE5005529E1 /* Engine.hpp */,
+				40DBFA7B20D2FFFA005529E1 /* Const.h */,
+			);
+			path = engine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,8 +193,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40DBFA6620D2DD37005529E1 /* WhiteQueen.png in Resources */,
+				40DBFA6220D2DD37005529E1 /* BlackKnight.png in Resources */,
+				40DBFA6320D2DD37005529E1 /* WhitePawn.png in Resources */,
+				40DBFA6B20D2DD37005529E1 /* BlackPawn.png in Resources */,
 				40C14A7220D2BEE000EDDE27 /* Assets.xcassets in Resources */,
+				40DBFA6120D2DD37005529E1 /* BlackQueen.png in Resources */,
+				40DBFA6920D2DD37005529E1 /* BlackKing.png in Resources */,
+				40DBFA6A20D2DD37005529E1 /* WhiteKing.png in Resources */,
+				40DBFA6420D2DD37005529E1 /* BlackBishop.png in Resources */,
+				40DBFA6820D2DD37005529E1 /* BlackRook.png in Resources */,
+				40DBFA6C20D2DD37005529E1 /* WhiteBishop.png in Resources */,
 				40C14A7520D2BEE000EDDE27 /* Main.storyboard in Resources */,
+				40DBFA6520D2DD37005529E1 /* WhiteKnight.png in Resources */,
+				40DBFA6720D2DD37005529E1 /* WhiteRook.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,9 +218,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				40C14A7020D2BEDF00EDDE27 /* ViewController.m in Sources */,
-				40C14A7820D2BEE000EDDE27 /* main.m in Sources */,
+				40C14A7820D2BEE000EDDE27 /* main.mm in Sources */,
 				40C14A6D20D2BEDF00EDDE27 /* AppDelegate.m in Sources */,
-				40C14A8A20D2C0BA00EDDE27 /* NSView+UI.m in Sources */,
+				40C14A8A20D2C0BA00EDDE27 /* NSView+UI.mm in Sources */,
+				40DBFA7A20D2FDE5005529E1 /* Engine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,10 +242,10 @@
 		40C14A7A20D2BEE000EDDE27 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -204,6 +278,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -226,10 +301,10 @@
 		40C14A7B20D2BEE000EDDE27 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -261,6 +336,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_INPUT_FILETYPE = automatic;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -278,10 +354,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CXX0X_EXTENSIONS = YES;
 				CODE_SIGN_ENTITLEMENTS = Blackbird/Blackbird.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R2WLDRKRB6;
+				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = Blackbird/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -296,10 +377,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CXX0X_EXTENSIONS = YES;
 				CODE_SIGN_ENTITLEMENTS = Blackbird/Blackbird.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R2WLDRKRB6;
+				GCC_INPUT_FILETYPE = automatic;
 				INFOPLIST_FILE = Blackbird/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

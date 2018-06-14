@@ -1,16 +1,9 @@
 //
-//  ViewController.h
+//  Engine.cpp
 //  Blackbird
 //
 //  Created by Mathias Dietrich on 6/14/18.
 //  Copyright © 2018 Mathias Dietrich. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-#import "NSView+UI.h"
-
-@interface ViewController : NSViewController
-
-
-@end
-
+#include "Engine.hpp"
