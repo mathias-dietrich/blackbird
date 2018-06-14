@@ -734,6 +734,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="btnFlip:" target="XfG-lQ-9wD" id="g1v-0b-cOO"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PcP-xZ-FaF">
                                 <rect key="frame" x="454" y="864" width="81" height="32"/>
@@ -787,6 +790,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="btnWhite:" target="XfG-lQ-9wD" id="0ij-mr-jaZ"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O05-kU-Vyb">
                                 <rect key="frame" x="283" y="864" width="73" height="32"/>
@@ -795,6 +801,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="btnBlack:" target="XfG-lQ-9wD" id="5YJ-nC-UQc"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2PK-yu-nTA">
                                 <rect key="frame" x="817" y="864" width="81" height="32"/>
@@ -863,6 +872,9 @@
                             </textField>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="ui" destination="0a0-sC-DWc" id="0pd-yA-fVL"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

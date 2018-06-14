@@ -6,8 +6,7 @@
 //  Copyright © 2018 Mathias Dietrich. All rights reserved.
 //
 
-#ifndef Model_hpp
-#define Model_hpp
+#pragma once
 
 #include <stdio.h>
 #include <string>
@@ -19,6 +18,8 @@ class Model {
     
 public:
     
+    bool isFlipped = false;
+    
     int selField = -1;
     
     bool hasLoaded = false;
@@ -28,15 +29,11 @@ public:
     int selFields [64] ;
     
     void startPos(){
-        
         for(int i=0;i < 64;i++){
             fields[i] = EMPTY;
             selFields[i] = EMPTY;
         }
-       // selFields[12] = SELECTED;
-       // selFields[20] = OPTION;
-       // selFields[28] = OPTION;
-        
+
         fields[0] = W_ROOK;
         fields[1] = W_KNIGHT;
         fields[2] = W_BISHOP;
@@ -74,11 +71,8 @@ public:
         fields[48] = B_PAWN;
     }
 
-    
 private:
    
     
 };
 
-
-#endif /* Model_hpp */

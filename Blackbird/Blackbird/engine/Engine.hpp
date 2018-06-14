@@ -6,22 +6,53 @@
 //  Copyright © 2018 Mathias Dietrich. All rights reserved.
 //
 
-#ifndef Engine_hpp
-#define Engine_hpp
+#pragma once
 
 #include <stdio.h>
 #include "Model.hpp"
 
-
 class Engine{
+ 
+private:
+    Engine(){
+        model =  new Model();
+    }
+    
+    static  Engine * m_pInstance;
     
 public:
-    Model *model =  new Model();
+
+    
+    static Engine * Instance()
+    {
+        if (NULL == m_pInstance){  
+            m_pInstance = new Engine;
+        }
+        return m_pInstance;
+    }
+    
+    Model *model;
     
     void startPos(){
         model->startPos();
     }
     
+    void newWhite(){
+         model->isFlipped = false;
+         model->startPos();
+        model->whiteToMove = true;
+    }
+    
+    void newBlack(){
+         model->startPos();
+        model->isFlipped = true;
+        model->whiteToMove = false;
+    }
+    
+    void flip(){
+        model->isFlipped =  !model->isFlipped ;
+    }
 };
 
-#endif /* Engine_hpp */
+Engine * Engine::m_pInstance = NULL;
+

@@ -7,24 +7,25 @@
 //
 
 #import "ViewController.h"
-#import "Engine.hpp"
 
 @implementation ViewController
+
+@synthesize ui;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
 
 - (IBAction)btnWhite:(id)sender{
-    Engine::Instance()->newWhite();
+    [ui newWhite];
 }
 
 - (IBAction)btnBlack:(id)sender{
-     Engine::Instance()->newBlack();
+     [ui newBlack];
 }
 
 - (IBAction)btnFlip:(id)sender{
-    Engine::Instance()->flip();
+    [ui flip];
 }
 
 

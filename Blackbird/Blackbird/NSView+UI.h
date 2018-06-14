@@ -26,8 +26,10 @@
 
 
 
-- (void)setup;
-
+-(void)setup;
+-(void)newWhite;
+-(void)newBlack;
+-(void)flip;
 
 @end
 

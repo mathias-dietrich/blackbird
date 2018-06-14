@@ -12,5 +12,12 @@
 @interface ViewController : NSViewController
 
 
+- (IBAction)btnWhite:(id)sender;
+- (IBAction)btnBlack:(id)sender;
+- (IBAction)btnFlip:(id)sender;
+
+@property (nonatomic, retain) IBOutlet UI *ui;
 @end
+
+
 
