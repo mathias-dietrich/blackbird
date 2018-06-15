@@ -23,6 +23,8 @@ using namespace std;
 class MoveGen{
 public:
     
+
+    
     uint64_t w_prawnMoves[64];
     uint64_t b_prawnMoves[64];
     
@@ -346,6 +348,15 @@ public:
             {
                 uint64_t r =  M42::king_attacks(piecePos);
                 r = r & ~board->w_all;
+                
+                // short castle
+                if(board->w_casteS && board->fields[5]==EMPTY && board->fields[6]==EMPTY){
+                    r = r | s << 6;
+                }
+                // long castle
+                if(board->w_casteL && board->fields[1]==EMPTY && board->fields[2]==EMPTY && board->fields[3]==EMPTY){
+                    r = r | s << 2;
+                }
                 return r;
             }
                 
@@ -430,6 +441,14 @@ public:
             {
                 uint64_t r =  M42::king_attacks(piecePos);
                 r = r & ~board->b_all;
+                // short castle
+                if(board->b_casteS && board->fields[61]==EMPTY && board->fields[62]==EMPTY){
+                    r = r | s << 62;
+                }
+                // long castle
+                if(board->b_casteL && board->fields[57]==EMPTY && board->fields[58]==EMPTY && board->fields[59]==EMPTY){
+                    r = r | s << 58;
+                }
                 return r;
             }
                 

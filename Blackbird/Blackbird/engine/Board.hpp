@@ -24,10 +24,65 @@ public:
         }
     }
     
+    void startPos(){
+        fields[0] = W_ROOK;
+        fields[1] = W_KNIGHT;
+        fields[2] = W_BISHOP;
+        fields[3] = W_QUEEN;
+        fields[4] = W_KING;
+        fields[5] = W_BISHOP;
+        fields[6] = W_KNIGHT;
+        fields[7] = W_ROOK;
+        
+        fields[8] = W_PAWN;
+        fields[9] = W_PAWN;
+        fields[10] = W_PAWN;
+        fields[11] = W_PAWN;
+        fields[12] = W_PAWN;
+        fields[13] = W_PAWN;
+        fields[14] = W_PAWN;
+        fields[15] = W_PAWN;
+        
+        fields[63] = B_ROOK;
+        fields[62] = B_KNIGHT;
+        fields[61] = B_BISHOP;
+        fields[60] = B_KING;
+        fields[59] = B_QUEEN;
+        fields[58] = B_BISHOP;
+        fields[57] = B_KNIGHT;
+        fields[56] = B_ROOK;
+        
+        fields[55] = B_PAWN;
+        fields[54] = B_PAWN;
+        fields[53] = B_PAWN;
+        fields[52] = B_PAWN;
+        fields[51] = B_PAWN;
+        fields[50] = B_PAWN;
+        fields[49] = B_PAWN;
+        fields[48] = B_PAWN;
+
+        w_casteL = true;
+        w_casteS = true;
+        b_casteL = true;
+        b_casteS = true;
+        
+        w_enPasse = 0;
+        b_enPasse = 0;
+        
+        rule50 = 0;
+        
+        calcBitboards();
+    }
+    
+    bool w_casteL;
+    bool w_casteS;
+    bool b_casteL;
+    bool b_casteS;
     int w_enPasse = 0;
     int b_enPasse = 0;
     
-    int fields [64] ;
+    int fields [64];
+    int rule50 = 0;
     
     uint64_t  w_rook;
     uint64_t  w_knight;
@@ -137,6 +192,44 @@ public:
          }
          fields[to] = figure;
          fields[from] = EMPTY;
+        
+        // castling
+        if(figure == W_KING){
+            if(from == 4 && to == 6){
+                fields[7] = EMPTY;
+                fields[5] = W_ROOK;
+            }
+            if(from == 4 && to == 2){
+                fields[0] = EMPTY;
+                fields[3] = W_ROOK;
+            }
+            w_casteL = false;
+            w_casteS = false;
+        }
+        if(figure == B_KING){
+            if(from == 60 && to == 62){
+                fields[63] = EMPTY;
+                fields[61] = B_ROOK;
+            }
+            if(from == 60 && to == 58){
+                fields[56] = EMPTY;
+                fields[59] = B_ROOK;
+            }
+            b_casteL = false;
+            b_casteS = false;
+        }
+        if(figure == W_ROOK && from == 0) {
+            w_casteL = false;
+        }
+        if(figure == W_ROOK && from == 7) {
+            w_casteS = false;
+        }
+        if(figure == B_ROOK && from == 56) {
+            b_casteL = false;
+        }
+           if(figure == B_ROOK && from == 63) {
+            b_casteS = false;
+        }
         
         // recalc
          calcBitboards();
