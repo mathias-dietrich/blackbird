@@ -315,37 +315,16 @@ Engine *engine;
         int figure = engine->model->board->fields[engine->model->selField];
         
         if(engine->model->selFields[pos] == OPTION){
-            engine->model->board->fields[engine->model->selField] = EMPTY;
             
-            cout << engine->model->board->b_enPasse << endl;
-            if(figure==W_PAWN && pos-8 == engine->model->board->b_enPasse){
-                engine->model->board->fields[pos-8] = EMPTY;
-            }
-            if(figure==B_PAWN && pos+8 == engine->model->board->w_enPasse){
-                engine->model->board->fields[pos+8] = EMPTY;
-            }
-            engine->model->board->fields[pos] = figure;
-            engine->model->board->calcBitboards();
+            engine->model->board->move(engine->model->selField, pos);
+           
             engine->model->whiteToMove = ! engine->model->whiteToMove;
+            engine->model->selField = -1;
+            
             [self setNeedsDisplay:YES];
             for(int i=0;i < 64;i++){
                 engine->model->selFields[i] = EMPTY;
             }
-          
-            engine->model->board->w_enPasse = 0;
-            engine->model->board->b_enPasse = 0;
-            
-            // en passe white
-            if(figure==W_PAWN && (pos - engine->model->selField == 16)){
-                engine->model->board->w_enPasse = pos;
-            }
-            
-            // en passe black
-            if(figure==B_PAWN && (pos-engine->model->selField == -16)){
-                engine->model->board->b_enPasse = pos;
-            }
-            
-              engine->model->selField = -1;
         }
         return;
     }

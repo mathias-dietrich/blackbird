@@ -122,10 +122,32 @@ public:
         printAll();
     }
     
+    /*
+     Moving a Piece
+     */
     void move(int from, int to){
-        // set fields
+         int figure = fields[from];
+         if(figure==W_PAWN && to-8 == b_enPasse){
+            fields[to-8] = EMPTY;
+         }
+         if(figure==B_PAWN && to+8 == w_enPasse){
+            fields[to+8] = EMPTY;
+         }
+         fields[to] = figure;
+         fields[from] = EMPTY;
         
-        // set bitboards
+        // recalc
+         calcBitboards();
+        
+        // en passe
+         w_enPasse = 0;
+         b_enPasse = 0;
+         if(figure==W_PAWN && (to - from == 16)){
+             w_enPasse = to;
+         }
+         if(figure==B_PAWN && (to-from == -16)){
+             b_enPasse = to;
+         }
     }
     
     void printAll(){

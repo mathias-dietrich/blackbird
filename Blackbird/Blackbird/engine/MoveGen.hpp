@@ -28,6 +28,8 @@ public:
     uint64_t w_prawnCatch[64];
     uint64_t b_prawnCatch[64];
     
+    uint64_t knight[64];
+    
     MoveGen(){
         
         // Pawn Move
@@ -37,6 +39,7 @@ public:
             b_prawnMoves[i] = 0;
             w_prawnCatch[i] = 0;
             b_prawnCatch[i] = 0;
+            knight[i] = 0;
         }
         w_prawnMoves[8] = s << 16 | s << 24;
         w_prawnMoves[9] = s << 17 | s << 25;
@@ -139,7 +142,6 @@ public:
         b_prawnMoves[9]  = s << 1;
         b_prawnMoves[8]  = s << 0;
         
-        
         // Pawn Catch
         w_prawnCatch[8] = s << 17;
         w_prawnCatch[9] = s << 16 | s << 18;
@@ -215,12 +217,12 @@ public:
         b_prawnCatch[33] = s << 24 | s << 26;
         b_prawnCatch[32] = s << 25;
         b_prawnCatch[31] = s << 22;
-        b_prawnCatch[30] = s << 22 | s << 24;
-        b_prawnCatch[29] = s << 21 | s << 23;
-        b_prawnCatch[28] = s << 20 | s << 22;
-        b_prawnCatch[27] = s << 19 | s << 21;
-        b_prawnCatch[26] = s << 18 | s << 20;
-        b_prawnCatch[25] = s << 17 | s << 19;
+        b_prawnCatch[30] = s << 21 | s << 23;
+        b_prawnCatch[29] = s << 20 | s << 22;
+        b_prawnCatch[28] = s << 19 | s << 21;
+        b_prawnCatch[27] = s << 18 | s << 20;
+        b_prawnCatch[26] = s << 17 | s << 19;
+        b_prawnCatch[25] = s << 16 | s << 18;
         b_prawnCatch[24] = s << 17;
         b_prawnCatch[23] = s << 14;
         b_prawnCatch[22] = s << 13 | s << 15;
@@ -238,6 +240,72 @@ public:
         b_prawnCatch[10] = s << 1 | s << 3;
         b_prawnCatch[9] = s << 0 | s << 2;
         b_prawnCatch[8] = s << 1;
+        
+        // knights
+        knight[0] = s << 17 | s << 10;
+        knight[1] = s << 16 | s << 18 | s << 11;
+        knight[2] = s << 8 | s << 17 | s << 19 | s << 12;
+        knight[3] = s << 9 | s << 18 | s << 20 | s << 13;
+        knight[4] = s << 10 | s << 19 | s << 21 | s << 14;
+        knight[5] = s << 11 | s << 20 | s << 22 | s << 15;
+        knight[6] = s << 12 | s << 21 | s << 23;
+        knight[7] = s << 13 | s << 22;
+        knight[8] = s << 25 | s << 18 | s << 2;
+        knight[9] = s << 24 | s << 26 | s << 19 | s << 3;
+        knight[10] = s << 0 | s << 16 | s << 25 | s << 27 | s << 20 | s << 4;
+        knight[11] = s << 1 | s << 17 | s << 26 | s << 28 | s << 21 | s << 5;
+        knight[12] = s << 2 | s << 18 | s << 27 | s << 29 | s << 22 | s << 6;
+        knight[13] = s << 3 | s << 19 | s << 28 | s<< 30 | s < 23 | s << 7;
+        knight[14] = s << 4 | s << 20 | s << 29 | s<< 31;
+        knight[15] = s << 5 | s << 21 | s << 30;
+        knight[16] = s << 33 | s << 26 | s << 10 | s<< 1;
+        knight[17] = s << 0 | s << 32 | s << 34 | s<< 27 | s << 11 | s << 2;
+        knight[18] = s << 1 | s << 8 | s << 24 | s<< 33 | s << 35 | s << 28 | s << 12 | s << 3;
+        knight[19] = s << 2 | s << 9 | s << 25 | s<< 34 | s << 36 | s << 29 | s | 13 | s << 4;
+        knight[20] = s << 3 | s << 10 | s << 26 | s<< 35 | s << 37 | s << 30 | s << 14 | s << 5;
+        knight[21] = s << 4 | s << 11  | s << 27 | s<< 36 | s << 38 | s << 31 | s << 15 | s << 6;
+        knight[22] = s << 5 | s << 12  | s << 28 | s<< 37 | s << 39 | s << 7;
+        knight[23] = s << 6 | s << 13  | s << 29 | s<< 38;
+        knight[24] = s << 9 | s << 18  | s << 34 | s<< 41;
+        knight[25] = s << 8 | s << 40  | s << 42 | s<< 35 | s << 19 | s << 10;
+        knight[26] = s << 9 | s << 16  | s << 32 | s<< 41 | s << 43 | s << 36 | s << 20 |s << 11;
+        knight[27] = s << 10 | s << 17  | s << 33 | s<< 42 | s << 44 | s << 37 | s << 32 |s << 12;
+        knight[28] = s << 11 | s << 18  | s << 24 | s<< 43 | s << 45 | s << 38 | s << 33 |s << 13;
+        knight[29] = s << 12 | s << 19  | s << 25 | s<< 44 | s << 46 | s << 39 | s << 34 |s << 14;
+        knight[30] = s << 13 | s << 20  | s << 36 | s<< 45 | s << 47 | s << 15;
+        knight[31] = s << 14 | s << 21  | s << 37 | s<< 46 ;
+        knight[32] = s << 17 | s << 49  | s << 42 | s<< 26;
+        knight[33] = s << 16 | s << 48  | s << 50 | s<< 43 | s << 27 | s << 18;
+        knight[34] = s << 17 | s << 24  | s << 40 | s<< 49 | s << 51 | s << 44 | s << 28 |s << 19;
+        knight[35] = s << 18 | s << 25  | s << 41 | s<< 50 | s << 52 | s << 45 | s << 29 |s << 20;
+        knight[36] = s << 19 | s << 26  | s << 42 | s<< 51 | s << 53 | s << 46 | s << 30 |s << 21;
+        knight[37] = s << 20 | s << 27  | s << 43 | s<< 52 | s << 54 | s << 47 | s << 31 |s << 22;
+        knight[38] = s << 21 | s << 28 | s << 44 | s<< 53 | s << 55 | s << 23;
+        knight[39] = s << 22 | s << 29 | s << 45 | s<< 54;
+        knight[40] = s << 57 | s << 50 | s << 34 | s<< 25;
+        knight[41] = s << 24 | s << 56 | s << 58 | s<< 51 | s << 35 | s << 26 | s << 24;
+        knight[42] = s << 25 | s << 32 | s << 48 | s<< 57 | s << 59 | s << 52 | s << 36 | s << 27;
+        knight[43] = s << 26 | s << 33 | s << 49 | s<< 58 | s << 60 | s << 53 | s << 37 | s << 28;
+        knight[44] = s << 27 | s << 34 | s << 50 | s<< 59 | s << 61 | s << 54 | s << 38 | s << 29;
+        knight[45] = s << 28 | s << 35 | s << 51 | s<< 60 | s << 62 | s << 55 | s << 39 | s << 30;
+        knight[46] = s << 29 | s << 36 | s << 52 | s<< 61 | s << 63 | s << 31;
+        knight[47] = s << 30 | s << 37 | s << 53 | s<< 62;
+        knight[48] = s << 58 | s << 42 | s << 33;
+        knight[49] = s << 32 | s << 59 | s << 43 | s<< 34;
+        knight[50] = s << 33 | s << 40 | s << 56 | s<< 60 | s << 44 | s << 35;
+        knight[51] = s << 34 | s << 41 | s << 57 | s<< 61 | s << 45 | s << 36;
+        knight[52] = s << 35 | s << 42 | s << 36 | s<< 58 | s << 62 | s << 46 | s << 37;
+        knight[53] = s << 36 | s << 43 | s << 59 | s<< 63 | s << 47 | s << 38;
+        knight[54] = s << 37 | s << 44 | s << 60 | s<< 39;
+        knight[55] = s << 38 | s << 45 | 61;
+        knight[56] = s << 41 | s << 50;
+        knight[57] = s << 40 | s << 42 | s << 51;
+        knight[58] = s << 48 | s << 41 | s << 43 | s<< 52;
+        knight[59] = s << 49 | s << 42 | s << 44 | s<< 54;
+        knight[60] = s << 50 | s << 43 | s << 45 | s<< 55;
+        knight[61] = s << 51 | s << 44 | s << 46;
+        knight[62] = s << 52 | s << 45 | s << 47;
+        knight[63] = s << 53 | s << 46;
     }
     
     uint64_t generate(Board * board, int piecePos){
@@ -248,7 +316,7 @@ public:
                 break;
                 
             case W_KNIGHT:
-                break;
+                return knight[piecePos] & (board->empty | board->b_all);
                 
             case W_BISHOP:
                 break;
@@ -313,8 +381,8 @@ public:
                 break;
                 
             case B_KNIGHT:
-                break;
-                
+                return knight[piecePos] & (board->empty | board->w_all);
+
             case B_BISHOP:
                 break;
                 
