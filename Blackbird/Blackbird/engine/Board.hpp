@@ -10,6 +10,7 @@
 
 #include <string>
 #include "Const.h"
+#include "Helper.hpp"
 
 using namespace std;
 
@@ -22,6 +23,7 @@ public:
            fields[i] = EMPTY;
         }
     }
+    
     int fields [64] ;
     
     uint64_t  w_rook;
@@ -38,6 +40,9 @@ public:
     uint64_t  b_king;
     uint64_t  b_pawn;
     
+    uint64_t  w_all;
+    uint64_t  b_all;
+    
     void calcBitboards(){
         w_rook = 0;
         w_knight = 0;
@@ -52,63 +57,113 @@ public:
         b_queen = 0;
         b_king = 0;
         b_pawn = 0;
+        const uint64_t s = 1;
         for(int i=0; i < 64; i++){
             switch(fields[i]){
                 case W_ROOK:
-                    w_rook = w_rook| 1 << i;
+                    w_rook = w_rook | s << i;
                     break;
                     
                 case W_KNIGHT:
-                    w_knight = w_knight | 1 << i;
+                    w_knight = w_knight | s << i;
                     break;
                     
                 case W_BISHOP:
-                    w_bishop = w_bishop | 1 << i;
+                    w_bishop = w_bishop | s << i;
                     break;
                     
                 case W_QUEEN:
-                    w_queen = w_queen | 1 << i;
+                    w_queen = w_queen | s << i;
                     break;
                     
                 case W_KING:
-                    w_king = w_king | 1 << i;
+                    w_king = w_king | s << i;
                     break;
                     
                 case W_PAWN:
-                    w_pawn = w_pawn | 1 << i;
+                    w_pawn = w_pawn | s << i;
                     break;
                     
                 case B_ROOK:
-                    b_rook = b_rook | 1 << i;
+                    b_rook = b_rook | s << i;
                     break;
                     
                 case B_KNIGHT:
-                    b_knight = b_knight | 1 << i;
+                    b_knight = b_knight | s << i;
                     break;
                     
                 case B_BISHOP:
-                    b_bishop = b_bishop | 1 << i;
+                    b_bishop = b_bishop | s << i;
                     break;
                     
                 case B_QUEEN:
-                    b_queen = b_queen | 1 << i;
+                    b_queen = b_queen | s << i;
                     break;
                     
                 case B_KING:
-                    b_king = b_king | 1 << i;
+                    b_king = b_king | s << i;
                     break;
                     
                 case B_PAWN:
-                    b_pawn = b_pawn | 1 << i;
+                    b_pawn = b_pawn | s << i;
                     break;
             }
         }
+        
+        w_all = w_rook | w_knight | w_bishop | w_queen | w_king | w_pawn;
+        b_all = b_rook | b_knight | b_bishop | b_queen | b_king | b_pawn;
+        
+        printAll();
     }
     
     void move(int from, int to){
         // set fields
         
         // set bitboards
+    }
+    
+    void printAll(){
+        cout << "w_rook" << endl;
+        printBitboard(w_rook);
+        
+        cout << "w_knight" << endl;
+        printBitboard(w_knight);
+        
+        cout << "w_bishop" << endl;
+        printBitboard(w_bishop);
+        
+        cout << "w_queen" << endl;
+        printBitboard(w_queen);
+        
+        cout << "w_king" << endl;
+        printBitboard(w_king);
+        
+        cout << "w_pawn" << endl;
+        printBitboard(w_pawn);
+        
+        cout << "b_rook" << endl;
+        printBitboard(b_rook);
+        
+        cout << "b_knight" << endl;
+        printBitboard(b_knight);
+        
+        cout << "b_bishop" << endl;
+        printBitboard(b_bishop);
+        
+        cout << "b_queen" << endl;
+        printBitboard(b_queen);
+        
+        cout << "b_king" << endl;
+        printBitboard(b_king);
+        
+        cout << "b_pawn" << endl;
+        printBitboard(b_pawn);
+        
+        cout << "w_all" << endl;
+        printBitboard(w_all);
+        
+        cout << "b_all" << endl;
+        printBitboard(b_all);
     }
     
     Board * copy(){

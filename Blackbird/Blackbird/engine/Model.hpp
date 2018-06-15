@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <string>
 #include "Const.h"
-#include "Board.h"
+#include "Board.hpp"
 
 using namespace std;
 

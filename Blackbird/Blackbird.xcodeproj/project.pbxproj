@@ -55,7 +55,8 @@
 		40DBFA7620D2F899005529E1 /* Model.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = Model.hpp; sourceTree = "<group>"; };
 		40DBFA7920D2FDE5005529E1 /* Engine.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = Engine.hpp; sourceTree = "<group>"; };
 		40DBFA7B20D2FFFA005529E1 /* Const.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Const.h; sourceTree = "<group>"; };
-		40DBFA7C20D37212005529E1 /* Board.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
+		40DBFA7C20D37212005529E1 /* Board.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = Board.hpp; sourceTree = "<group>"; };
+		40DBFA7D20D40498005529E1 /* Helper.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = Helper.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +131,8 @@
 				40DBFA7620D2F899005529E1 /* Model.hpp */,
 				40DBFA7920D2FDE5005529E1 /* Engine.hpp */,
 				40DBFA7B20D2FFFA005529E1 /* Const.h */,
-				40DBFA7C20D37212005529E1 /* Board.h */,
+				40DBFA7C20D37212005529E1 /* Board.hpp */,
+				40DBFA7D20D40498005529E1 /* Helper.hpp */,
 			);
 			path = engine;
 			sourceTree = "<group>";
