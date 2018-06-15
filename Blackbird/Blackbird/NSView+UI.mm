@@ -195,7 +195,7 @@ Engine *engine;
         if(engine->model->isFlipped){
             pos = 63 - pos;
         }
-         int piece = engine->model->fields[pos];
+         int piece = engine->model->board->fields[pos];
         
         int colum = i % 8;
         int row = i / 8;
@@ -301,9 +301,9 @@ Engine *engine;
     
     // make a move
     if(engine->model->selField > -1){
-        int figure = engine->model->fields[engine->model->selField];
-        engine->model->fields[engine->model->selField] = EMPTY;
-        engine->model->fields[pos] = figure;
+        int figure = engine->model->board->fields[engine->model->selField];
+        engine->model->board->fields[engine->model->selField] = EMPTY;
+        engine->model->board->fields[pos] = figure;
         engine->model->whiteToMove = ! engine->model->whiteToMove;
         [self setNeedsDisplay:YES];
         for(int i=0;i < 64;i++){
@@ -320,7 +320,7 @@ Engine *engine;
         return;
     }
     
-    if(engine->model->whiteToMove && engine->model->fields[pos] >0){
+    if(engine->model->whiteToMove && engine->model->board->fields[pos] >0){
         for(int i=0;i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
@@ -329,7 +329,7 @@ Engine *engine;
         [self setNeedsDisplay:YES];
     }
     
-    if(!engine->model->whiteToMove && engine->model->fields[pos] < 0){
+    if(!engine->model->whiteToMove && engine->model->board->fields[pos] < 0){
         for(int i=0;i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
