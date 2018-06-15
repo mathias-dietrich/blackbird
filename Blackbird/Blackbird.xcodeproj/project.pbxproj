@@ -26,6 +26,7 @@
 		40DBFA6B20D2DD37005529E1 /* BlackPawn.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA5F20D2DD37005529E1 /* BlackPawn.png */; };
 		40DBFA6C20D2DD37005529E1 /* WhiteBishop.png in Resources */ = {isa = PBXBuildFile; fileRef = 40DBFA6020D2DD37005529E1 /* WhiteBishop.png */; };
 		40DBFA8020D40DB7005529E1 /* MoveGen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40DBFA7E20D40DB7005529E1 /* MoveGen.cpp */; };
+		40DBFA8620D4778B005529E1 /* m42.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40DBFA8520D4778B005529E1 /* m42.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,8 @@
 		40DBFA7D20D40498005529E1 /* Helper.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = Helper.hpp; sourceTree = "<group>"; };
 		40DBFA7E20D40DB7005529E1 /* MoveGen.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = MoveGen.cpp; sourceTree = "<group>"; };
 		40DBFA7F20D40DB7005529E1 /* MoveGen.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = MoveGen.hpp; sourceTree = "<group>"; };
+		40DBFA8420D4778A005529E1 /* m42.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = m42.h; sourceTree = "<group>"; };
+		40DBFA8520D4778B005529E1 /* m42.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = m42.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,8 @@
 		40DBFA7120D2F1B4005529E1 /* engine */ = {
 			isa = PBXGroup;
 			children = (
+				40DBFA8520D4778B005529E1 /* m42.cpp */,
+				40DBFA8420D4778A005529E1 /* m42.h */,
 				40DBFA7620D2F899005529E1 /* Model.hpp */,
 				40DBFA7920D2FDE5005529E1 /* Engine.hpp */,
 				40DBFA7B20D2FFFA005529E1 /* Const.h */,
@@ -226,6 +231,7 @@
 				40C14A7020D2BEDF00EDDE27 /* ViewController.mm in Sources */,
 				40C14A7820D2BEE000EDDE27 /* main.mm in Sources */,
 				40C14A6D20D2BEDF00EDDE27 /* AppDelegate.m in Sources */,
+				40DBFA8620D4778B005529E1 /* m42.cpp in Sources */,
 				40DBFA8020D40DB7005529E1 /* MoveGen.cpp in Sources */,
 				40C14A8A20D2C0BA00EDDE27 /* NSView+UI.mm in Sources */,
 			);

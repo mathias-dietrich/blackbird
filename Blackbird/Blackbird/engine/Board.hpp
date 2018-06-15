@@ -45,6 +45,7 @@ public:
     
     uint64_t  w_all;
     uint64_t  b_all;
+    uint64_t  all;
     uint64_t  empty;
     
     void calcBitboards(){
@@ -118,6 +119,7 @@ public:
         b_all = b_rook | b_knight | b_bishop | b_queen | b_king | b_pawn;
         
         empty = ~(w_all | b_all);
+        all = ~empty;
         
         printAll();
     }

@@ -4,7 +4,7 @@
 //
 //  Created by Mathias Dietrich on 6/15/18.
 //  Copyright © 2018 Mathias Dietrich. All rights reserved.
-//
+// https://github.com/syzygy1/tb/tree/master/src
 
 #pragma once
 
@@ -16,6 +16,7 @@
 #include "Const.h"
 #include "Helper.hpp"
 #include "Board.hpp"
+#include "m42.h"
 
 using namespace std;
 
@@ -31,6 +32,8 @@ public:
     uint64_t knight[64];
     
     MoveGen(){
+        
+        M42::init();
         
         // Pawn Move
         uint64_t s = 1;
@@ -269,7 +272,7 @@ public:
         knight[24] = s << 9 | s << 18  | s << 34 | s<< 41;
         knight[25] = s << 8 | s << 40  | s << 42 | s<< 35 | s << 19 | s << 10;
         knight[26] = s << 9 | s << 16  | s << 32 | s<< 41 | s << 43 | s << 36 | s << 20 |s << 11;
-        knight[27] = s << 10 | s << 17  | s << 33 | s<< 42 | s << 44 | s << 37 | s << 32 |s << 12;
+        knight[27] = s << 10 | s << 17  | s << 33 | s<< 42 | s << 44 | s << 37 | s << 21 |s << 12;
         knight[28] = s << 11 | s << 18  | s << 24 | s<< 43 | s << 45 | s << 38 | s << 33 |s << 13;
         knight[29] = s << 12 | s << 19  | s << 25 | s<< 44 | s << 46 | s << 39 | s << 34 |s << 14;
         knight[30] = s << 13 | s << 20  | s << 36 | s<< 45 | s << 47 | s << 15;
@@ -313,19 +316,38 @@ public:
          uint64_t s = 1;
         switch(piece){
             case W_ROOK:
-                break;
+            {
+                uint64_t r =  M42::rook_attacks(piecePos, board->all);
+                r = r & ~board->w_all;
+                return r;
+            }
                 
             case W_KNIGHT:
+            {
                 return knight[piecePos] & (board->empty | board->b_all);
+            }
                 
             case W_BISHOP:
-                break;
+            {
+                uint64_t r =  M42::bishop_attacks(piecePos, board->all);
+                r = r & ~board->w_all;
+                return r;
+            }
                 
             case W_QUEEN:
-                break;
+            {
+                uint64_t r =  M42::rook_attacks(piecePos, board->all);
+                r =  r | M42::bishop_attacks(piecePos, board->all);
+                r = r & ~board->w_all;
+                return r;
+            }
                 
             case W_KING:
-                break;
+            {
+                uint64_t r =  M42::king_attacks(piecePos);
+                r = r & ~board->w_all;
+                return r;
+            }
                 
             case W_PAWN:
             {
@@ -378,19 +400,38 @@ public:
             }
                 
             case B_ROOK:
-                break;
+            {
+                uint64_t r =  M42::rook_attacks(piecePos, board->all);
+                r = r & ~board->b_all;
+                return r;
+            }
                 
             case B_KNIGHT:
+            {
                 return knight[piecePos] & (board->empty | board->w_all);
+            }
 
             case B_BISHOP:
-                break;
+            {
+                uint64_t r =  M42::bishop_attacks(piecePos, board->all);
+                r = r & ~board->b_all;
+                return r;
+            }
                 
             case B_QUEEN:
-                break;
+            {
+                uint64_t r =  M42::bishop_attacks(piecePos, board->all);
+                r =  r | M42::rook_attacks(piecePos, board->all);
+                r = r & ~board->b_all;
+                return r;
+            }
                 
             case B_KING:
-                break;
+            {
+                uint64_t r =  M42::king_attacks(piecePos);
+                r = r & ~board->b_all;
+                return r;
+            }
                 
             case B_PAWN:
             {

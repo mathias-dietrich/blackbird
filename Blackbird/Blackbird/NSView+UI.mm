@@ -329,8 +329,7 @@ Engine *engine;
         return;
     }
     
-    MoveGen *gen = new MoveGen();
-    
+
    // User Selects
     if(engine->model->whiteToMove && engine->model->board->fields[pos] >0){
         for(int i=0;i < 64;i++){
@@ -338,8 +337,8 @@ Engine *engine;
         }
        
         // get possible moves
-        uint64_t b = gen->generate(engine->model->board,  pos);
-        vector<int>v = gen->convertToPositions(b);
+        uint64_t b = engine->gen->generate(engine->model->board,  pos);
+        vector<int>v = engine->gen->convertToPositions(b);
         bool haveMoves = false;
         vector<int>::iterator it;  // declare an iterator to a vector of strings
         for(it = v.begin(); it != v.end(); it++ ){
@@ -360,8 +359,8 @@ Engine *engine;
         }
 
         // get possible moves
-        uint64_t b = gen->generate(engine->model->board,  pos);
-        vector<int>v = gen->convertToPositions(b);
+        uint64_t b = engine->gen->generate(engine->model->board,  pos);
+        vector<int>v = engine->gen->convertToPositions(b);
         vector<int>::iterator it;  // declare an iterator to a vector of strings
         
         bool haveMoves = false;
@@ -376,7 +375,6 @@ Engine *engine;
         }
         [self setNeedsDisplay:YES];
     }
-    delete gen;
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {

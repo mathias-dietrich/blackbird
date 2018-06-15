@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include "Model.hpp"
+#include "MoveGen.hpp"'
 
 class Engine{
  
@@ -22,6 +23,8 @@ private:
     
 public:
 
+    
+    MoveGen *gen = new MoveGen();
     
     static Engine * Instance()
     {
