@@ -24,6 +24,9 @@ public:
         }
     }
     
+    int w_enPasse = 0;
+    int b_enPasse = 0;
+    
     int fields [64] ;
     
     uint64_t  w_rook;

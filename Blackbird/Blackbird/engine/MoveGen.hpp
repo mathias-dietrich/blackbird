@@ -63,6 +63,7 @@ public:
         w_prawnMoves[30] = s << 38;
         w_prawnMoves[31] = s << 39;
         w_prawnMoves[32] = s << 40;
+        
         w_prawnMoves[33] = s << 41;
         w_prawnMoves[34] = s << 42;
         w_prawnMoves[35] = s << 43;
@@ -241,7 +242,7 @@ public:
     
     uint64_t generate(Board * board, int piecePos){
         int piece = board->fields[piecePos];
-        
+         uint64_t s = 1;
         switch(piece){
             case W_ROOK:
                 break;
@@ -259,7 +260,54 @@ public:
                 break;
                 
             case W_PAWN:
-                return (w_prawnMoves[piecePos] & board->empty) | (w_prawnCatch[piecePos]  & board->b_all);
+            {
+                uint64_t r = (w_prawnMoves[piecePos] & board->empty) | (w_prawnCatch[piecePos]  & board->b_all);
+                if(board->b_enPasse > 0){
+                    if(board->b_enPasse==32 && piecePos==33){
+                        r = r | s << 40;
+                    }
+                    if(board->b_enPasse==33 && piecePos==32){
+                        r = r | s << 41;
+                    }
+                    if(board->b_enPasse==33 && piecePos==34){
+                        r = r | s << 41;
+                    }
+                    if(board->b_enPasse==34 && piecePos==33){
+                        r = r | s << 42;
+                    }
+                    if(board->b_enPasse==34 && piecePos==35){
+                        r = r | s << 42;
+                    }
+                    if(board->b_enPasse==35 && piecePos==34){
+                        r = r | s << 43;
+                    }
+                    if(board->b_enPasse==35 && piecePos==36){
+                        r = r | s << 43;
+                    }
+                    if(board->b_enPasse==36 && piecePos==35){
+                        r = r | s << 44;
+                    }
+                    if(board->b_enPasse==36 && piecePos==37){
+                        r = r | s << 44;
+                    }
+                    if(board->b_enPasse==37 && piecePos==36){
+                        r = r | s << 45;
+                    }
+                    if(board->b_enPasse==37 && piecePos==38){
+                        r = r | s << 45;
+                    }
+                    if(board->b_enPasse==38 && piecePos==37){
+                        r = r | s << 46;
+                    }
+                    if(board->b_enPasse==38 && piecePos==39){
+                        r = r | s << 46;
+                    }
+                    if(board->b_enPasse==39 && piecePos==38){
+                        r = r | s << 47;
+                    }
+                }
+                return r;
+            }
                 
             case B_ROOK:
                 break;
@@ -277,8 +325,54 @@ public:
                 break;
                 
             case B_PAWN:
-                return b_prawnMoves[piecePos] & board->empty | (b_prawnCatch[piecePos]  & board->w_all);
-                break;
+            {
+                uint64_t r = b_prawnMoves[piecePos] & board->empty | (b_prawnCatch[piecePos]  & board->w_all);
+                if(board->w_enPasse > 0){
+                    if(board->w_enPasse==24 && piecePos==25){
+                        r = r | s << 16;
+                    }
+                    if(board->w_enPasse==25 && piecePos==24){
+                        r = r | s << 17;
+                    }
+                    if(board->w_enPasse==25 && piecePos==26){
+                        r = r | s << 17;
+                    }
+                    if(board->w_enPasse==26 && piecePos==25){
+                        r = r | s << 18;
+                    }
+                    if(board->w_enPasse==26 && piecePos==27){
+                        r = r | s << 18;
+                    }
+                    if(board->w_enPasse==27 && piecePos==26){
+                        r = r | s << 19;
+                    }
+                    if(board->w_enPasse==27 && piecePos==28){
+                        r = r | s << 19;
+                    }
+                    if(board->w_enPasse==28 && piecePos==27){
+                        r = r | s << 20;
+                    }
+                    if(board->w_enPasse==28 && piecePos==29){
+                        r = r | s << 20;
+                    }
+                    if(board->w_enPasse==29 && piecePos==28){
+                        r = r | s << 21;
+                    }
+                    if(board->w_enPasse==29 && piecePos==30){
+                        r = r | s << 21;
+                    }
+                    if(board->w_enPasse==30 && piecePos==29){
+                        r = r | s << 22;
+                    }
+                    if(board->w_enPasse==30 && piecePos==31){
+                        r = r | s << 22;
+                    }
+                    if(board->w_enPasse==31 && piecePos==30){
+                        r = r | s << 23;
+                    }
+                }
+                return r;
+            }
         }
         return 0;
     }
