@@ -12,6 +12,7 @@
 #import "engine/Engine.hpp"
 #import "engine/Model.hpp"
 #import "engine/Const.h"
+#import "engine/MoveGen.hpp"
 
 @implementation UI
 
@@ -299,33 +300,56 @@ Engine *engine;
     }
     NSLog(@"Position: %i", pos);
     
-    // make a move
-    if(engine->model->selField > -1){
-        int figure = engine->model->board->fields[engine->model->selField];
-        engine->model->board->fields[engine->model->selField] = EMPTY;
-        engine->model->board->fields[pos] = figure;
-        engine->model->whiteToMove = ! engine->model->whiteToMove;
-        [self setNeedsDisplay:YES];
-        for(int i=0;i < 64;i++){
+    // user deselects sam piece
+    if(engine->model->selField == pos){
+        for(int i=0; i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
-        engine->model->selField = -1;
-        return;
-    }
-    
-    if(engine->model->selField == pos){
-        engine->model->selFields[pos] = EMPTY;
         [self setNeedsDisplay:YES];
         engine->model->selField = -1;
         return;
     }
     
+    // User makes a move
+    if(engine->model->selField > -1){
+        int figure = engine->model->board->fields[engine->model->selField];
+        
+        if(engine->model->selFields[pos] == OPTION){
+            engine->model->board->fields[engine->model->selField] = EMPTY;
+            engine->model->board->fields[pos] = figure;
+            engine->model->board->calcBitboards();
+            engine->model->whiteToMove = ! engine->model->whiteToMove;
+            [self setNeedsDisplay:YES];
+            for(int i=0;i < 64;i++){
+                engine->model->selFields[i] = EMPTY;
+            }
+            engine->model->selField = -1;
+        }
+        return;
+    }
+    
+    MoveGen *gen = new MoveGen();
+    
+   // User Selects
     if(engine->model->whiteToMove && engine->model->board->fields[pos] >0){
         for(int i=0;i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
-        engine->model->selFields[pos] = SELECTED;
-        engine->model->selField = pos;
+       
+        // get possible moves
+        uint64_t b = gen->generate(engine->model->board,  pos);
+        vector<int>v = gen->convertToPositions(b);
+        bool haveMoves = false;
+        vector<int>::iterator it;  // declare an iterator to a vector of strings
+        for(it = v.begin(); it != v.end(); it++ ){
+            engine->model->selFields[*it] = OPTION;
+             haveMoves = true;
+        }
+
+        if(haveMoves){
+            engine->model->selFields[pos] = SELECTED;
+            engine->model->selField = pos;
+        }
         [self setNeedsDisplay:YES];
     }
     
@@ -333,10 +357,25 @@ Engine *engine;
         for(int i=0;i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
-        engine->model->selFields[pos] = SELECTED;
-        engine->model->selField = pos;
+
+        // get possible moves
+        uint64_t b = gen->generate(engine->model->board,  pos);
+        vector<int>v = gen->convertToPositions(b);
+        vector<int>::iterator it;  // declare an iterator to a vector of strings
+        
+        bool haveMoves = false;
+        for(it = v.begin(); it != v.end(); it++ ) {
+            engine->model->selFields[*it] = OPTION;
+            haveMoves = true;
+        }
+        
+        if(haveMoves){
+            engine->model->selFields[pos] = SELECTED;
+            engine->model->selField = pos;
+        }
         [self setNeedsDisplay:YES];
     }
+    delete gen;
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {

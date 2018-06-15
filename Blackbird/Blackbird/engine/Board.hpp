@@ -42,6 +42,7 @@ public:
     
     uint64_t  w_all;
     uint64_t  b_all;
+    uint64_t  empty;
     
     void calcBitboards(){
         w_rook = 0;
@@ -113,6 +114,8 @@ public:
         w_all = w_rook | w_knight | w_bishop | w_queen | w_king | w_pawn;
         b_all = b_rook | b_knight | b_bishop | b_queen | b_king | b_pawn;
         
+        empty = ~(w_all | b_all);
+        
         printAll();
     }
     
@@ -123,47 +126,53 @@ public:
     }
     
     void printAll(){
+        Helper *helper = new Helper();
         cout << "w_rook" << endl;
-        printBitboard(w_rook);
+        helper->printBitboard(w_rook);
         
         cout << "w_knight" << endl;
-        printBitboard(w_knight);
+        helper->printBitboard(w_knight);
         
         cout << "w_bishop" << endl;
-        printBitboard(w_bishop);
+        helper->printBitboard(w_bishop);
         
         cout << "w_queen" << endl;
-        printBitboard(w_queen);
+        helper->printBitboard(w_queen);
         
         cout << "w_king" << endl;
-        printBitboard(w_king);
+        helper->printBitboard(w_king);
         
         cout << "w_pawn" << endl;
-        printBitboard(w_pawn);
+        helper->printBitboard(w_pawn);
         
         cout << "b_rook" << endl;
-        printBitboard(b_rook);
+        helper->printBitboard(b_rook);
         
         cout << "b_knight" << endl;
-        printBitboard(b_knight);
+        helper->printBitboard(b_knight);
         
         cout << "b_bishop" << endl;
-        printBitboard(b_bishop);
+        helper->printBitboard(b_bishop);
         
         cout << "b_queen" << endl;
-        printBitboard(b_queen);
+        helper->printBitboard(b_queen);
         
         cout << "b_king" << endl;
-        printBitboard(b_king);
+        helper->printBitboard(b_king);
         
         cout << "b_pawn" << endl;
-        printBitboard(b_pawn);
+        helper->printBitboard(b_pawn);
         
         cout << "w_all" << endl;
-        printBitboard(w_all);
+        helper->printBitboard(w_all);
         
         cout << "b_all" << endl;
-        printBitboard(b_all);
+        helper->printBitboard(b_all);
+        
+        cout << "empty" << endl;
+        helper->printBitboard(empty);
+        
+        delete helper;
     }
     
     Board * copy(){
