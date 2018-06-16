@@ -16,6 +16,19 @@
 - (IBAction)btnBlack:(id)sender;
 - (IBAction)btnFlip:(id)sender;
 
+- (IBAction)btnForwards:(id)sender;
+- (IBAction)btnBackwards:(id)sender;
+
+
+- (IBAction)btnQueen:(id)sender;
+- (IBAction)btnRook:(id)sender;
+- (IBAction)btnKnight:(id)sender;
+- (IBAction)btnBishop:(id)sender;
+
+
+- (IBAction)btnDebug:(id)sender;
+- (IBAction)btnClear:(id)sender;
+
 @property (nonatomic, retain) IBOutlet UI *ui;
 @end
 

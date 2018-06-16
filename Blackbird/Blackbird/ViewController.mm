@@ -28,5 +28,30 @@
     [ui flip];
 }
 
+- (IBAction)btnForwards:(id)sender{
+     [ui forwards];
+}
 
+- (IBAction)btnBackwards:(id)sender{
+     [ui backwards];
+}
+
+- (IBAction)btnQueen:(id)sender{
+     [ui promoteQueen];
+}
+- (IBAction)btnRook:(id)sender{
+     [ui promoteRook];
+}
+- (IBAction)btnKnight:(id)sender{
+     [ui promoteKnight];
+}
+- (IBAction)btnBishop:(id)sender{
+     [ui promoteBishop];
+}
+- (IBAction)btnDebug:(id)sender{
+     [ui debugMode];
+}
+- (IBAction)btnClear:(id)sender{
+     [ui clearDebug];
+}
 @end

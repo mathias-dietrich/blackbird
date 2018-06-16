@@ -24,12 +24,26 @@
 @property (nonatomic, retain) NSImage *BlackRook;
 @property (nonatomic, retain) NSImage *WhiteRook;
 
-
+@property (nonatomic, retain) IBOutlet NSTextField *timeW;
+@property (nonatomic, retain) IBOutlet NSTextField *timeB;
+@property (nonatomic, retain) IBOutlet NSTextField *panel;
 
 -(void)setup;
 -(void)newWhite;
 -(void)newBlack;
 -(void)flip;
+
+-(void)backwards;
+-(void)forwards;
+
+-(void)update;
+
+- (void)promoteQueen;
+- (void)promoteRook;
+- (void)promoteKnight;
+- (void)promoteBishop;
+- (void)debugMode;
+- (void)clearDebug;
 
 @end
 

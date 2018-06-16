@@ -28,8 +28,31 @@
 @synthesize WhitePawn;
 @synthesize BlackRook;
 @synthesize WhiteRook;
+@synthesize timeW;
+@synthesize timeB;
+@synthesize panel;
 
 Engine *engine;
+
+-(void)update{
+    
+    if(engine->model->debugMode){
+         panel.stringValue = [NSString stringWithCString:engine->model->debugMsg.c_str() encoding:[NSString defaultCStringEncoding]];
+    }else{
+         panel.stringValue = [NSString stringWithCString:engine->model->moveList.c_str() encoding:[NSString defaultCStringEncoding]];
+    }
+    
+    timeW.stringValue = [NSString stringWithCString:engine->model->w_timeBox.c_str() encoding:[NSString defaultCStringEncoding]];
+    timeB.stringValue = [NSString stringWithCString:engine->model->b_timeBox.c_str() encoding:[NSString defaultCStringEncoding]];
+    if(engine->model->whiteToMove){
+        timeW.textColor = [NSColor redColor];
+        timeB.textColor = [NSColor blackColor];
+    }else{
+        timeB.textColor = [NSColor redColor];
+        timeW.textColor = [NSColor blackColor];
+    }
+     [self setNeedsDisplay:YES];
+}
 
 - (void)setup
 {
@@ -51,8 +74,8 @@ Engine *engine;
     WhiteRook = [NSImage imageNamed:@"WhiteRook.png"];
     
     engine->startPos();
+    [self update];
 }
-
 
 - (void)drawRect:(CGRect)rect {
 
@@ -72,7 +95,7 @@ Engine *engine;
     NSColor *bgColor = [NSColor colorWithCalibratedRed:0.7 green:0.7 blue:1 alpha:1.0f];
     NSColor *fieldColor = [NSColor colorWithCalibratedRed:0.4 green:0.4 blue:0.7 alpha:1.0f];
     
-     NSColor *noColor = [NSColor colorWithCalibratedRed:1 green:1 blue:1 alpha:1.0f];
+    NSColor *noColor = [NSColor colorWithCalibratedRed:1 green:1 blue:1 alpha:1.0f];
    
     // background
     [frameColor set];
@@ -185,11 +208,9 @@ Engine *engine;
         [[[NSAttributedString alloc] initWithString:@"8" attributes: attributes] drawAtPoint:NSMakePoint(830, 770)];
     }
 
-
     // Draw pices
     NSRect r = NSMakeRect(0, 0, 80, 80);
     
-
     for(int i=0; i < 64;i++){
 
         int pos = i;
@@ -254,7 +275,6 @@ Engine *engine;
             case B_PAWN:
                  [BlackPawn drawAtPoint:NSMakePoint(xPos,yPos) fromRect:r operation:NSCompositingOperationSourceAtop fraction:1.0];
                 break;
-                
         }
         
         if(engine->model->isFlipped){
@@ -293,15 +313,15 @@ Engine *engine;
      NSPoint curPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     int row = (((int)curPoint.x) - 25)/100 ;
     int col = (((int)curPoint.y) - 25)/100 ;
-    int pos = row + 8 * col;
+    int to = row + 8 * col;
     
     if(engine->model->isFlipped){
-        pos = 63 - pos;
+        to = 63 - to;
     }
-    NSLog(@"Position: %i", pos);
+    NSLog(@"Moving to: %i", to);
     
-    // user deselects sam piece
-    if(engine->model->selField == pos){
+    // user deselects same piece
+    if(engine->model->selField == to){
         for(int i=0; i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
@@ -312,32 +332,30 @@ Engine *engine;
     
     // User makes a move
     if(engine->model->selField > -1){
-        int figure = engine->model->board->fields[engine->model->selField];
-        
-        if(engine->model->selFields[pos] == OPTION){
+       
+        if(engine->model->selFields[to] == OPTION){
             
-            engine->model->board->move(engine->model->selField, pos);
+            // move the board
+            engine->move(engine->model->selField, to);
            
-            engine->model->whiteToMove = ! engine->model->whiteToMove;
-            engine->model->selField = -1;
-            
-            [self setNeedsDisplay:YES];
+            // clear selection
             for(int i=0;i < 64;i++){
                 engine->model->selFields[i] = EMPTY;
             }
+             [self setNeedsDisplay:YES];
         }
-        return;
+        [self update];
     }
     
 
    // User Selects
-    if(engine->model->whiteToMove && engine->model->board->fields[pos] >0){
+    if(engine->model->whiteToMove && engine->model->board->fields[to] >0){
         for(int i=0;i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
        
         // get possible moves
-        uint64_t b = engine->gen->generate(engine->model->board,  pos);
+        uint64_t b = engine->gen->generate(engine->model->board,  to);
         vector<int>v = engine->gen->convertToPositions(b);
         bool haveMoves = false;
         vector<int>::iterator it;  // declare an iterator to a vector of strings
@@ -347,19 +365,19 @@ Engine *engine;
         }
 
         if(haveMoves){
-            engine->model->selFields[pos] = SELECTED;
-            engine->model->selField = pos;
+            engine->model->selFields[to] = SELECTED;
+            engine->model->selField = to;
         }
         [self setNeedsDisplay:YES];
     }
     
-    if(!engine->model->whiteToMove && engine->model->board->fields[pos] < 0){
+    if(!engine->model->whiteToMove && engine->model->board->fields[to] < 0){
         for(int i=0;i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
 
         // get possible moves
-        uint64_t b = engine->gen->generate(engine->model->board,  pos);
+        uint64_t b = engine->gen->generate(engine->model->board,  to);
         vector<int>v = engine->gen->convertToPositions(b);
         vector<int>::iterator it;  // declare an iterator to a vector of strings
         
@@ -370,8 +388,8 @@ Engine *engine;
         }
         
         if(haveMoves){
-            engine->model->selFields[pos] = SELECTED;
-            engine->model->selField = pos;
+            engine->model->selFields[to] = SELECTED;
+            engine->model->selField = to;
         }
         [self setNeedsDisplay:YES];
     }
@@ -383,17 +401,57 @@ Engine *engine;
 
 -(void)newWhite{
     engine->newWhite();
-    [self setNeedsDisplay:YES];
+    [self update];
 }
 
 -(void)newBlack{
     engine->newBlack();
-    [self setNeedsDisplay:YES];
+    [self update];
 }
 
 -(void)flip{
     engine->flip();
-    [self setNeedsDisplay:YES];
+    [self update];
+}
+
+-(void)backwards{
+    engine->backwards();
+    [self update];
+}
+
+-(void)forwards{
+    engine->forwards();
+    [self update];
+}
+
+- (void)promoteQueen{
+    engine->promoteQueen();
+    [self update];
+}
+
+- (void)promoteRook{
+    engine->promoteRook();
+    [self update];
+}
+
+- (void)promoteKnight{
+    engine->promoteKnight();
+    [self update];
+}
+
+- (void)promoteBishop{
+    engine->promoteBishop();
+    [self update];
+}
+
+- (void)debugMode{
+    engine->debugMode();
+    [self update];
+}
+
+- (void)clearDebug{
+    engine->clearDebug();
+    [self update];
 }
 
 @end

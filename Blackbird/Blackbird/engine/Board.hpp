@@ -9,20 +9,27 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include "Const.h"
 #include "Helper.hpp"
+#include "Board.hpp"
 
 using namespace std;
 
 class Board{
     
 public:
-
+    
+    Board * parent;
+    vector<Board *> childen;
+    
     Board(){
         for(int i=0;i < 64;i++){
            fields[i] = EMPTY;
         }
     }
+    
+    bool isInCheck(bool white);
     
     void startPos(){
         fields[0] = W_ROOK;
