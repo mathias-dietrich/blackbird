@@ -26,6 +26,27 @@ public:
     MoveGen *gen = new MoveGen();
     Model *model =  new Model();
     
+    bool inCheck(Board * board, bool checkWhiteKing){
+        
+        uint64_t reachable = 0;
+        
+        if(checkWhiteKing){
+            for(int i=0;i< 64; i++){
+                if(board->fields[i] < 0){
+                    reachable |= gen->generate(board, i);
+                }
+            }
+            return board->w_king & reachable;
+        }else{
+            for(int i=0;i< 64; i++){
+                if(board->fields[i] > 0){
+                    reachable |= gen->generate(board, i);
+                }
+            }
+            return board->b_king & reachable;
+        }
+    }
+    
     /*
      Move one move forward, called by UI
      */
@@ -41,14 +62,16 @@ public:
         model->boards[model->boardIndex] = newBoard;
         model->board = newBoard;
         
-        int figure = model->board->fields[from];
-        model->board->move(from,to);
-        
         // record the move
+        int figure = model->board->fields[from];
         if(model->board->whiteToMove){
 
-           model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
-
+            if(model->board->fields[to] != EMPTY){ // capture
+                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "x" + fieldToLetter(to);
+            }else{
+                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
+            }
+          
             // castling
             if(figure == W_KING){
                 if(from == 4 && to == 6){
@@ -58,9 +81,12 @@ public:
                     model->board->moveStr = "O-O-O";
                 }
             }
-           
-        }else{
-            model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
+        }else{ // black to move
+            if(model->board->fields[to] != EMPTY){ // capture
+                model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "x" + fieldToLetter(to);
+            }else{
+                model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
+            }
             
             // castling
             if(figure == B_KING){
@@ -73,6 +99,14 @@ public:
             }
         }
         
+        // make the move
+        model->board->move(from,to);
+        
+        // check if King in check
+        bool isKingInCheck = inCheck(model->board, !model->board->whiteToMove);
+        if(isKingInCheck){
+            model->board->moveStr += "+";
+        }
         // rewrite the move list
         calcMoveList();
 
@@ -104,6 +138,8 @@ public:
             isWhite = !isWhite;
         }
     }
+    
+
 
     static Engine * Instance()
     {

@@ -33,7 +33,6 @@ public:
     int selField = -1;
     
     bool hasLoaded = false;
-    bool whiteToMove = true;
     
     Board * boards[2000];
     Board * board;
