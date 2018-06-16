@@ -23,8 +23,6 @@ using namespace std;
 class MoveGen{
 public:
     
-
-    
     uint64_t w_prawnMoves[64];
     uint64_t b_prawnMoves[64];
     
@@ -313,7 +311,48 @@ public:
         knight[63] = s << 53 | s << 46;
     }
     
+    /*
+     Checks if King in check
+     */
+    bool inCheck(Board * board, bool checkWhiteKing){
+        uint64_t reachable = 0;
+        if(checkWhiteKing){
+            for(int i=0;i< 64; i++){
+                if(board->fields[i] < 0){
+                    reachable |= generateNoCheck(board, i);
+                }
+            }
+            return board->w_king & reachable;
+        }else{
+            for(int i=0;i< 64; i++){
+                if(board->fields[i] > 0){
+                    reachable |= generateNoCheck(board, i);
+                }
+            }
+            return board->b_king & reachable;
+        }
+    }
+    
     uint64_t generate(Board * board, int piecePos){
+        uint64_t s = 1;
+        uint64_t checked = 0;
+        uint64_t unchecked = generateNoCheck( board,  piecePos);
+        vector<int> v = convertToPositions( unchecked);
+        for(int i=0;i< v.size();i++){
+            Board *test = board->copy();
+            int to = v.at(i);
+            test->move(piecePos,to);
+            bool kInCheck = inCheck(test,board->whiteToMove);
+            cout << kInCheck << endl;
+            if(!kInCheck){
+                checked |= s<< to;
+            }
+        }
+        return checked;
+    }
+    
+
+    uint64_t generateNoCheck(Board * board, int piecePos){
         int piece = board->fields[piecePos];
          uint64_t s = 1;
         switch(piece){

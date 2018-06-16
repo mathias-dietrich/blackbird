@@ -26,26 +26,7 @@ public:
     MoveGen *gen = new MoveGen();
     Model *model =  new Model();
     
-    bool inCheck(Board * board, bool checkWhiteKing){
-        
-        uint64_t reachable = 0;
-        
-        if(checkWhiteKing){
-            for(int i=0;i< 64; i++){
-                if(board->fields[i] < 0){
-                    reachable |= gen->generate(board, i);
-                }
-            }
-            return board->w_king & reachable;
-        }else{
-            for(int i=0;i< 64; i++){
-                if(board->fields[i] > 0){
-                    reachable |= gen->generate(board, i);
-                }
-            }
-            return board->b_king & reachable;
-        }
-    }
+
     
     /*
      Move one move forward, called by UI
@@ -103,7 +84,7 @@ public:
         model->board->move(from,to);
         
         // check if King in check
-        bool isKingInCheck = inCheck(model->board, !model->board->whiteToMove);
+        bool isKingInCheck = gen->inCheck(model->board, !model->board->whiteToMove);
         if(isKingInCheck){
             model->board->moveStr += "+";
         }
@@ -117,6 +98,9 @@ public:
         model->selField = -1;
     }
     
+    /*
+     Calulcate the move list and formats for reading
+     */
     void calcMoveList(){
         model->moveList = "";
 
@@ -139,8 +123,7 @@ public:
         }
     }
     
-
-
+    // Singleton
     static Engine * Instance()
     {
         if (NULL == m_pInstance){  
@@ -149,6 +132,7 @@ public:
         return m_pInstance;
     }
 
+    // Methods - Button Handler
     void startPos(){
         model->startPos();
     }
@@ -212,6 +196,7 @@ public:
         return string(1,char(49 + field / 8 )) + string(1,char(97 + field % 8));
     }
     
+    // Helper
     string pieceToLetter(int piece){
         switch(piece){
             case W_PAWN:
@@ -242,5 +227,6 @@ public:
     }
 };
 
+// Instance singleton
 Engine * Engine::m_pInstance = NULL;
 
