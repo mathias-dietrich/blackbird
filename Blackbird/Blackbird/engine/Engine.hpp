@@ -24,9 +24,7 @@ private:
     
 public:
     MoveGen *gen = new MoveGen();
-    Model *model =  new Model();
-    
-
+    Model *model = new Model();
     
     /*
      Move one move forward, called by UI
@@ -62,6 +60,12 @@ public:
                     model->board->moveStr = "O-O-O";
                 }
             }
+            
+            // promotion
+            if(figure == W_PAWN && to > 55){
+                model->isPromotion = true;
+                model->promotionField = to;
+            }
         }else{ // black to move
             if(model->board->fields[to] != EMPTY){ // capture
                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "x" + fieldToLetter(to);
@@ -78,15 +82,29 @@ public:
                    model->board->moveStr = "O-O-O";
                 }
             }
+            // promotion
+            if(figure == B_PAWN && to < 8){
+                model->isPromotion = true;
+                model->promotionField = to;
+            }
         }
         
         // make the move
         model->board->move(from,to);
         
+        if(model->isPromotion ){
+            return;
+        }
+        
         // check if King in check
         bool isKingInCheck = gen->inCheck(model->board, !model->board->whiteToMove);
         if(isKingInCheck){
             model->board->moveStr += "+";
+            
+            // Mate ?
+            if(gen->isMate(model->board, !model->board->whiteToMove)){
+                 model->board->moveStr += "+";
+            }
         }
         // rewrite the move list
         calcMoveList();
@@ -96,6 +114,37 @@ public:
         
         // Reset UI fields
         model->selField = -1;
+    }
+    
+    void handlePromotion(int figure){
+        
+        if(!model->board->whiteToMove){
+            figure = -1 * figure;
+        }
+        model->board->fields[model->promotionField] = figure;
+        string letter = pieceToLetter(figure);
+        model->board->moveStr += letter;
+        
+        // check if King in check
+        bool isKingInCheck = gen->inCheck(model->board, !model->board->whiteToMove);
+        if(isKingInCheck){
+            model->board->moveStr += "+";
+            
+            // Mate ?
+            if(gen->isMate(model->board, !model->board->whiteToMove)){
+                model->board->moveStr += "+";
+            }
+        }
+        // rewrite the move list
+        calcMoveList();
+        
+        // flip color
+        model->board->whiteToMove = !model->board->whiteToMove;
+        
+        // Reset UI fields
+        model->selField = -1;
+        
+        model->isPromotion = false;
     }
     
     /*
@@ -118,6 +167,7 @@ public:
                 model->moveList += intStr + ". " + board->moveStr;
             }else{
                 model->moveList += " " + board->moveStr + "\n";
+                moveId++;
             }
             isWhite = !isWhite;
         }
@@ -169,19 +219,19 @@ public:
     }
     
     void promoteQueen(){
-         cout << "promoteQueen" << endl;
+        handlePromotion(W_QUEEN);
     }
     
     void promoteRook(){
-         cout << "promoteRook" << endl;
+         handlePromotion(W_ROOK);
     }
     
     void promoteKnight(){
-         cout << "promoteKnight" << endl;
+         handlePromotion(W_KNIGHT);
     }
     
     void promoteBishop(){
-         cout << "promoteBishop" << endl;
+         handlePromotion(W_BISHOP);
     }
     
     void debugMode(){

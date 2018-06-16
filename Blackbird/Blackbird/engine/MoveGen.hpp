@@ -22,13 +22,10 @@ using namespace std;
 
 class MoveGen{
 public:
-    
     uint64_t w_prawnMoves[64];
     uint64_t b_prawnMoves[64];
-    
     uint64_t w_prawnCatch[64];
     uint64_t b_prawnCatch[64];
-    
     uint64_t knight[64];
     
     MoveGen(){
@@ -93,7 +90,6 @@ public:
         w_prawnMoves[53] = s << 61;
         w_prawnMoves[54] = s << 62;
         w_prawnMoves[55] = s << 63;
-        
         
         b_prawnMoves[48] = s << 32 | s << 40;
         b_prawnMoves[49] = s << 33 | s << 41;
@@ -312,6 +308,45 @@ public:
     }
     
     /*
+     Checks if Mate
+     */
+    bool isMate(Board * board, bool isWhite){
+        for(int i=0;i < 64;i++){
+            int figure = board->fields[i];
+            if(isWhite){
+                if(figure > 0){
+                    // get moves
+                    vector<int> moves = convertToPositions( generate(board, i));
+                    for(int j=0; j < moves.size();j++){
+                        int to = moves.at(j);
+                        Board *b = board->copy();
+                        b->move(i,to);
+                        if(!inCheck(b, true)){
+                            return false;
+                        }
+                        delete b;
+                    }
+                }
+            }else{
+                if(figure < 0){
+                    // get moves
+                    vector<int> moves = convertToPositions( generate(board, i));
+                    for(int j=0; j < moves.size();j++){
+                        int to = moves.at(j);
+                        Board *b = board->copy();
+                        b->move(i,to);
+                        if(!inCheck(b, false)){
+                            return false;
+                        }
+                        delete b;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    
+    /*
      Checks if King in check
      */
     bool inCheck(Board * board, bool checkWhiteKing){
@@ -449,7 +484,6 @@ public:
             int to = v.at(i);
             test->move(piecePos,to);
             bool kInCheck = inCheck(test,board->whiteToMove);
-            cout << kInCheck << endl;
             if(!kInCheck){
                 checked |= s<< to;
             }
@@ -457,7 +491,6 @@ public:
         return checked;
     }
     
-
     uint64_t generateNoCheck(Board * board, int piecePos){
         int piece = board->fields[piecePos];
         uint64_t s = 1;

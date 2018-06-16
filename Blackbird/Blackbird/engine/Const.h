@@ -27,6 +27,4 @@
 #define B_QUEEN -5
 #define B_KING -6
 
-
-
 #endif /* Const_h */

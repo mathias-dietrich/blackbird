@@ -310,6 +310,9 @@ Engine *engine;
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
+    if(engine->model->isMate || engine->model->isPromotion){
+        return;
+    }
      NSPoint curPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     int row = (((int)curPoint.x) - 25)/100 ;
     int col = (((int)curPoint.y) - 25)/100 ;

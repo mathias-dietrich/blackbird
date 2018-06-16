@@ -18,6 +18,9 @@ using namespace std;
 class Model {
     
 public:
+    int promotionField = 0;
+    bool isPromotion = false;
+    bool isMate = false;
     int boardIndex = 0;
     int boardMax = 0;
    
@@ -40,6 +43,10 @@ public:
     int selFields [64] ;
     
     void startPos(){
+        isPromotion = false;
+        debugMsg = "New Game";
+        moveList = "";
+        isMate = false;
         board = new Board();
         boards[0] = board;
         board->startPos();
