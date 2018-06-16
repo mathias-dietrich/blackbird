@@ -72,7 +72,7 @@ public:
             // castling
             if(figure == B_KING){
                 if(from == 60 && to == 62){
-                    model->board->moveStr = "O-)";
+                    model->board->moveStr = "O-O";
                 }
                 if(from == 60 && to == 58){
                    model->board->moveStr = "O-O-O";

@@ -333,6 +333,112 @@ public:
         }
     }
     
+    // TODO implement
+    bool reachable(Board * board, bool byBlack, int pos){
+        uint64_t s = 1;
+        uint64_t reachable = s << pos;
+        for(int i=0; i < 64;i++){
+            int f = board->fields[i];
+            if(byBlack){
+                if(f<0){
+                    switch(f){
+                        case B_PAWN:
+                        {
+                             reachable &= b_prawnCatch[i];
+                            break;
+                        }
+                            
+                        case B_BISHOP:
+                        {
+                            uint64_t r =  M42::bishop_attacks(i, board->all);
+                            r = r & ~board->b_all;
+                            reachable &= r;
+                            break;
+                        }
+                            
+                        case B_ROOK:
+                        {
+                            uint64_t r =  M42::rook_attacks(i, board->all);
+                            r = r & ~board->b_all;
+                            reachable &= r;
+                            return r;
+                        }
+                            
+                        case B_KNIGHT:
+                        {
+                            uint64_t r = knight[i] & (board->empty | board->w_all);
+                            reachable &= r;
+                            break;
+                        }
+                            
+                        case B_QUEEN:
+                        {
+                            uint64_t r =  M42::bishop_attacks(i, board->all);
+                            r =  r | M42::rook_attacks(i, board->all);
+                            r = r & ~board->b_all;
+                            reachable &= r;
+                            break;
+                        }
+                            
+                        case B_KING:
+                        {
+                            uint64_t r =  M42::king_attacks(i);
+                            reachable &= r;
+                            break;
+                        }
+                    }
+                }
+            }else{
+                if(f>0){
+                    switch(f){
+                        case W_PAWN:
+                        {
+                            reachable &= w_prawnCatch[i];
+                            break;
+                        }
+                            
+                        case W_BISHOP:
+                        {
+                            uint64_t r =  M42::bishop_attacks(i, board->all);
+                            r = r & ~board->w_all;
+                            reachable &= r;
+                            break;
+                        }
+                        case W_ROOK:
+                        {
+                            uint64_t r =  M42::rook_attacks(i, board->all);
+                            r = r & ~board->w_all;
+                            reachable &= r;
+                            break;
+                        }
+                            
+                        case W_KNIGHT:
+                        {
+                            uint64_t r = knight[i] & (board->empty | board->b_all);
+                            reachable &= r;
+                            break;
+                        }
+                            
+                        case W_QUEEN:
+                        {
+                            uint64_t r =  M42::rook_attacks(i, board->all);
+                            r =  r | M42::bishop_attacks(i, board->all);
+                            r = r & ~board->w_all;
+                            reachable &= r;
+                            break;
+                        }
+                            
+                        case W_KING:
+                            uint64_t r =  M42::king_attacks(i);
+                            reachable &= r;
+                            break;
+                    }
+                }
+            }
+        }
+        return reachable > 0;
+    }
+    
     uint64_t generate(Board * board, int piecePos){
         uint64_t s = 1;
         uint64_t checked = 0;
@@ -354,7 +460,7 @@ public:
 
     uint64_t generateNoCheck(Board * board, int piecePos){
         int piece = board->fields[piecePos];
-         uint64_t s = 1;
+        uint64_t s = 1;
         switch(piece){
             case W_ROOK:
             {
@@ -388,13 +494,22 @@ public:
                 uint64_t r =  M42::king_attacks(piecePos);
                 r = r & ~board->w_all;
                 
+                // TODO check all fields are not in check
                 // short castle
                 if(board->w_casteS && board->fields[5]==EMPTY && board->fields[6]==EMPTY){
-                    r = r | s << 6;
+                    if(reachable(board, true, 4) || reachable(board, true, 5) || reachable(board, true, 6)){
+                        
+                    }else{
+                        r = r | s << 6;
+                    }
                 }
                 // long castle
                 if(board->w_casteL && board->fields[1]==EMPTY && board->fields[2]==EMPTY && board->fields[3]==EMPTY){
-                    r = r | s << 2;
+                    if(reachable(board, true, 1) || reachable(board, true, 2) || reachable(board, true, 3) || reachable(board, true, 4)){
+                        
+                    }else{
+                        r = r | s << 2;
+                    }
                 }
                 return r;
             }
@@ -482,11 +597,19 @@ public:
                 r = r & ~board->b_all;
                 // short castle
                 if(board->b_casteS && board->fields[61]==EMPTY && board->fields[62]==EMPTY){
-                    r = r | s << 62;
+                    if(reachable(board, false, 60) || reachable(board, false, 61) || reachable(board, false, 62)){
+                        
+                    }else{
+                         r = r | s << 62;
+                    }
                 }
                 // long castle
                 if(board->b_casteL && board->fields[57]==EMPTY && board->fields[58]==EMPTY && board->fields[59]==EMPTY){
-                    r = r | s << 58;
+                    if(reachable(board, false, 57) || reachable(board, false, 58) || reachable(board, false, 59) || reachable(board, false, 60)){
+                        
+                    }else{
+                       r = r | s << 58;
+                    }
                 }
                 return r;
             }
