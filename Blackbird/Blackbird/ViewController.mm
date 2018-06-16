@@ -54,4 +54,7 @@
 - (IBAction)btnClear:(id)sender{
      [ui clearDebug];
 }
+- (IBAction)btnDraw:(id)sender{
+     [ui draw];
+}
 @end

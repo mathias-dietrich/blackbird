@@ -31,6 +31,8 @@ public:
      */
     void move(int from, int to){
         
+        
+        
         // Create next Board
         Board *newBoard = model->board->copy();
         newBoard->boardId++;
@@ -43,10 +45,16 @@ public:
         
         // record the move
         int figure = model->board->fields[from];
+        
+        
         if(model->board->whiteToMove){
-
+            model->rule50CaptureOrPawn = false;
+            if(figure == W_PAWN){
+                model->rule50CaptureOrPawn = true;
+            }
             if(model->board->fields[to] != EMPTY){ // capture
                  model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "x" + fieldToLetter(to);
+                 model->rule50CaptureOrPawn = true;
             }else{
                  model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
             }
@@ -67,8 +75,12 @@ public:
                 model->promotionField = to;
             }
         }else{ // black to move
+            if(figure == B_PAWN){
+                model->rule50CaptureOrPawn = true;
+            }
             if(model->board->fields[to] != EMPTY){ // capture
                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "x" + fieldToLetter(to);
+                model->rule50CaptureOrPawn = true;
             }else{
                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
             }
@@ -86,6 +98,9 @@ public:
             if(figure == B_PAWN && to < 8){
                 model->isPromotion = true;
                 model->promotionField = to;
+            }
+            if(!model->rule50CaptureOrPawn){
+                model->rule50Count++;
             }
         }
         
@@ -240,6 +255,12 @@ public:
     
     void clearDebug(){
         model->debugMsg = "";
+    }
+    
+    void draw(){
+        model->board->moveStr += " 1/2-1/2";
+        calcMoveList();
+        model->isDraw = true;
     }
     
     string fieldToLetter(int field){

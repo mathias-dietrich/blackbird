@@ -18,9 +18,13 @@ using namespace std;
 class Model {
     
 public:
+    bool rule50CaptureOrPawn;
+    int rule50Count = 0;
+    
     int promotionField = 0;
     bool isPromotion = false;
     bool isMate = false;
+    bool isDraw = false;
     int boardIndex = 0;
     int boardMax = 0;
    
@@ -43,6 +47,7 @@ public:
     int selFields [64] ;
     
     void startPos(){
+        isDraw = false;
         isPromotion = false;
         debugMsg = "New Game";
         moveList = "";

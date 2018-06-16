@@ -27,6 +27,7 @@
 @property (nonatomic, retain) IBOutlet NSTextField *timeW;
 @property (nonatomic, retain) IBOutlet NSTextField *timeB;
 @property (nonatomic, retain) IBOutlet NSTextField *panel;
+@property (nonatomic, retain) IBOutlet NSTextField *rule50;
 
 -(void)setup;
 -(void)newWhite;
@@ -44,7 +45,7 @@
 - (void)promoteBishop;
 - (void)debugMode;
 - (void)clearDebug;
-
+- (void)draw;
 @end
 
 

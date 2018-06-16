@@ -31,6 +31,7 @@
 @synthesize timeW;
 @synthesize timeB;
 @synthesize panel;
+@synthesize rule50;
 
 Engine *engine;
 
@@ -51,6 +52,12 @@ Engine *engine;
         timeB.textColor = [NSColor redColor];
         timeW.textColor = [NSColor blackColor];
     }
+
+    NSMutableString *string = [NSMutableString stringWithString:@"rule50: "];
+    [string appendString:[NSString stringWithFormat:@"%d",engine->model->rule50Count]];
+    
+    rule50.stringValue = string;
+    
      [self setNeedsDisplay:YES];
 }
 
@@ -310,7 +317,7 @@ Engine *engine;
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    if(engine->model->isMate || engine->model->isPromotion){
+    if(engine->model->isMate || engine->model->isPromotion || engine->model->isDraw){
         return;
     }
      NSPoint curPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
@@ -454,6 +461,11 @@ Engine *engine;
 
 - (void)clearDebug{
     engine->clearDebug();
+    [self update];
+}
+
+- (void)draw{
+    engine->draw();
     [self update];
 }
 
