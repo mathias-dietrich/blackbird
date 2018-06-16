@@ -44,7 +44,7 @@ Engine *engine;
     
     timeW.stringValue = [NSString stringWithCString:engine->model->w_timeBox.c_str() encoding:[NSString defaultCStringEncoding]];
     timeB.stringValue = [NSString stringWithCString:engine->model->b_timeBox.c_str() encoding:[NSString defaultCStringEncoding]];
-    if(engine->model->whiteToMove){
+    if(engine->model->board->whiteToMove){
         timeW.textColor = [NSColor redColor];
         timeB.textColor = [NSColor blackColor];
     }else{
@@ -349,7 +349,7 @@ Engine *engine;
     
 
    // User Selects
-    if(engine->model->whiteToMove && engine->model->board->fields[to] >0){
+    if(engine->model->board->whiteToMove && engine->model->board->fields[to] >0){
         for(int i=0;i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
@@ -371,7 +371,7 @@ Engine *engine;
         [self setNeedsDisplay:YES];
     }
     
-    if(!engine->model->whiteToMove && engine->model->board->fields[to] < 0){
+    if(!engine->model->board->whiteToMove && engine->model->board->fields[to] < 0){
         for(int i=0;i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }

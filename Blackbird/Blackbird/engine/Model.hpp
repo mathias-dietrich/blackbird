@@ -12,23 +12,21 @@
 #include <string>
 #include "Const.h"
 #include "Board.hpp"
-#include "Move.hpp"
 
 using namespace std;
 
 class Model {
     
 public:
-    int moveNo = 1;
+    int boardIndex = 0;
+    int boardMax = 0;
+   
     bool debugMode = false;
     string debugMsg = "App Starts";
-    string moveList = "new game";
+    string moveList = "";
     
     string w_timeBox = "White";
     string b_timeBox = "Black";
-    
-    vector<Move*> moves;
-    Move * move;
     
     bool isFlipped = false;
     
@@ -37,19 +35,19 @@ public:
     bool hasLoaded = false;
     bool whiteToMove = true;
     
-    Board *root;
-    Board *board;
+    Board * boards[2000];
+    Board * board;
     
     int selFields [64] ;
     
     void startPos(){
         board = new Board();
-        root = board;
+        boards[0] = board;
         board->startPos();
         for(int i=0;i < 64;i++){
             selFields[i] = EMPTY;
         }
-        moveNo = 1;
+        boardIndex = 0;
     }
 
 private:

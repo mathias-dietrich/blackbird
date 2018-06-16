@@ -31,7 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		40378C3920D561B000BCE787 /* Move.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Move.hpp; sourceTree = "<group>"; };
 		40C14A6820D2BEDF00EDDE27 /* Blackbird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blackbird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C14A6B20D2BEDF00EDDE27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		40C14A6C20D2BEDF00EDDE27 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -147,7 +146,6 @@
 				40DBFA7D20D40498005529E1 /* Helper.hpp */,
 				40DBFA7E20D40DB7005529E1 /* MoveGen.cpp */,
 				40DBFA7F20D40DB7005529E1 /* MoveGen.hpp */,
-				40378C3920D561B000BCE787 /* Move.hpp */,
 			);
 			path = engine;
 			sourceTree = "<group>";

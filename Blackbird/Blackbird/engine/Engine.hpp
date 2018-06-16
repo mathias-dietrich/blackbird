@@ -30,63 +30,79 @@ public:
      Move one move forward, called by UI
      */
     void move(int from, int to){
+        
+        // Create next Board
+        Board *newBoard = model->board->copy();
+        newBoard->boardId++;
+       
+        model->boardIndex++;
+        model->boardMax = model->boardIndex;
+
+        model->boards[model->boardIndex] = newBoard;
+        model->board = newBoard;
+        
         int figure = model->board->fields[from];
         model->board->move(from,to);
         
         // record the move
-        if(model->whiteToMove){
-            Move * move = new Move();
-            move->w_from = from;
-            move->w_to = to;
-            move->w_figure = figure;
-            move->w_move = "white move ";
-            move->w_move = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
-            move->id = model->moveNo;
-            model->move = move;
-            model->moves.push_back(move);
-            
+        if(model->board->whiteToMove){
+
+           model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
+
             // castling
             if(figure == W_KING){
                 if(from == 4 && to == 6){
-                    move->w_move = "O-O";
+                    model->board->moveStr = "O-O";
                 }
                 if(from == 4 && to == 2){
-                    move->w_move = "O-O-O";
+                    model->board->moveStr = "O-O-O";
                 }
             }
+           
         }else{
-            model->move->b_from = from;
-            model->move->b_to = to;
-            model->move->b_figure = figure;
-            model->move->b_move = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
-            model->moveNo++;
+            model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
             
             // castling
             if(figure == B_KING){
                 if(from == 60 && to == 62){
-                    model->move->b_move = "O-)";
+                    model->board->moveStr = "O-)";
                 }
                 if(from == 60 && to == 58){
-                    model->move->b_move = "O-O-O";
+                   model->board->moveStr = "O-O-O";
                 }
             }
         }
         
-        // calculate move list
-        model->moveList = "";
-        vector<Move*>::iterator it;
-        for(it = model->moves.begin(); it != model->moves.end(); it++)    {
-            Move *move =  *it ;
-            stringstream ss;
-            ss << move->id;
-            string intStr = ss.str();
-            string strId = string(intStr);
-            
-            model->moveList += strId + ". " +move->w_move + " " + move->b_move + "\n";
-        }
+        // rewrite the move list
+        calcMoveList();
 
-        model->whiteToMove = ! model->whiteToMove;
+       // flip color
+        model->board->whiteToMove = !model->board->whiteToMove;
+        
+        // Reset UI fields
         model->selField = -1;
+    }
+    
+    void calcMoveList(){
+        model->moveList = "";
+
+        int moveId = 1;
+        int isWhite = true;
+        
+        for (int i=1; i < model->boardMax +1; i++)
+        {
+            Board *board =  model->boards[i];
+            
+            if(isWhite){
+                stringstream ss;
+                ss << moveId;
+                string intStr = ss.str();
+                model->moveList += intStr + ". " + board->moveStr;
+            }else{
+                model->moveList += " " + board->moveStr + "\n";
+            }
+            isWhite = !isWhite;
+        }
     }
 
     static Engine * Instance()
@@ -96,7 +112,6 @@ public:
         }
         return m_pInstance;
     }
-    
 
     void startPos(){
         model->startPos();
@@ -105,13 +120,11 @@ public:
     void newWhite(){
          model->isFlipped = false;
          model->startPos();
-        model->whiteToMove = true;
     }
     
     void newBlack(){
          model->startPos();
-        model->isFlipped = true;
-        model->whiteToMove = false;
+         model->isFlipped = true;
     }
     
     void flip(){
@@ -119,7 +132,16 @@ public:
     }
     
     void backwards(){
-        cout << "backwards" << endl;
+        int index = model->boardIndex;
+        if(index == 0){
+            return;
+        }
+        index--;
+        model->boardIndex = index;
+        model->boardMax--;
+        model->board = model->boards[index];
+        model->board ->printAll();
+        calcMoveList();
     }
     
     void forwards(){

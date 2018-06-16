@@ -20,8 +20,13 @@ class Board{
     
 public:
     
-    Board * parent;
-    vector<Board *> childen;
+    //Board * parent;
+    //vector<Board *> childen;
+    int boardId = 0;
+    
+    string moveStr = "";
+    int moveId = 0;
+    string comment = "";
     
     Board(){
         for(int i=0;i < 64;i++){
@@ -29,9 +34,11 @@ public:
         }
     }
     
-    bool isInCheck(bool white);
-    
     void startPos(){
+        moveStr = "";
+        moveId = 0;
+        boardId = 0;
+        
         fields[0] = W_ROOK;
         fields[1] = W_KNIGHT;
         fields[2] = W_BISHOP;
@@ -80,6 +87,7 @@ public:
         
         calcBitboards();
     }
+    bool whiteToMove = true;
     
     bool w_casteL;
     bool w_casteS;
@@ -182,8 +190,6 @@ public:
         
         empty = ~(w_all | b_all);
         all = ~empty;
-        
-        printAll();
     }
     
     /*
@@ -299,6 +305,16 @@ public:
         cout << "empty" << endl;
         helper->printBitboard(empty);
         
+        cout << "w_enPasse " << w_enPasse << endl;
+        cout << "b_enPasse " << b_enPasse << endl;
+        cout << "w_casteL " << w_casteL << endl;
+        cout << "w_casteS " << w_casteS << endl;
+        cout << "b_casteL " << b_casteL << endl;
+        cout << "b_casteS " << b_casteS << endl;
+        cout << "rule50 " << rule50 << endl;
+        cout << "whiteToMove " << whiteToMove << endl;
+        cout << "boardId " << boardId << endl;
+        
         delete helper;
     }
     
@@ -321,6 +337,24 @@ public:
         c->b_queen = b_queen;
         c->b_king = b_king;
         c->b_pawn = b_pawn;
+        
+        c->w_all = w_all;
+        c->b_all = b_all;
+        c->all = all;
+        c->empty = empty;
+        
+        c->w_casteL = w_casteL;
+        c->w_casteS = w_casteS;
+        c->b_casteL = b_casteL;
+        c->b_casteS = b_casteS;
+        c->rule50 = rule50;
+        c->w_enPasse = w_enPasse;
+        c->b_enPasse = b_enPasse;
+    
+        c->rule50 = rule50;
+        c->whiteToMove = whiteToMove;
+        c->boardId = boardId;
+        
         return c;
     }
     
