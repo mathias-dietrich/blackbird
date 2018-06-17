@@ -27,6 +27,9 @@ public:
     bool isDraw = false;
     int boardIndex = 0;
     int boardMax = 0;
+    
+    int w_eval = 0;
+    int b_eval = 0;
    
     bool debugMode = false;
     string debugMsg = "App Starts";

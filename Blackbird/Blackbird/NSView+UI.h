@@ -29,6 +29,9 @@
 @property (nonatomic, retain) IBOutlet NSTextField *panel;
 @property (nonatomic, retain) IBOutlet NSTextField *rule50;
 
+@property (nonatomic, retain) IBOutlet NSTextField *w_eval;
+@property (nonatomic, retain) IBOutlet NSTextField *b_eval;
+
 -(void)setup;
 -(void)newWhite;
 -(void)newBlack;

@@ -527,7 +527,6 @@ public:
                 uint64_t r =  M42::king_attacks(piecePos);
                 r = r & ~board->w_all;
                 
-                // TODO check all fields are not in check
                 // short castle
                 if(board->w_casteS && board->fields[5]==EMPTY && board->fields[6]==EMPTY){
                     if(reachable(board, true, 4) || reachable(board, true, 5) || reachable(board, true, 6)){

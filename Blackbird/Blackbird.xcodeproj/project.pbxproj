@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40378C3C20D5DBB200BCE787 /* Eval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40378C3A20D5DBB200BCE787 /* Eval.cpp */; };
 		40C14A6D20D2BEDF00EDDE27 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 40C14A6C20D2BEDF00EDDE27 /* AppDelegate.m */; };
 		40C14A7020D2BEDF00EDDE27 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 40C14A6F20D2BEDF00EDDE27 /* ViewController.mm */; };
 		40C14A7220D2BEE000EDDE27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 40C14A7120D2BEE000EDDE27 /* Assets.xcassets */; };
@@ -31,6 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		40378C3A20D5DBB200BCE787 /* Eval.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Eval.cpp; sourceTree = "<group>"; };
+		40378C3B20D5DBB200BCE787 /* Eval.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Eval.hpp; sourceTree = "<group>"; };
 		40C14A6820D2BEDF00EDDE27 /* Blackbird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blackbird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40C14A6B20D2BEDF00EDDE27 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		40C14A6C20D2BEDF00EDDE27 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				40DBFA7D20D40498005529E1 /* Helper.hpp */,
 				40DBFA7E20D40DB7005529E1 /* MoveGen.cpp */,
 				40DBFA7F20D40DB7005529E1 /* MoveGen.hpp */,
+				40378C3A20D5DBB200BCE787 /* Eval.cpp */,
+				40378C3B20D5DBB200BCE787 /* Eval.hpp */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				40FA628520D48F6900DCF6EB /* Board.cpp in Sources */,
+				40378C3C20D5DBB200BCE787 /* Eval.cpp in Sources */,
 				40C14A7020D2BEDF00EDDE27 /* ViewController.mm in Sources */,
 				40C14A7820D2BEE000EDDE27 /* main.mm in Sources */,
 				40C14A6D20D2BEDF00EDDE27 /* AppDelegate.m in Sources */,

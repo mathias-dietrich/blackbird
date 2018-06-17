@@ -32,6 +32,8 @@
 @synthesize timeB;
 @synthesize panel;
 @synthesize rule50;
+@synthesize w_eval;
+@synthesize b_eval;
 
 Engine *engine;
 
@@ -57,6 +59,9 @@ Engine *engine;
     [string appendString:[NSString stringWithFormat:@"%d",engine->model->rule50Count]];
     
     rule50.stringValue = string;
+    
+    w_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->w_eval];
+    b_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->b_eval];
     
      [self setNeedsDisplay:YES];
 }

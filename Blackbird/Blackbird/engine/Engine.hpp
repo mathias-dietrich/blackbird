@@ -12,6 +12,7 @@
 #include <sstream>
 #include "Model.hpp"
 #include "MoveGen.hpp"
+#include "Eval.hpp"
 
 class Engine{
  
@@ -23,15 +24,20 @@ private:
     static  Engine * m_pInstance;
     
 public:
+    Eval *eval = new Eval();
     MoveGen *gen = new MoveGen();
     Model *model = new Model();
+    
+    void evaluate(){
+        model->w_eval = eval->eval(model->board, true);
+        model->b_eval = eval->eval(model->board, false);
+    }
     
     /*
      Move one move forward, called by UI
      */
     void move(int from, int to){
-        
-        
+
         
         // Create next Board
         Board *newBoard = model->board->copy();
@@ -129,6 +135,9 @@ public:
         
         // Reset UI fields
         model->selField = -1;
+        
+        // evalute
+        evaluate();
     }
     
     void handlePromotion(int figure){
@@ -200,6 +209,7 @@ public:
     // Methods - Button Handler
     void startPos(){
         model->startPos();
+        evaluate();
     }
     
     void newWhite(){
