@@ -12,12 +12,19 @@
 #include <string>
 #include "Const.h"
 #include "Board.hpp"
+#include <chrono>
 
 using namespace std;
 
 class Model {
     
 public:
+    
+    std::chrono::time_point<std::chrono::system_clock> startTime ;
+    
+    int w_time;
+    int b_time;
+    
     bool rule50CaptureOrPawn;
     int rule50Count = 0;
     
@@ -50,6 +57,8 @@ public:
     int selFields [64] ;
     
     void startPos(){
+        w_time = 0;
+        b_time = 0;
         isDraw = false;
         isPromotion = false;
         debugMsg = "New Game";

@@ -44,9 +44,44 @@ Engine *engine;
     }else{
          panel.stringValue = [NSString stringWithCString:engine->model->moveList.c_str() encoding:[NSString defaultCStringEncoding]];
     }
+
+    // Rule 50
+    NSMutableString *string = [NSMutableString stringWithString:@"rule50: "];
+    [string appendString:[NSString stringWithFormat:@"%d:",engine->model->rule50Count]];
+    rule50.stringValue = string;
     
-    timeW.stringValue = [NSString stringWithCString:engine->model->w_timeBox.c_str() encoding:[NSString defaultCStringEncoding]];
-    timeB.stringValue = [NSString stringWithCString:engine->model->b_timeBox.c_str() encoding:[NSString defaultCStringEncoding]];
+    // Eval
+    w_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->w_eval];
+    b_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->b_eval];
+    
+    // Clocks
+    if(engine->model->isDraw || engine->model->isMate){
+        [self setNeedsDisplay:YES];
+        return;
+    }
+    
+    NSMutableString *sw = [NSMutableString stringWithString:@"White: "];
+    int minW = engine->model->w_time / 60;
+    int secW = engine->model->w_time - 60 * minW;
+    if(secW<10){
+        [sw appendString:[NSString stringWithFormat:@"%d:0%d",minW,secW]];
+    }else{
+        [sw appendString:[NSString stringWithFormat:@"%d:%d",minW,secW]];
+    }
+    timeW.stringValue = sw;
+    
+    int minB = engine->model->b_time / 60;
+    int secB = engine->model->b_time - 60 * minB;
+    NSMutableString *sb = [NSMutableString stringWithString:@"Black: "];
+    if(secB<10){
+        [sb appendString:[NSString stringWithFormat:@"%d:0%d",minB, secB]];
+    }
+    else{
+        [sb appendString:[NSString stringWithFormat:@"%d:%d",minB, secB]];
+    }
+    timeB.stringValue = sb;
+    
+    // clock colors
     if(engine->model->board->whiteToMove){
         timeW.textColor = [NSColor redColor];
         timeB.textColor = [NSColor blackColor];
@@ -54,16 +89,8 @@ Engine *engine;
         timeB.textColor = [NSColor redColor];
         timeW.textColor = [NSColor blackColor];
     }
-
-    NSMutableString *string = [NSMutableString stringWithString:@"rule50: "];
-    [string appendString:[NSString stringWithFormat:@"%d",engine->model->rule50Count]];
     
-    rule50.stringValue = string;
-    
-    w_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->w_eval];
-    b_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->b_eval];
-    
-     [self setNeedsDisplay:YES];
+    [self setNeedsDisplay:YES];
 }
 
 - (void)setup
@@ -86,7 +113,21 @@ Engine *engine;
     WhiteRook = [NSImage imageNamed:@"WhiteRook.png"];
     
     engine->startPos();
+    [NSTimer scheduledTimerWithTimeInterval:1
+                                     target:self
+                                   selector:@selector(onTick:)
+                                   userInfo:nil
+                                    repeats:YES];
     [self update];
+}
+
+-(void)onTick:(NSTimer *)timer {
+    if(engine->model->board->whiteToMove){
+        engine->model->w_time++;
+    }else{
+        engine->model->b_time++;
+    }
+  [self update];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -415,11 +456,13 @@ Engine *engine;
 }
 
 -(void)newWhite{
+    engine->model->startTime = std::chrono::system_clock::now();
     engine->newWhite();
     [self update];
 }
 
 -(void)newBlack{
+    engine->model->startTime = std::chrono::system_clock::now();
     engine->newBlack();
     [self update];
 }

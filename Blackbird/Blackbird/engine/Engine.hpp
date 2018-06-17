@@ -37,9 +37,6 @@ public:
      Move one move forward, called by UI
      */
     void move(int from, int to){
-
-        
-        // Create next Board
         Board *newBoard = model->board->copy();
         newBoard->boardId++;
        
@@ -124,6 +121,7 @@ public:
             
             // Mate ?
             if(gen->isMate(model->board, !model->board->whiteToMove)){
+                model->isMate = true;
                  model->board->moveStr += "+";
             }
         }
