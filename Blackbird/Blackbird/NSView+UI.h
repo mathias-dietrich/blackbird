@@ -31,6 +31,9 @@
 
 @property (nonatomic, retain) IBOutlet NSTextField *w_eval;
 @property (nonatomic, retain) IBOutlet NSTextField *b_eval;
+@property (nonatomic, retain) IBOutlet NSTextField *enginePath;
+
+@property (nonatomic, retain) IBOutlet NSTextField *fenField;
 
 -(void)setup;
 -(void)newWhite;

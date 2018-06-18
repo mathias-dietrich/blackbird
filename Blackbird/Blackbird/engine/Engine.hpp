@@ -13,24 +13,40 @@
 #include "Model.hpp"
 #include "MoveGen.hpp"
 #include "Eval.hpp"
+#include "EngineWrapper.hpp"
+#include "Fen.hpp"
+#include "Observer.hpp"
 
-class Engine{
+class Engine : Observer{
  
+  
+    
 private:
     Engine(){
-
+        observer = this;
     }
     
     static  Engine * m_pInstance;
     
 public:
+
+    void makeMove(int from, int to){
+        move(from,to);
+    }
+    
+    Fen *fenparser = new Fen();
     Eval *eval = new Eval();
     MoveGen *gen = new MoveGen();
     Model *model = new Model();
+    EngineWrapper  *engineWrapper = new EngineWrapper();
     
     void evaluate(){
         model->w_eval = eval->eval(model->board, true);
         model->b_eval = eval->eval(model->board, false);
+    }
+    
+    void listenUCI(){
+       engineWrapper->setup(model->resourceRoot + "/fruit");
     }
     
     /*
@@ -48,7 +64,6 @@ public:
         
         // record the move
         int figure = model->board->fields[from];
-        
         
         if(model->board->whiteToMove){
             model->rule50CaptureOrPawn = false;
@@ -136,6 +151,20 @@ public:
         
         // evalute
         evaluate();
+        
+        // if engine is black
+        if(! model->board->whiteToMove ){
+            moveEngine();
+        }
+    }
+    
+    void moveEngine(){
+        string fenStr = fenparser->parse(model->board);
+        model->fenStr = fenStr;
+        
+        engineWrapper->toEngine( ("position fen " + fenStr + " \n").c_str() );
+        
+        engineWrapper->toEngine("go movetime 5000 \n");
     }
     
     void handlePromotion(int figure){

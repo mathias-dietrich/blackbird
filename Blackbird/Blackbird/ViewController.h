@@ -29,6 +29,8 @@
 - (IBAction)btnDebug:(id)sender;
 - (IBAction)btnClear:(id)sender;
 - (IBAction)btnDraw:(id)sender;
+- (IBAction)btnSetEngine:(id)sender;
+
 @property (nonatomic, retain) IBOutlet UI *ui;
 @end
 

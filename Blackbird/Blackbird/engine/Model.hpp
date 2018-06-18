@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 #include <string>
-#include "Const.h"
+#include "Const.hpp"
 #include "Board.hpp"
 #include <chrono>
 
@@ -20,7 +20,14 @@ class Model {
     
 public:
     
+
+    
+    string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    string resourceRoot = "";
+    
     std::chrono::time_point<std::chrono::system_clock> startTime ;
+    
+    string enginePath = "/Users/mat/Dropbox/it projects/chess/engines/komodo-9_9dd577/OSX/komodo-9.02-64-osx";
     
     int w_time;
     int b_time;
@@ -57,6 +64,7 @@ public:
     int selFields [64] ;
     
     void startPos(){
+        fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         w_time = 0;
         b_time = 0;
         isDraw = false;

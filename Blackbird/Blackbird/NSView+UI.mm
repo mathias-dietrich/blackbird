@@ -11,7 +11,7 @@
 #import "NSView+UI.h"
 #import "engine/Engine.hpp"
 #import "engine/Model.hpp"
-#import "engine/Const.h"
+#import "engine/Const.hpp"
 #import "engine/MoveGen.hpp"
 
 @implementation UI
@@ -34,6 +34,8 @@
 @synthesize rule50;
 @synthesize w_eval;
 @synthesize b_eval;
+@synthesize enginePath;
+@synthesize fenField;
 
 Engine *engine;
 
@@ -90,12 +92,17 @@ Engine *engine;
         timeW.textColor = [NSColor blackColor];
     }
     
+    fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
     [self setNeedsDisplay:YES];
 }
 
 - (void)setup
 {
     NSLog(@"setup");
+    
+    NSString *bundlePath = [[NSBundle mainBundle] resourcePath];
+    engine->model->resourceRoot = std::string([bundlePath UTF8String]);;
+    
     // do any initialization that's common to both -initWithFrame:
     // and -initWithCoder: in this method
     
@@ -118,7 +125,20 @@ Engine *engine;
                                    selector:@selector(onTick:)
                                    userInfo:nil
                                     repeats:YES];
+    
+    
+    NSThread* myThread = [[NSThread alloc] initWithTarget:self
+                                                 selector:@selector(listenUCI:)
+                                                   object:nil]; //how to pass callback block here?
+    [myThread start];
+    
     [self update];
+    
+    
+}
+
+-(void) listenUCI: (id) sender {
+    engine->listenUCI();
 }
 
 -(void)onTick:(NSTimer *)timer {
@@ -453,6 +473,11 @@ Engine *engine;
 
 - (void)mouseUp:(NSEvent *)theEvent {
 
+}
+
+-(void)setEnginePath{
+    engine->model->enginePath = std::string([enginePath.stringValue UTF8String]);
+    [self update];
 }
 
 -(void)newWhite{

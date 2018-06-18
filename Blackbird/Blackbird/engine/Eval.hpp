@@ -13,7 +13,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Const.h"
+#include "Const.hpp"
 #include "Helper.hpp"
 #include "Board.hpp"
 #include "m42.h"

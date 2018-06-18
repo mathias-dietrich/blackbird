@@ -10,7 +10,7 @@
 
 #include <string>
 #include <vector>
-#include "Const.h"
+#include "Const.hpp"
 #include "Helper.hpp"
 #include "Board.hpp"
 
@@ -93,6 +93,7 @@ public:
     bool w_casteS;
     bool b_casteL;
     bool b_casteS;
+    
     int w_enPasse = 0;
     int b_enPasse = 0;
     
