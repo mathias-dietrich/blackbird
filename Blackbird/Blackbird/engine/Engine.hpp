@@ -28,6 +28,7 @@ private:
     static  Engine * m_pInstance;
     
 public:
+   
     Fen *fenparser = new Fen();
     Eval *eval = new Eval();
     MoveGen *gen = new MoveGen();
@@ -40,7 +41,7 @@ public:
     }
     
     void logEngine(string msg){
-        model->engineList += msg;
+        model->engineList = msg +  model->engineList;
     }
     
     void evaluate(){
@@ -49,7 +50,7 @@ public:
     }
     
     void listenUCI(){
-       engineWrapper->setup(model->resourceRoot + "/fruit");
+       engineWrapper->setup(model->resourceRoot + "/"+ model->engineNameBlack);
     }
     
     /*
@@ -71,6 +72,7 @@ public:
         int figure = model->board->fields[from];
         
         if(model->board->whiteToMove){
+            newBoard->moveId++;
             model->rule50CaptureOrPawn = false;
             if(figure == W_PAWN){
                 model->rule50CaptureOrPawn = true;
@@ -174,7 +176,7 @@ public:
     void makeEngineMove(){
         // can we handle in the book
         if(model->useBook){
-            polyglot->bookPath = model->resourceRoot + "/" + model->book + ".bin";
+            polyglot->bookPath = model->resourceRoot + "/" + model->bookName + ".bin";
             Ply ply = polyglot->getBookMove(model->board);
             if(ply.isLegal){
                 move(ply);
@@ -284,14 +286,24 @@ public:
         }
         index--;
         model->boardIndex = index;
-        model->boardMax--;
+
         model->board = model->boards[index];
         model->board ->printAll();
         calcMoveList();
+         model->paused = true;
     }
     
     void forward(){
-        
+        int index = model->boardIndex;
+        if(index == model->boardMax){
+            return;
+        }
+        index++;
+        model->boardIndex = index;
+        model->board = model->boards[index];
+        model->board ->printAll();
+        calcMoveList();
+        model->paused = true;
     }
     
     void promoteQueen(){

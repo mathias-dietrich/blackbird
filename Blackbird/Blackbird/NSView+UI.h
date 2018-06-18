@@ -38,6 +38,12 @@
 @property (nonatomic, retain) IBOutlet NSButton *btnPNG;
 @property (nonatomic, retain) IBOutlet NSButton *btnEngine;
 @property (nonatomic, retain) IBOutlet NSButton *btnDebug;
+@property (nonatomic, retain) IBOutlet NSColorWell *pauseState;
+@property (nonatomic, retain) IBOutlet NSTextField *boxMove;
+
+@property (nonatomic, retain) IBOutlet NSComboBox *boxEngineWhite;
+@property (nonatomic, retain) IBOutlet NSComboBox *boxEngineBlack;
+@property (nonatomic, retain) IBOutlet NSComboBox *boxOpeningBook;
 
 -(void)setup;
 -(void)newWhite;
@@ -45,7 +51,7 @@
 -(void)flip;
 
 -(void)backwards;
--(void)forwards;
+-(void)forward;
 
 -(void)update;
 
@@ -60,6 +66,11 @@
 - (void)radioPng;
 - (void)radioEngine;
 - (void)radioDebug;
+- (void)pause;
+
+- (void)engineWhiteDidChange;
+- (void)engineBlackDidChange;
+- (void)openingBookDidChange;
 @end
 
 

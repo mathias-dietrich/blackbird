@@ -38,11 +38,21 @@
 @synthesize btnPNG;
 @synthesize btnEngine;
 @synthesize btnDebug;
+@synthesize pauseState;
+@synthesize boxMove;
+@synthesize boxEngineWhite;
+@synthesize boxEngineBlack;
+@synthesize boxOpeningBook;
 
 Engine *engine;
 
 -(void)update{
     
+    if(engine->model->paused){
+        pauseState.color =  [NSColor redColor];
+    }else{
+        pauseState.color = [NSColor greenColor];
+    }
     switch(engine->model->winstate){
         case PNG:
             btnPNG.state = NSControlStateValueOn;
@@ -111,6 +121,7 @@ Engine *engine;
         timeW.textColor = [NSColor blackColor];
     }
     
+    boxMove.stringValue = [NSString stringWithFormat:@"Move: %d", engine->model->board->moveId];
     fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
     [self setNeedsDisplay:YES];
 }
@@ -157,6 +168,9 @@ Engine *engine;
 }
 
 -(void)onTick:(NSTimer *)timer {
+    if(engine->model->paused){
+        return;
+    }
     if(engine->model->board->whiteToMove){
         engine->model->w_time++;
     }else{
@@ -488,10 +502,6 @@ Engine *engine;
 
 }
 
--(void)setEnginePath{
-    engine->model->enginePath = std::string([enginePath.stringValue UTF8String]);
-    [self update];
-}
 
 -(void)newWhite{
     engine->model->startTime = std::chrono::system_clock::now();
@@ -565,5 +575,35 @@ Engine *engine;
 - (void)radioDebug{
      engine->model->winstate = DEBUGWIN;
      [self update];
+}
+- (void)pause{
+    engine->model->paused = ! engine->model->paused;
+    [self update];
+}
+- (void)engineWhiteDidChange{
+    string engineName = std::string([boxEngineWhite.stringValue UTF8String]);
+    if(engineName.compare("User")==0){
+        engineName = "";
+    }
+    engine->model->engineNameWhite = engineName;
+    [self update];
+}
+- (void)engineBlackDidChange{
+     string engineName = std::string([boxEngineBlack.stringValue UTF8String]);
+    if(engineName.compare("User")==0){
+        engineName = "";
+    }
+    engine->model->engineNameBlack = engineName;
+    [self update];
+}
+- (void)openingBookDidChange{
+     string bookName = std::string([boxOpeningBook.stringValue UTF8String]);
+    if(bookName.compare("No Opening Book")==0){
+        bookName = "";
+        engine->model->useBook = false;
+    }
+    engine->model->bookName = bookName;
+    engine->model->useBook = true;
+    [self update];
 }
 @end

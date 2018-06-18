@@ -33,7 +33,7 @@
 }
 
 - (IBAction)btnForwards:(id)sender{
-     [ui forwards];
+     [ui forward];
 }
 
 - (IBAction)btnBackwards:(id)sender{
@@ -70,5 +70,18 @@
 }
 - (IBAction)radioEngine:(id)sender{
     [ui radioEngine];
+}
+- (IBAction)pause:(id)sender{
+    [ui pause];
+}
+
+- (IBAction)engineWhiteDidChange:(id)sender{
+    [ui engineWhiteDidChange];
+}
+- (IBAction)engineBlackDidChange:(id)sender{
+    [ui engineBlackDidChange];
+}
+- (IBAction)openingBookDidChange:(id)sender{
+    [ui openingBookDidChange];
 }
 @end

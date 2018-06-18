@@ -9,9 +9,8 @@ back - forward - Rich Text
 
 Pause
 
-select engine dropdown - engine time
+select engine dropdown - engine time // needs restructering of code
 
-select book dropdown
 
 save - load PNG
 

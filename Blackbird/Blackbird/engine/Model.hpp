@@ -19,7 +19,7 @@ using namespace std;
 class Model {
     
 public:
-    
+     bool paused = false;
     WINSTATE winstate = PNG;
     
     bool enginePlaysWhite = false;
@@ -31,7 +31,7 @@ public:
         selField = -1;
     }
     
-    string book = "Komodo";
+   
     bool useBook = true;
     
     string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -39,7 +39,9 @@ public:
     
     std::chrono::time_point<std::chrono::system_clock> startTime ;
     
-    string enginePath = "/Users/mat/Dropbox/it projects/chess/engines/komodo-9_9dd577/OSX/komodo-9.02-64-osx";
+    string engineNameBlack = "Fruit";
+    string engineNameWhite = "";
+    string bookName = "Komodo";
     
     int w_time;
     int b_time;

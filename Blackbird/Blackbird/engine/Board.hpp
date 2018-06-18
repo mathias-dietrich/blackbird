@@ -29,7 +29,7 @@ public:
     Ply ply;
     
     string moveStr = "";
-    int moveId = 0;
+    int moveId = 1;
     string comment = "";
     
     Board(){
@@ -361,6 +361,7 @@ public:
         c->rule50 = rule50;
         c->whiteToMove = whiteToMove;
         c->boardId = boardId;
+        c->moveId = moveId;
         c->ply = ply;
         
         return c;

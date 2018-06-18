@@ -35,6 +35,11 @@
 - (IBAction)radioPng:(id)sender;
 - (IBAction)radioDebug:(id)sender;
 - (IBAction)radioEngine:(id)sender;
+- (IBAction)pause:(id)sender;
+
+- (IBAction)engineWhiteDidChange:(id)sender;
+- (IBAction)engineBlackDidChange:(id)sender;
+- (IBAction)openingBookDidChange:(id)sender;
 
 @property (nonatomic, retain) IBOutlet UI *ui;
 @end
