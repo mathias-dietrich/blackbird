@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <vector>
+#include "Ply.hpp"
 
 using namespace std;
 
@@ -17,7 +18,8 @@ class  Observer
 {
     
 public:
-    virtual void makeMove(int from, int to) = 0;
+    virtual void makeMove(Ply ply) = 0;
+    virtual void logEngine(string msg) = 0;
 };
 
 

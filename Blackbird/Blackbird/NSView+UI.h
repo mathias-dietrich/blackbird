@@ -35,6 +35,10 @@
 
 @property (nonatomic, retain) IBOutlet NSTextField *fenField;
 
+@property (nonatomic, retain) IBOutlet NSButton *btnPNG;
+@property (nonatomic, retain) IBOutlet NSButton *btnEngine;
+@property (nonatomic, retain) IBOutlet NSButton *btnDebug;
+
 -(void)setup;
 -(void)newWhite;
 -(void)newBlack;
@@ -52,6 +56,10 @@
 - (void)debugMode;
 - (void)clearDebug;
 - (void)draw;
+
+- (void)radioPng;
+- (void)radioEngine;
+- (void)radioDebug;
 @end
 
 

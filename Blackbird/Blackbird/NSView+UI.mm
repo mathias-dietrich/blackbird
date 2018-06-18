@@ -11,7 +11,6 @@
 #import "NSView+UI.h"
 #import "engine/Engine.hpp"
 #import "engine/Model.hpp"
-#import "engine/Const.hpp"
 #import "engine/MoveGen.hpp"
 
 @implementation UI
@@ -36,17 +35,37 @@
 @synthesize b_eval;
 @synthesize enginePath;
 @synthesize fenField;
+@synthesize btnPNG;
+@synthesize btnEngine;
+@synthesize btnDebug;
 
 Engine *engine;
 
 -(void)update{
     
-    if(engine->model->debugMode){
-         panel.stringValue = [NSString stringWithCString:engine->model->debugMsg.c_str() encoding:[NSString defaultCStringEncoding]];
-    }else{
-         panel.stringValue = [NSString stringWithCString:engine->model->moveList.c_str() encoding:[NSString defaultCStringEncoding]];
+    switch(engine->model->winstate){
+        case PNG:
+            btnPNG.state = NSControlStateValueOn;
+            btnEngine.state = NSControlStateValueOff;
+            btnDebug.state = NSControlStateValueOff;
+            panel.stringValue = [NSString stringWithCString:engine->model->moveList.c_str() encoding:[NSString defaultCStringEncoding]];
+            break;
+            
+        case ENGINE:
+            btnPNG.state = NSControlStateValueOff;
+            btnEngine.state = NSControlStateValueOn;
+            btnDebug.state = NSControlStateValueOff;
+            panel.stringValue = [NSString stringWithCString:engine->model->engineList.c_str() encoding:[NSString defaultCStringEncoding]];
+            break;
+            
+        case DEBUGWIN:
+            btnPNG.state = NSControlStateValueOff;
+            btnEngine.state = NSControlStateValueOff;
+            btnDebug.state = NSControlStateValueOn;
+            panel.stringValue = [NSString stringWithCString:engine->model->debugMsg.c_str() encoding:[NSString defaultCStringEncoding]];
+            break;
     }
-
+    
     // Rule 50
     NSMutableString *string = [NSMutableString stringWithString:@"rule50: "];
     [string appendString:[NSString stringWithFormat:@"%d:",engine->model->rule50Count]];
@@ -126,15 +145,11 @@ Engine *engine;
                                    userInfo:nil
                                     repeats:YES];
     
-    
     NSThread* myThread = [[NSThread alloc] initWithTarget:self
                                                  selector:@selector(listenUCI:)
                                                    object:nil]; //how to pass callback block here?
     [myThread start];
-    
     [self update];
-    
-    
 }
 
 -(void) listenUCI: (id) sender {
@@ -147,7 +162,8 @@ Engine *engine;
     }else{
         engine->model->b_time++;
     }
-  [self update];
+    [self update];
+
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -394,36 +410,32 @@ Engine *engine;
     if(engine->model->isFlipped){
         to = 63 - to;
     }
-    NSLog(@"Moving to: %i", to);
     
     // user deselects same piece
     if(engine->model->selField == to){
         for(int i=0; i < 64;i++){
             engine->model->selFields[i] = EMPTY;
         }
-        [self setNeedsDisplay:YES];
         engine->model->selField = -1;
+        [self update];
         return;
     }
     
     // User makes a move
     if(engine->model->selField > -1){
-       
         if(engine->model->selFields[to] == OPTION){
             
             // move the board
-            engine->move(engine->model->selField, to);
-           
-            // clear selection
-            for(int i=0;i < 64;i++){
-                engine->model->selFields[i] = EMPTY;
-            }
-             [self setNeedsDisplay:YES];
+            Ply ply3;
+            ply3.from = engine->model->selField;
+            ply3.to = to;
+            engine->move(ply3);
+            engine->model->clearSelection();
         }
         [self update];
+        return;
     }
     
-
    // User Selects
     if(engine->model->board->whiteToMove && engine->model->board->fields[to] >0){
         for(int i=0;i < 64;i++){
@@ -444,7 +456,8 @@ Engine *engine;
             engine->model->selFields[to] = SELECTED;
             engine->model->selField = to;
         }
-        [self setNeedsDisplay:YES];
+       [self update];
+        return;
     }
     
     if(!engine->model->board->whiteToMove && engine->model->board->fields[to] < 0){
@@ -467,7 +480,7 @@ Engine *engine;
             engine->model->selFields[to] = SELECTED;
             engine->model->selField = to;
         }
-        [self setNeedsDisplay:YES];
+       [self update];
     }
 }
 
@@ -502,8 +515,8 @@ Engine *engine;
     [self update];
 }
 
--(void)forwards{
-    engine->forwards();
+-(void)forward{
+    engine->forward();
     [self update];
 }
 
@@ -541,5 +554,16 @@ Engine *engine;
     engine->draw();
     [self update];
 }
-
+- (void)radioPng{
+    engine->model->winstate = PNG;
+     [self update];
+}
+- (void)radioEngine{
+     engine->model->winstate = ENGINE;
+     [self update];
+}
+- (void)radioDebug{
+     engine->model->winstate = DEBUGWIN;
+     [self update];
+}
 @end

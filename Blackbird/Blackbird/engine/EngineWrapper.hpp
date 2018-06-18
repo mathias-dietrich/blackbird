@@ -25,7 +25,7 @@
 #include <sys/wait.h>
 #include <fstream>
 
-#include "Const.hpp"
+#include "Global.hpp"
 #include "Helper.hpp"
 #include "Board.hpp"
 #include "m42.h"
@@ -34,7 +34,7 @@
 #include <boost/asio.hpp>
 
 #include "Observer.hpp"
-#include "Model.hpp"
+
 
 using namespace std;
 namespace bp = ::boost::process;

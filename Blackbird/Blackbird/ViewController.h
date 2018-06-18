@@ -31,6 +31,11 @@
 - (IBAction)btnDraw:(id)sender;
 - (IBAction)btnSetEngine:(id)sender;
 
+
+- (IBAction)radioPng:(id)sender;
+- (IBAction)radioDebug:(id)sender;
+- (IBAction)radioEngine:(id)sender;
+
 @property (nonatomic, retain) IBOutlet UI *ui;
 @end
 

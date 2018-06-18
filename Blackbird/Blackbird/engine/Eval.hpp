@@ -13,10 +13,11 @@
 #include <iostream>
 #include <vector>
 
-#include "Const.hpp"
 #include "Helper.hpp"
 #include "Board.hpp"
 #include "m42.h"
+
+#include "Type.hpp"
 
 class Eval{
 
@@ -31,23 +32,27 @@ public:
                 if(figure > 0){
                     switch(figure){
                         case W_PAWN:
-                            sum += 100;
+                            sum += VAL_PAWN;
                             break;
                             
                         case W_ROOK:
-                            sum += 500;
+                            sum += VAL_ROOK;
                             break;
                             
                         case W_BISHOP:
-                            sum += 300;
+                            sum += VAL_BISHOP;
                             break;
                             
                         case W_KNIGHT:
-                            sum += 300;
+                            sum += VAL_KNIGHT;
                             break;
                             
                         case W_QUEEN:
-                            sum += 900;
+                            sum += VAL_QUEEN;
+                            break;
+                            
+                        case W_KING:
+                            sum += VAL_KING;
                             break;
                     }
                 }
@@ -55,23 +60,27 @@ public:
                 if(figure < 0){
                     switch(figure){
                         case B_PAWN:
-                            sum += 100;
+                            sum += VAL_PAWN;
                             break;
                             
                         case B_ROOK:
-                            sum += 500;
+                            sum += VAL_ROOK;
                             break;
                             
                         case B_BISHOP:
-                            sum += 300;
+                            sum += VAL_BISHOP;
                             break;
                             
                         case B_KNIGHT:
-                            sum += 300;
+                            sum += VAL_KNIGHT;
                             break;
                             
                         case B_QUEEN:
-                            sum += 900;
+                            sum += VAL_QUEEN;
+                            break;
+                            
+                        case B_KING:
+                            sum += VAL_KING;
                             break;
                     }
                 }

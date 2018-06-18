@@ -1,0 +1,25 @@
+Todo
+====
+
+show last figure
+
+switch PNG - Engine - Debug
+
+back - forward - Rich Text
+
+Pause
+
+select engine dropdown - engine time
+
+select book dropdown
+
+save - load PNG
+
+set FEN
+
+UCI interface
+
+Eval Function
+
+Min Max
+

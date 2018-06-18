@@ -12,8 +12,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
-
-#include "Const.hpp"
+#include <sstream>
 #include "Helper.hpp"
 #include "Board.hpp"
 #include "m42.h"
@@ -320,7 +319,10 @@ public:
                     for(int j=0; j < moves.size();j++){
                         int to = moves.at(j);
                         Board *b = board->copy();
-                        b->move(i,to);
+                        Ply ply;
+                        ply.from = i;
+                        ply.to = to;
+                        b->move(ply);
                         if(!inCheck(b, true)){
                             return false;
                         }
@@ -334,7 +336,10 @@ public:
                     for(int j=0; j < moves.size();j++){
                         int to = moves.at(j);
                         Board *b = board->copy();
-                        b->move(i,to);
+                        Ply ply;
+                        ply.from = i;
+                        ply.to = to;
+                        b->move(ply);
                         if(!inCheck(b, false)){
                             return false;
                         }
@@ -379,7 +384,7 @@ public:
                     switch(f){
                         case B_PAWN:
                         {
-                             reachable &= b_prawnCatch[i];
+                            reachable &= b_prawnCatch[i];
                             break;
                         }
                             
@@ -396,7 +401,7 @@ public:
                             uint64_t r =  M42::rook_attacks(i, board->all);
                             r = r & ~board->b_all;
                             reachable &= r;
-                            return r;
+
                         }
                             
                         case B_KNIGHT:
@@ -471,6 +476,9 @@ public:
                 }
             }
         }
+        if(reachable != 0){
+            cout << "reachable by " << pos << endl;
+        }
         return reachable > 0;
     }
     
@@ -482,7 +490,10 @@ public:
         for(int i=0;i< v.size();i++){
             Board *test = board->copy();
             int to = v.at(i);
-            test->move(piecePos,to);
+            Ply ply;
+            ply.from = piecePos;
+            ply.to = to;
+            test->move(ply);
             bool kInCheck = inCheck(test,board->whiteToMove);
             if(!kInCheck){
                 checked |= s<< to;
@@ -531,6 +542,11 @@ public:
                 if(board->w_casteS && board->fields[5]==EMPTY && board->fields[6]==EMPTY){
                     if(reachable(board, true, 4) || reachable(board, true, 5) || reachable(board, true, 6)){
                         
+                        
+                        cout << "reachable" << endl;
+                        bool a = reachable(board, true, 4);
+                        bool b = reachable(board, true, 5);
+                        bool c =reachable(board, true, 6);
                     }else{
                         r = r | s << 6;
                     }
@@ -538,7 +554,7 @@ public:
                 // long castle
                 if(board->w_casteL && board->fields[1]==EMPTY && board->fields[2]==EMPTY && board->fields[3]==EMPTY){
                     if(reachable(board, true, 1) || reachable(board, true, 2) || reachable(board, true, 3) || reachable(board, true, 4)){
-                        
+                         cout << "reachable" << endl;
                     }else{
                         r = r | s << 2;
                     }

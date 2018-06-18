@@ -14,13 +14,14 @@
 #include <vector>
 #include <sstream>
 
-#include "Const.hpp"
 #include "Helper.hpp"
 #include "Board.hpp"
 #include "m42.h"
 
 class Fen{
 public:
+    
+    
     string parse(Board * board){
         string fen = "";
         int count = 0;

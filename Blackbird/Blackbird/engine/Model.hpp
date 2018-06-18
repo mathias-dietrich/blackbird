@@ -10,9 +10,9 @@
 
 #include <stdio.h>
 #include <string>
-#include "Const.hpp"
 #include "Board.hpp"
 #include <chrono>
+#include "Type.hpp"
 
 using namespace std;
 
@@ -20,7 +20,19 @@ class Model {
     
 public:
     
-
+    WINSTATE winstate = PNG;
+    
+    bool enginePlaysWhite = false;
+    
+    void clearSelection(){
+        for(int i=0;i< 64;i++){
+            selFields[i] = EMPTY;
+        }
+        selField = -1;
+    }
+    
+    string book = "Komodo";
+    bool useBook = true;
     
     string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     string resourceRoot = "";
@@ -46,8 +58,10 @@ public:
     int b_eval = 0;
    
     bool debugMode = false;
+    
     string debugMsg = "App Starts";
     string moveList = "";
+    string engineList = "";
     
     string w_timeBox = "White";
     string b_timeBox = "Black";
@@ -75,9 +89,7 @@ public:
         board = new Board();
         boards[0] = board;
         board->startPos();
-        for(int i=0;i < 64;i++){
-            selFields[i] = EMPTY;
-        }
+        clearSelection();
         boardIndex = 0;
     }
 

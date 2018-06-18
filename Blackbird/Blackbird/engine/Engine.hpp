@@ -16,11 +16,10 @@
 #include "EngineWrapper.hpp"
 #include "Fen.hpp"
 #include "Observer.hpp"
+#include "Polyglot.hpp"
 
 class Engine : Observer{
  
-  
-    
 private:
     Engine(){
         observer = this;
@@ -29,16 +28,20 @@ private:
     static  Engine * m_pInstance;
     
 public:
-
-    void makeMove(int from, int to){
-        move(from,to);
-    }
-    
     Fen *fenparser = new Fen();
     Eval *eval = new Eval();
     MoveGen *gen = new MoveGen();
     Model *model = new Model();
+    Polyglot *polyglot = new Polyglot();
     EngineWrapper  *engineWrapper = new EngineWrapper();
+    
+    void makeMove(Ply ply){
+        move(ply);
+    }
+    
+    void logEngine(string msg){
+        model->engineList += msg;
+    }
     
     void evaluate(){
         model->w_eval = eval->eval(model->board, true);
@@ -52,7 +55,9 @@ public:
     /*
      Move one move forward, called by UI
      */
-    void move(int from, int to){
+    void move(Ply ply){
+        int from = ply.from;
+        int to = ply.to;
         Board *newBoard = model->board->copy();
         newBoard->boardId++;
        
@@ -123,7 +128,10 @@ public:
         }
         
         // make the move
-        model->board->move(from,to);
+        Ply ply2;
+        ply2.from = from;
+        ply2.to = to;
+        model->board->move(ply2);
         
         if(model->isPromotion ){
             return;
@@ -143,27 +151,40 @@ public:
         // rewrite the move list
         calcMoveList();
 
-       // flip color
+        // flip color
         model->board->whiteToMove = !model->board->whiteToMove;
-        
-        // Reset UI fields
-        model->selField = -1;
         
         // evalute
         evaluate();
         
+        model->clearSelection();
+        
         // if engine is black
-        if(! model->board->whiteToMove ){
-            moveEngine();
+        if((!model->enginePlaysWhite && ! model->board->whiteToMove) || (model->enginePlaysWhite && model->board->whiteToMove ) ){
+             pthread_create(&threads[0], NULL,  newThread, this);
         }
     }
     
-    void moveEngine(){
+    static void* newThread(void* p)
+    {
+        static_cast<Engine*>(p)->makeEngineMove();
+        return NULL;
+    }
+    
+    void makeEngineMove(){
+        // can we handle in the book
+        if(model->useBook){
+            polyglot->bookPath = model->resourceRoot + "/" + model->book + ".bin";
+            Ply ply = polyglot->getBookMove(model->board);
+            if(ply.isLegal){
+                move(ply);
+                return;
+            }
+        }
+        
         string fenStr = fenparser->parse(model->board);
         model->fenStr = fenStr;
-        
         engineWrapper->toEngine( ("position fen " + fenStr + " \n").c_str() );
-        
         engineWrapper->toEngine("go movetime 5000 \n");
     }
     
@@ -240,13 +261,16 @@ public:
     }
     
     void newWhite(){
+        model->enginePlaysWhite = false;
          model->isFlipped = false;
          model->startPos();
     }
     
     void newBlack(){
+         model->enginePlaysWhite = true;
          model->startPos();
          model->isFlipped = true;
+        makeEngineMove();
     }
     
     void flip(){
@@ -266,8 +290,8 @@ public:
         calcMoveList();
     }
     
-    void forwards(){
-        cout << "forwards" << endl;
+    void forward(){
+        
     }
     
     void promoteQueen(){
@@ -333,6 +357,9 @@ public:
         }
         return "";
     }
+    
+private:
+     pthread_t threads[1];
 };
 
 // Instance singleton

@@ -61,4 +61,14 @@
 - (IBAction)btnDraw:(id)sender{
      [ui draw];
 }
+
+- (IBAction)radioPng:(id)sender{
+    [ui radioPng];
+}
+- (IBAction)radioDebug:(id)sender{
+    [ui radioDebug];
+}
+- (IBAction)radioEngine:(id)sender{
+    [ui radioEngine];
+}
 @end

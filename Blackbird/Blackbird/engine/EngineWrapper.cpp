@@ -74,8 +74,9 @@ void EngineWrapper::memberFunction()
         int n;
         while ( (n = read(aStdoutPipe[PIPE_READ], &buf, 500)) !=-1)  {
             std::string reply(buf, n);
+            observer->logEngine(reply);
             std::vector<std::string> parts  = split_ws(reply);
-            cout << reply << endl;
+      
             size_t found = reply.find("bestmove");
             
             if (found!=std::string::npos) {
@@ -86,7 +87,10 @@ void EngineWrapper::memberFunction()
                 int to = (cmd[2]-97) + 8 * (cmd[3]-49);
                 
                 std::cout << "found move: " << cmd << '\n';
-                observer->makeMove(from, to);
+                Ply ply;
+                ply.from = from;
+                ply.to = to;
+                observer->makeMove(ply);
             }
         }
     }

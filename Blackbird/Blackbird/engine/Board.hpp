@@ -10,9 +10,11 @@
 
 #include <string>
 #include <vector>
-#include "Const.hpp"
+
+#include "Type.hpp"
+
 #include "Helper.hpp"
-#include "Board.hpp"
+#include "Ply.hpp"
 
 using namespace std;
 
@@ -23,6 +25,8 @@ public:
     //Board * parent;
     //vector<Board *> childen;
     int boardId = 0;
+    
+    Ply ply;
     
     string moveStr = "";
     int moveId = 0;
@@ -79,7 +83,6 @@ public:
         w_casteS = true;
         b_casteL = true;
         b_casteS = true;
-        
         w_enPasse = 0;
         b_enPasse = 0;
         
@@ -196,7 +199,10 @@ public:
     /*
      Moving a Piece
      */
-    void move(int from, int to){
+    void move(Ply ply){
+        int from = ply.from;
+        int to = ply.to;
+        
          int figure = fields[from];
          if(figure==W_PAWN && to-8 == b_enPasse){
             fields[to-8] = EMPTY;
@@ -355,17 +361,9 @@ public:
         c->rule50 = rule50;
         c->whiteToMove = whiteToMove;
         c->boardId = boardId;
+        c->ply = ply;
         
         return c;
     }
-    
-    string getFen(){
-        return "";
-    }
-    
-    // 50 Rule
-    
-    // Castling
-
 };
 
