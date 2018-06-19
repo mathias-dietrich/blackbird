@@ -63,7 +63,7 @@ const BB Rank8BB = Rank1BB << (8 * 7);
 
 enum CASTLE { NONE, CWK, CWQ, CBK, CBQ };
 
-enum WINSTATE {PNG, ENGINE, DEBUGWIN};
+enum WINSTATE {PNG, ENGINE, DEBUGWIN, PGNDB};
     
 enum Square {
     a1, b1, c1, d1, e1, f1, g1, h1,

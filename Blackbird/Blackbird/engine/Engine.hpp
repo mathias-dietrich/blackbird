@@ -58,6 +58,7 @@ public:
     void move(Ply ply){
         int from = ply.from;
         int to = ply.to;
+        model->lastField = to;
         Board *newBoard = model->board->copy();
         newBoard->boardId++;
        

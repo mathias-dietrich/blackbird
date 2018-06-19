@@ -797,6 +797,7 @@
                                     <outlet property="boxOpeningBook" destination="OAc-yb-c2y" id="BEB-Da-xLs"/>
                                     <outlet property="btnDebug" destination="mIr-62-14p" id="yTO-zm-cbh"/>
                                     <outlet property="btnEngine" destination="94q-jz-ssS" id="fdo-hd-Kv2"/>
+                                    <outlet property="btnPGNDB" destination="gkX-55-fJz" id="u0h-mm-K2e"/>
                                     <outlet property="btnPNG" destination="fZr-uX-ZRd" id="gNf-aD-bjK"/>
                                     <outlet property="fenField" destination="JoD-hy-Cde" id="N0b-yv-IjK"/>
                                     <outlet property="mypanel" destination="Fb9-iq-i4B" id="mv8-PG-5aY"/>
@@ -923,6 +924,15 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxs-xL-c7e">
+                                <rect key="frame" x="869" y="40" width="392" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="left" title="/Users/mat/blackbird/Blackbird/pgn/Adams.pgn" drawsBackground="YES" usesSingleLineMode="YES" id="E35-hr-TRG">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
                             <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UfS-DO-q3D">
                                 <rect key="frame" x="1166" y="836" width="205" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -946,7 +956,7 @@
                                 </connections>
                             </comboBox>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sAt-4k-elR">
-                                <rect key="frame" x="1389" y="3" width="63" height="32"/>
+                                <rect key="frame" x="1365" y="3" width="88" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Clear" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bG3-bB-dhp">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1025,7 +1035,7 @@
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fZr-uX-ZRd">
                                 <rect key="frame" x="949" y="12" width="50" height="18"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="PNG" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="VVB-OQ-XOk">
+                                <buttonCell key="cell" type="radio" title="PGN" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="VVB-OQ-XOk">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1090,7 +1100,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="58P-9Z-ifl">
-                                <rect key="frame" x="1277" y="3" width="101" height="32"/>
+                                <rect key="frame" x="1362" y="34" width="92" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Save PGN" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hej-Od-SfN">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1101,7 +1111,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lnd-K0-EAG">
-                                <rect key="frame" x="1175" y="3" width="102" height="32"/>
+                                <rect key="frame" x="1265" y="34" width="102" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Load PGN" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v2Q-pp-8QM">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1166,17 +1176,17 @@
                                 </textFieldCell>
                             </textField>
                             <scrollView fixedFrame="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vt-b3-VOb">
-                                <rect key="frame" x="867" y="37" width="583" height="645"/>
+                                <rect key="frame" x="867" y="72" width="583" height="610"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <clipView key="contentView" ambiguous="YES" id="uOk-NS-Aml">
-                                    <rect key="frame" x="1" y="1" width="581" height="643"/>
+                                    <rect key="frame" x="1" y="1" width="581" height="608"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView ambiguous="YES" importsGraphics="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Fb9-iq-i4B">
-                                            <rect key="frame" x="0.0" y="0.0" width="581" height="643"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="581" height="608"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="581" height="643"/>
+                                            <size key="minSize" width="581" height="608"/>
                                             <size key="maxSize" width="594" height="10000000"/>
                                             <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </textView>
@@ -1188,10 +1198,21 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="i2k-1r-wfJ">
-                                    <rect key="frame" x="566" y="1" width="16" height="643"/>
+                                    <rect key="frame" x="566" y="1" width="16" height="608"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gkX-55-fJz">
+                                <rect key="frame" x="1175" y="11" width="71" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="radio" title="PGN DB" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="4yC-PS-ESG">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="radioPGNDB:" target="XfG-lQ-9wD" id="4iY-oN-UKX"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>

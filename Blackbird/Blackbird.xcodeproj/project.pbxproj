@@ -10,6 +10,8 @@
 		40378C3C20D5DBB200BCE787 /* Eval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40378C3A20D5DBB200BCE787 /* Eval.cpp */; };
 		40378C3F20D6064200BCE787 /* EngineWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40378C3D20D6064200BCE787 /* EngineWrapper.cpp */; };
 		4056A9F720D987D2009A29D2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4056A9F620D987D2009A29D2 /* WebKit.framework */; };
+		4056A9FB20D9B86E009A29D2 /* Akobian.pgn in Resources */ = {isa = PBXBuildFile; fileRef = 4056A9F920D9B86E009A29D2 /* Akobian.pgn */; };
+		4056A9FC20D9B86E009A29D2 /* Adams.pgn in Resources */ = {isa = PBXBuildFile; fileRef = 4056A9FA20D9B86E009A29D2 /* Adams.pgn */; };
 		40786EC120D70839003C3E52 /* Arasanx in Resources */ = {isa = PBXBuildFile; fileRef = 40786EB920D70815003C3E52 /* Arasanx */; };
 		40786EC220D70839003C3E52 /* Komodo in Resources */ = {isa = PBXBuildFile; fileRef = 40786EBA20D70815003C3E52 /* Komodo */; };
 		40786EC320D70839003C3E52 /* Fruit in Resources */ = {isa = PBXBuildFile; fileRef = 40786EBB20D70815003C3E52 /* Fruit */; };
@@ -56,6 +58,8 @@
 		40378C3D20D6064200BCE787 /* EngineWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EngineWrapper.cpp; sourceTree = "<group>"; };
 		40378C3E20D6064200BCE787 /* EngineWrapper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EngineWrapper.hpp; sourceTree = "<group>"; };
 		4056A9F620D987D2009A29D2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		4056A9F920D9B86E009A29D2 /* Akobian.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Akobian.pgn; sourceTree = "<group>"; };
+		4056A9FA20D9B86E009A29D2 /* Adams.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Adams.pgn; sourceTree = "<group>"; };
 		40786EB920D70815003C3E52 /* Arasanx */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = Arasanx; sourceTree = "<group>"; };
 		40786EBA20D70815003C3E52 /* Komodo */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = Komodo; sourceTree = "<group>"; };
 		40786EBB20D70815003C3E52 /* Fruit */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = Fruit; sourceTree = "<group>"; };
@@ -137,6 +141,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4056A9F820D9B84C009A29D2 /* pgn */ = {
+			isa = PBXGroup;
+			children = (
+				4056A9FA20D9B86E009A29D2 /* Adams.pgn */,
+				4056A9F920D9B86E009A29D2 /* Akobian.pgn */,
+			);
+			path = pgn;
+			sourceTree = "<group>";
+		};
 		40786EB820D70815003C3E52 /* engines */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +182,7 @@
 		40C14A5F20D2BEDF00EDDE27 = {
 			isa = PBXGroup;
 			children = (
+				4056A9F820D9B84C009A29D2 /* pgn */,
 				40786EE320D8192C003C3E52 /* Todo.txt */,
 				40786ED620D805DE003C3E52 /* books */,
 				40786EB820D70815003C3E52 /* engines */,
@@ -331,6 +345,8 @@
 				40DBFA6120D2DD37005529E1 /* BlackQueen.png in Resources */,
 				40DBFA6920D2DD37005529E1 /* BlackKing.png in Resources */,
 				40DBFA6A20D2DD37005529E1 /* WhiteKing.png in Resources */,
+				4056A9FC20D9B86E009A29D2 /* Adams.pgn in Resources */,
+				4056A9FB20D9B86E009A29D2 /* Akobian.pgn in Resources */,
 				40DBFA6420D2DD37005529E1 /* BlackBishop.png in Resources */,
 				40DBFA6820D2DD37005529E1 /* BlackRook.png in Resources */,
 				40786EC820D70839003C3E52 /* Togall in Resources */,

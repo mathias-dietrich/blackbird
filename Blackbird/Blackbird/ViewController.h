@@ -35,6 +35,7 @@
 - (IBAction)radioPng:(id)sender;
 - (IBAction)radioDebug:(id)sender;
 - (IBAction)radioEngine:(id)sender;
+- (IBAction)radioPGNDB:(id)sender;
 - (IBAction)pause:(id)sender;
 
 - (IBAction)engineWhiteDidChange:(id)sender;

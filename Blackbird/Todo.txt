@@ -1,15 +1,14 @@
 Todo
 ====
 
-show last figure
 
-switch PNG - Engine - Debug
+switch PGN - Engine - Debug - PGNDB
 
-back - forward - Rich Text  {\b bold}
 
 Pause
 
-select engine dropdown - engine time // needs restructering of code
+select engine dropdown - engine time // needs restructering of code to run two engines
+- terminate engines correctly
 
 
 save - load PNG

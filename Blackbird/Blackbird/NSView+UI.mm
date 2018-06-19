@@ -37,6 +37,7 @@
 @synthesize btnPNG;
 @synthesize btnEngine;
 @synthesize btnDebug;
+@synthesize btnPGNDB;
 @synthesize pauseState;
 @synthesize boxMove;
 @synthesize boxEngineWhite;
@@ -59,6 +60,7 @@ Engine *engine;
             btnPNG.state = NSControlStateValueOn;
             btnEngine.state = NSControlStateValueOff;
             btnDebug.state = NSControlStateValueOff;
+            btnPGNDB.state = NSControlStateValueOff;
             
             NSString *text = [NSString stringWithCString:engine->model->moveList.c_str() encoding:[NSString defaultCStringEncoding]] ;
             mypanel.string = text;
@@ -70,6 +72,7 @@ Engine *engine;
             btnEngine.state = NSControlStateValueOn;
             btnDebug.state = NSControlStateValueOff;
             mypanel.string = [NSString stringWithCString:engine->model->engineList.c_str() encoding:[NSString defaultCStringEncoding]];
+            btnPGNDB.state = NSControlStateValueOff;
             break;
         }
         case DEBUGWIN:
@@ -78,7 +81,17 @@ Engine *engine;
             btnEngine.state = NSControlStateValueOff;
             btnDebug.state = NSControlStateValueOn;
             mypanel.string = [NSString stringWithCString:engine->model->debugMsg.c_str() encoding:[NSString defaultCStringEncoding]];
+            btnPGNDB.state = NSControlStateValueOff;
             break;
+        }
+        case PGNDB:
+        {
+            btnPNG.state = NSControlStateValueOff;
+            btnEngine.state = NSControlStateValueOff;
+            btnDebug.state = NSControlStateValueOff;
+            btnPGNDB.state = NSControlStateValueOn;
+            string t = "TODO write this section";
+            mypanel.string = [NSString stringWithCString: t.c_str() encoding:[NSString defaultCStringEncoding]];
         }
     }
     
@@ -332,6 +345,21 @@ Engine *engine;
         int xPos = 33 + colum * 100;
         int yPos = 33 + row * 100;
         
+        // last target field
+        if(i == engine->model->lastField){
+            int xPos = 30 + colum * 100;
+            int yPos = 30 + row * 100;
+            NSRect r = NSMakeRect(xPos, yPos, 90, 90);
+            NSBezierPath* circlePath = [NSBezierPath bezierPath];
+            [circlePath appendBezierPathWithOvalInRect: r];
+            
+            NSColor *selColor = [NSColor colorWithCalibratedRed:0.3f green:1.0f blue:1.0f alpha:0.3f];
+            [selColor set];
+            
+            [circlePath stroke];
+            [circlePath fill];
+        }
+        
         switch(piece){
             case EMPTY:
                 break;
@@ -414,6 +442,8 @@ Engine *engine;
             [circlePath stroke];
             [circlePath fill];
         }
+        
+       
     }
 }
 
@@ -581,6 +611,12 @@ Engine *engine;
      engine->model->winstate = DEBUGWIN;
      [self update];
 }
+
+- (void)radioPGNDB{
+    engine->model->winstate = PGNDB;
+    [self update];
+}
+
 - (void)pause{
     engine->model->paused = ! engine->model->paused;
     [self update];

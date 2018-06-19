@@ -70,7 +70,7 @@ public:
     
     bool isFlipped = false;
     
-    int selField = -1;
+   
     
     bool hasLoaded = false;
     
@@ -78,6 +78,8 @@ public:
     Board * board;
     
     int selFields [64] ;
+    int selField = -1;
+    int lastField = -1;
     
     void startPos(){
         fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -93,6 +95,7 @@ public:
         board->startPos();
         clearSelection();
         boardIndex = 0;
+        lastField = -1;
     }
 
 private:

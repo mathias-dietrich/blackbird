@@ -71,6 +71,10 @@
 - (IBAction)radioEngine:(id)sender{
     [ui radioEngine];
 }
+- (IBAction)radioPGNDB:(id)sender{
+    [ui radioPGNDB];
+}
+    
 - (IBAction)pause:(id)sender{
     [ui pause];
 }
