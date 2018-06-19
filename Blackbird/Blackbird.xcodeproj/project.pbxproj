@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		40378C3C20D5DBB200BCE787 /* Eval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40378C3A20D5DBB200BCE787 /* Eval.cpp */; };
 		40378C3F20D6064200BCE787 /* EngineWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40378C3D20D6064200BCE787 /* EngineWrapper.cpp */; };
+		4056A9F720D987D2009A29D2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4056A9F620D987D2009A29D2 /* WebKit.framework */; };
 		40786EC120D70839003C3E52 /* Arasanx in Resources */ = {isa = PBXBuildFile; fileRef = 40786EB920D70815003C3E52 /* Arasanx */; };
 		40786EC220D70839003C3E52 /* Komodo in Resources */ = {isa = PBXBuildFile; fileRef = 40786EBA20D70815003C3E52 /* Komodo */; };
 		40786EC320D70839003C3E52 /* Fruit in Resources */ = {isa = PBXBuildFile; fileRef = 40786EBB20D70815003C3E52 /* Fruit */; };
@@ -54,6 +55,7 @@
 		40378C3B20D5DBB200BCE787 /* Eval.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Eval.hpp; sourceTree = "<group>"; };
 		40378C3D20D6064200BCE787 /* EngineWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EngineWrapper.cpp; sourceTree = "<group>"; };
 		40378C3E20D6064200BCE787 /* EngineWrapper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EngineWrapper.hpp; sourceTree = "<group>"; };
+		4056A9F620D987D2009A29D2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		40786EB920D70815003C3E52 /* Arasanx */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = Arasanx; sourceTree = "<group>"; };
 		40786EBA20D70815003C3E52 /* Komodo */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = Komodo; sourceTree = "<group>"; };
 		40786EBB20D70815003C3E52 /* Fruit */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = Fruit; sourceTree = "<group>"; };
@@ -120,12 +122,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4056A9F720D987D2009A29D2 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4056A9F520D987D1009A29D2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4056A9F620D987D2009A29D2 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		40786EB820D70815003C3E52 /* engines */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +174,7 @@
 				40786EB820D70815003C3E52 /* engines */,
 				40C14A6A20D2BEDF00EDDE27 /* Blackbird */,
 				40C14A6920D2BEDF00EDDE27 /* Products */,
+				4056A9F520D987D1009A29D2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};

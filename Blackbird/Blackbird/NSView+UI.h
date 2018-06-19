@@ -7,9 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
+@class WebViewControllerDelegate;
 
-@interface UI : NSView
+@interface UI : NSView <WKNavigationDelegate>
 
 @property (nonatomic, retain) NSImage *BlackBishop;
 @property (nonatomic, retain) NSImage *WhiteBishop;
@@ -26,12 +28,13 @@
 
 @property (nonatomic, retain) IBOutlet NSTextField *timeW;
 @property (nonatomic, retain) IBOutlet NSTextField *timeB;
-@property (nonatomic, retain) IBOutlet NSTextField *panel;
+
+@property(strong,nonatomic)  IBOutlet NSTextView *mypanel;
+
 @property (nonatomic, retain) IBOutlet NSTextField *rule50;
 
 @property (nonatomic, retain) IBOutlet NSTextField *w_eval;
 @property (nonatomic, retain) IBOutlet NSTextField *b_eval;
-@property (nonatomic, retain) IBOutlet NSTextField *enginePath;
 
 @property (nonatomic, retain) IBOutlet NSTextField *fenField;
 

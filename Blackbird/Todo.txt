@@ -5,7 +5,7 @@ show last figure
 
 switch PNG - Engine - Debug
 
-back - forward - Rich Text
+back - forward - Rich Text  {\b bold}
 
 Pause
 

@@ -29,11 +29,10 @@
 @synthesize WhiteRook;
 @synthesize timeW;
 @synthesize timeB;
-@synthesize panel;
+@synthesize mypanel;
 @synthesize rule50;
 @synthesize w_eval;
 @synthesize b_eval;
-@synthesize enginePath;
 @synthesize fenField;
 @synthesize btnPNG;
 @synthesize btnEngine;
@@ -55,25 +54,32 @@ Engine *engine;
     }
     switch(engine->model->winstate){
         case PNG:
+        {
+             mypanel.richText = true;
             btnPNG.state = NSControlStateValueOn;
             btnEngine.state = NSControlStateValueOff;
             btnDebug.state = NSControlStateValueOff;
-            panel.stringValue = [NSString stringWithCString:engine->model->moveList.c_str() encoding:[NSString defaultCStringEncoding]];
-            break;
             
+            NSString *text = [NSString stringWithCString:engine->model->moveList.c_str() encoding:[NSString defaultCStringEncoding]] ;
+            mypanel.string = text;
+            break;
+        }
         case ENGINE:
+        {
             btnPNG.state = NSControlStateValueOff;
             btnEngine.state = NSControlStateValueOn;
             btnDebug.state = NSControlStateValueOff;
-            panel.stringValue = [NSString stringWithCString:engine->model->engineList.c_str() encoding:[NSString defaultCStringEncoding]];
+            mypanel.string = [NSString stringWithCString:engine->model->engineList.c_str() encoding:[NSString defaultCStringEncoding]];
             break;
-            
+        }
         case DEBUGWIN:
+        {
             btnPNG.state = NSControlStateValueOff;
             btnEngine.state = NSControlStateValueOff;
             btnDebug.state = NSControlStateValueOn;
-            panel.stringValue = [NSString stringWithCString:engine->model->debugMsg.c_str() encoding:[NSString defaultCStringEncoding]];
+            mypanel.string = [NSString stringWithCString:engine->model->debugMsg.c_str() encoding:[NSString defaultCStringEncoding]];
             break;
+        }
     }
     
     // Rule 50
@@ -129,7 +135,7 @@ Engine *engine;
 - (void)setup
 {
     NSLog(@"setup");
-    
+
     NSString *bundlePath = [[NSBundle mainBundle] resourcePath];
     engine->model->resourceRoot = std::string([bundlePath UTF8String]);;
     
@@ -177,7 +183,6 @@ Engine *engine;
         engine->model->b_time++;
     }
     [self update];
-
 }
 
 - (void)drawRect:(CGRect)rect {

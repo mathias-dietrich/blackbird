@@ -28,7 +28,6 @@ private:
     static  Engine * m_pInstance;
     
 public:
-   
     Fen *fenparser = new Fen();
     Eval *eval = new Eval();
     MoveGen *gen = new MoveGen();
@@ -236,11 +235,19 @@ public:
             
             if(isWhite){
                 stringstream ss;
-                ss << moveId;
+                ss << moveId << ".";
+                if(model->boardIndex == i){
+                    ss << " ==> ";
+                }
                 string intStr = ss.str();
-                model->moveList += intStr + ". " + board->moveStr;
+                model->moveList += intStr + board->moveStr;
             }else{
-                model->moveList += " " + board->moveStr + "\n";
+                model->moveList += " ";
+                
+                if(model->boardIndex == i){
+                    model->moveList += " ==> ";
+                }
+                model->moveList += board->moveStr + "\n";
                 moveId++;
             }
             isWhite = !isWhite;
@@ -286,11 +293,9 @@ public:
         }
         index--;
         model->boardIndex = index;
-
         model->board = model->boards[index];
-        model->board ->printAll();
         calcMoveList();
-         model->paused = true;
+        model->paused = true;
     }
     
     void forward(){
@@ -301,7 +306,6 @@ public:
         index++;
         model->boardIndex = index;
         model->board = model->boards[index];
-        model->board ->printAll();
         calcMoveList();
         model->paused = true;
     }
