@@ -18,7 +18,8 @@ class  Observer
 {
     
 public:
-    virtual void makeMove(Ply ply) = 0;
+    virtual void makeMoveWhite(Ply ply) = 0;
+    virtual void makeMoveBlack(Ply ply) = 0;
     virtual void logEngine(string msg) = 0;
 };
 

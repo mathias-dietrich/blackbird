@@ -37,8 +37,16 @@ public:
     EngineWrapper  *engineWhite = new EngineWrapper();
     EngineWrapper  *engineBlack = new EngineWrapper();
     
-    void makeMove(Ply ply){
-        move(ply);
+    void makeMoveWhite(Ply ply){
+        if(!model->pausedWhite){
+            move(ply);
+        }
+    }
+    
+    void makeMoveBlack(Ply ply){
+        if(!model->pausedBlack){
+            move(ply);
+        }
     }
     
     void logEngine(string msg){
@@ -50,9 +58,11 @@ public:
         model->b_eval = eval->eval(model->board, false);
     }
     
-    void listenUCI(){
+    void setupEngines(){
+        engineWhite->isEngineWhite = true;
+        engineBlack->isEngineWhite = false;
         engineWhite->setup(model->resourceRoot + "/"+ model->engineNameWhite);
-       engineBlack->setup(model->resourceRoot + "/"+ model->engineNameBlack);
+        engineBlack->setup(model->resourceRoot + "/"+ model->engineNameBlack);
     }
     
     /*
@@ -165,13 +175,14 @@ public:
         model->clearSelection();
         
         // if engine is black
-        if(model->enginePlaysBlack && ! model->board->whiteToMove ){
-             pthread_create(&threads[0], NULL,  newThreadBlack, this);
-        }
-        
-        // if engine is white
-        if(model->enginePlaysWhite && model->board->whiteToMove ) {
-            pthread_create(&threads[0], NULL,  newThreadWhite, this);
+        if(model->board->whiteToMove ){
+            if(!model->pausedWhite){
+                pthread_create(&threads[0], NULL,  newThreadWhite, this);
+            }
+        }else{
+            if(!model->pausedBlack){
+                pthread_create(&threads[0], NULL,  newThreadBlack, this);
+            }
         }
     }
     
@@ -302,16 +313,19 @@ public:
     }
     
     void newWhite(){
-        model->enginePlaysWhite = false;
          model->isFlipped = false;
          model->startPos();
+        if(!model->pausedWhite){
+            makeEngineMoveWhite();
+        }
     }
     
     void newBlack(){
-         model->enginePlaysWhite = true;
          model->startPos();
          model->isFlipped = true;
-        makeEngineMoveBlack();
+        if(!model->pausedBlack){
+            makeEngineMoveBlack();
+        }
     }
     
     void flip(){
@@ -327,7 +341,8 @@ public:
         model->boardIndex = index;
         model->board = model->boards[index];
         calcMoveList();
-        model->paused = true;
+        model->pausedWhite = true;
+        model->pausedBlack = true;
     }
     
     void forward(){
@@ -339,7 +354,8 @@ public:
         model->boardIndex = index;
         model->board = model->boards[index];
         calcMoveList();
-        model->paused = true;
+        model->pausedWhite = true;
+        model->pausedBlack = true;
     }
     
     void promoteQueen(){

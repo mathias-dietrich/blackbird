@@ -75,8 +75,12 @@
     [ui radioPGNDB];
 }
     
-- (IBAction)pause:(id)sender{
-    [ui pause];
+- (IBAction)pauseWhite:(id)sender{
+    [ui pauseWhite];
+}
+
+- (IBAction)pauseBlack:(id)sender{
+    [ui pauseBlack];
 }
 
 - (IBAction)engineWhiteDidChange:(id)sender{

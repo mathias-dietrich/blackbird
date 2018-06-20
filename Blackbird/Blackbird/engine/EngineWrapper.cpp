@@ -10,10 +10,17 @@
 
 #include <boost/algorithm/string/predicate.hpp>
 
+
+bool isEngineRunning = false;
+
 void EngineWrapper::setup(string engine){
+    if(isEngineRunning){
+        quit();
+    }
     const char *cstr = engine.c_str();
     createChild(cstr);
     pthread_create(&threads[0], NULL,  staticFunction, this);
+    isEngineRunning = true;
 }
 
 void EngineWrapper::quit(){
@@ -90,7 +97,11 @@ void EngineWrapper::memberFunction()
                 Ply ply;
                 ply.from = from;
                 ply.to = to;
-                observer->makeMove(ply);
+                if(isEngineWhite){
+                    observer->makeMoveWhite(ply);
+                }else{
+                    observer->makeMoveBlack(ply);
+                }
             }
         }
     }

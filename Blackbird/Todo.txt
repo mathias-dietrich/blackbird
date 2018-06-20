@@ -3,7 +3,8 @@ Todo
 
 
 
-Pause
+2 Pause buttons, one per engine?
+
 
 select engine dropdown - engine time // needs restructering of code to run two engines
 - terminate engines correctly

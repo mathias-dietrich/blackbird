@@ -38,7 +38,8 @@
 @synthesize btnEngine;
 @synthesize btnDebug;
 @synthesize btnPGNDB;
-@synthesize pauseState;
+@synthesize pauseStateWhite;
+@synthesize pauseStateBlack;
 @synthesize boxMove;
 @synthesize boxEngineWhite;
 @synthesize boxEngineBlack;
@@ -48,10 +49,15 @@ Engine *engine;
 
 -(void)update{
     
-    if(engine->model->paused){
-        pauseState.color =  [NSColor redColor];
+    if(engine->model->pausedWhite){
+        pauseStateWhite.color =  [NSColor redColor];
     }else{
-        pauseState.color = [NSColor greenColor];
+        pauseStateWhite.color = [NSColor greenColor];
+    }
+    if(engine->model->pausedBlack){
+        pauseStateBlack.color =  [NSColor redColor];
+    }else{
+        pauseStateBlack.color = [NSColor greenColor];
     }
     switch(engine->model->winstate){
         case PNG:
@@ -183,19 +189,18 @@ Engine *engine;
 }
 
 -(void) listenUCI: (id) sender {
-    engine->listenUCI();
+    engine->setupEngines();
 }
 
 -(void)onTick:(NSTimer *)timer {
-    if(engine->model->paused){
-        return;
+    if(engine->model->runClock){
+        if(engine->model->board->whiteToMove){
+            engine->model->w_time++;
+        }else{
+            engine->model->b_time++;
+        }
+        [self update];
     }
-    if(engine->model->board->whiteToMove){
-        engine->model->w_time++;
-    }else{
-        engine->model->b_time++;
-    }
-    [self update];
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -541,12 +546,14 @@ Engine *engine;
 -(void)newWhite{
     engine->model->startTime = std::chrono::system_clock::now();
     engine->newWhite();
+    engine->model->runClock = true;
     [self update];
 }
 
 -(void)newBlack{
     engine->model->startTime = std::chrono::system_clock::now();
     engine->newBlack();
+    engine->model->runClock = true;
     [self update];
 }
 
@@ -617,8 +624,12 @@ Engine *engine;
     [self update];
 }
 
-- (void)pause{
-    engine->model->paused = ! engine->model->paused;
+- (void)pauseBlack{
+    engine->model->pausedBlack = ! engine->model->pausedBlack;
+    [self update];
+}
+- (void)pauseWhite{
+    engine->model->pausedWhite = ! engine->model->pausedWhite;
     [self update];
 }
 - (void)engineWhiteDidChange{

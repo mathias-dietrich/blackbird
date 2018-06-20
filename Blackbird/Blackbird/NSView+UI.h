@@ -43,7 +43,8 @@
 @property (nonatomic, retain) IBOutlet NSButton *btnDebug;
 @property (nonatomic, retain) IBOutlet NSButton *btnPGNDB;
 
-@property (nonatomic, retain) IBOutlet NSColorWell *pauseState;
+@property (nonatomic, retain) IBOutlet NSColorWell *pauseStateWhite;
+@property (nonatomic, retain) IBOutlet NSColorWell *pauseStateBlack;
 @property (nonatomic, retain) IBOutlet NSTextField *boxMove;
 
 @property (nonatomic, retain) IBOutlet NSComboBox *boxEngineWhite;
@@ -72,7 +73,8 @@
 - (void)radioEngine;
 - (void)radioDebug;
 - (void)radioPGNDB;
-- (void)pause;
+- (void)pauseBlack;
+- (void)pauseWhite;
 
 - (void)engineWhiteDidChange;
 - (void)engineBlackDidChange;

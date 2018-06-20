@@ -45,6 +45,7 @@ namespace bp = ::boost::process;
 class EngineWrapper {
 public:
 
+    bool isEngineWhite;
     static void* staticFunction(void* p)
     {
         static_cast<EngineWrapper*>(p)->memberFunction();

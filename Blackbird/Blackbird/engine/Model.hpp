@@ -19,11 +19,13 @@ using namespace std;
 class Model {
     
 public:
-     bool paused = false;
+    bool runClock = false;
+    bool pausedWhite = true;
+    bool pausedBlack = true;
     WINSTATE winstate = PNG;
     
-    bool enginePlaysWhite = true;
-    bool enginePlaysBlack = true;
+    //bool enginePlaysWhite = true;
+    //bool enginePlaysBlack = true;
     
     void clearSelection(){
         for(int i=0;i< 64;i++){
@@ -94,6 +96,7 @@ public:
         clearSelection();
         boardIndex = 0;
         lastField = -1;
+        runClock = false;
     }
 
 private:
