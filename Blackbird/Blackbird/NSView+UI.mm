@@ -44,6 +44,8 @@
 @synthesize boxEngineWhite;
 @synthesize boxEngineBlack;
 @synthesize boxOpeningBook;
+@synthesize timeOutW;
+@synthesize timeOutB;
 
 Engine *engine;
 

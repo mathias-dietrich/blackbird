@@ -29,6 +29,9 @@
 @property (nonatomic, retain) IBOutlet NSTextField *timeW;
 @property (nonatomic, retain) IBOutlet NSTextField *timeB;
 
+@property (nonatomic, retain) IBOutlet NSTextField *timeOutW;
+@property (nonatomic, retain) IBOutlet NSTextField *timeOutB;
+
 @property(strong,nonatomic)  IBOutlet NSTextView *mypanel;
 
 @property (nonatomic, retain) IBOutlet NSTextField *rule50;

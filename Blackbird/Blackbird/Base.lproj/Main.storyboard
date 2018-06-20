@@ -805,6 +805,8 @@
                                     <outlet property="pauseStateWhite" destination="vLj-CO-VZi" id="hlu-6v-2u0"/>
                                     <outlet property="rule50" destination="3tM-Fd-J1D" id="ath-zR-fIG"/>
                                     <outlet property="timeB" destination="Yw4-Mq-A81" id="Bfh-LZ-YTg"/>
+                                    <outlet property="timeOutB" destination="tQn-YP-Kxa" id="r3Y-rO-amc"/>
+                                    <outlet property="timeOutW" destination="mJJ-Qk-J36" id="DAM-Yt-gDT"/>
                                     <outlet property="timeW" destination="S4L-re-ftq" id="4hM-pw-GWA"/>
                                     <outlet property="w_eval" destination="egq-dq-JPU" id="l1i-5B-NSv"/>
                                 </connections>

@@ -19,6 +19,11 @@ using namespace std;
 class Model {
     
 public:
+    
+    
+    int engineTimeoutWhite = 10000;
+    int engineTimeoutBlack = 10000;
+    
     bool runClock = false;
     bool pausedWhite = true;
     bool pausedBlack = true;

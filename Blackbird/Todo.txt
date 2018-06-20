@@ -2,14 +2,13 @@ Todo
 ====
 
 
-
-2 Pause buttons, one per engine?
-
-
+Get the engine timeout parsed from UI
 select engine dropdown - engine time // needs restructering of code to run two engines
-- terminate engines correctly
+- terminate engines correctly - done - needs testing
+
 
 Engine makes a promotion
+
 
 save - load PNG
 

@@ -10,6 +10,9 @@
 
 #include <stdio.h>
 #include <sstream>
+#include <string>
+#include <iostream>
+
 #include "Model.hpp"
 #include "MoveGen.hpp"
 #include "Eval.hpp"
@@ -17,6 +20,8 @@
 #include "Fen.hpp"
 #include "Observer.hpp"
 #include "Polyglot.hpp"
+
+using namespace std;
 
 class Engine : Observer{
  
@@ -28,6 +33,8 @@ private:
     static  Engine * m_pInstance;
     
 public:
+
+    
     Fen *fenparser = new Fen();
     Eval *eval = new Eval();
     MoveGen *gen = new MoveGen();
@@ -212,7 +219,8 @@ public:
         string fenStr = fenparser->parse(model->board);
         model->fenStr = fenStr;
         engineBlack->toEngine( ("position fen " + fenStr + " \n").c_str() );
-        engineBlack->toEngine("go movetime 5000 \n");
+        string time = to_string(model->engineTimeoutBlack);
+        engineBlack->toEngine(("go movetime " + time +  " \n").c_str() );
     }
     
     void makeEngineMoveWhite(){
@@ -229,7 +237,8 @@ public:
         string fenStr = fenparser->parse(model->board);
         model->fenStr = fenStr;
         engineWhite->toEngine( ("position fen " + fenStr + " \n").c_str() );
-        engineWhite->toEngine("go movetime 5000 \n");
+        string time = to_string(model->engineTimeoutWhite);
+        engineWhite->toEngine(("go movetime " + time + " \n").c_str() );
     }
     
     void handlePromotion(int figure){
