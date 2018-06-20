@@ -2,14 +2,13 @@ Todo
 ====
 
 
-switch PGN - Engine - Debug - PGNDB
-
 
 Pause
 
 select engine dropdown - engine time // needs restructering of code to run two engines
 - terminate engines correctly
 
+Engine makes a promotion
 
 save - load PNG
 

@@ -22,7 +22,8 @@ public:
      bool paused = false;
     WINSTATE winstate = PNG;
     
-    bool enginePlaysWhite = false;
+    bool enginePlaysWhite = true;
+    bool enginePlaysBlack = true;
     
     void clearSelection(){
         for(int i=0;i< 64;i++){
@@ -40,7 +41,7 @@ public:
     std::chrono::time_point<std::chrono::system_clock> startTime ;
     
     string engineNameBlack = "Fruit";
-    string engineNameWhite = "";
+    string engineNameWhite = "Komodo";
     string bookName = "Komodo";
     
     int w_time;
@@ -69,9 +70,6 @@ public:
     string b_timeBox = "Black";
     
     bool isFlipped = false;
-    
-   
-    
     bool hasLoaded = false;
     
     Board * boards[2000];

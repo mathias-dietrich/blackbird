@@ -33,7 +33,9 @@ public:
     MoveGen *gen = new MoveGen();
     Model *model = new Model();
     Polyglot *polyglot = new Polyglot();
-    EngineWrapper  *engineWrapper = new EngineWrapper();
+    
+    EngineWrapper  *engineWhite = new EngineWrapper();
+    EngineWrapper  *engineBlack = new EngineWrapper();
     
     void makeMove(Ply ply){
         move(ply);
@@ -49,7 +51,8 @@ public:
     }
     
     void listenUCI(){
-       engineWrapper->setup(model->resourceRoot + "/"+ model->engineNameBlack);
+        engineWhite->setup(model->resourceRoot + "/"+ model->engineNameWhite);
+       engineBlack->setup(model->resourceRoot + "/"+ model->engineNameBlack);
     }
     
     /*
@@ -162,18 +165,29 @@ public:
         model->clearSelection();
         
         // if engine is black
-        if((!model->enginePlaysWhite && ! model->board->whiteToMove) || (model->enginePlaysWhite && model->board->whiteToMove ) ){
-             pthread_create(&threads[0], NULL,  newThread, this);
+        if(model->enginePlaysBlack && ! model->board->whiteToMove ){
+             pthread_create(&threads[0], NULL,  newThreadBlack, this);
+        }
+        
+        // if engine is white
+        if(model->enginePlaysWhite && model->board->whiteToMove ) {
+            pthread_create(&threads[0], NULL,  newThreadWhite, this);
         }
     }
     
-    static void* newThread(void* p)
+    static void* newThreadBlack(void* p)
     {
-        static_cast<Engine*>(p)->makeEngineMove();
+        static_cast<Engine*>(p)->makeEngineMoveBlack();
         return NULL;
     }
     
-    void makeEngineMove(){
+    static void* newThreadWhite(void* p)
+    {
+        static_cast<Engine*>(p)->makeEngineMoveWhite();
+        return NULL;
+    }
+    
+    void makeEngineMoveBlack(){
         // can we handle in the book
         if(model->useBook){
             polyglot->bookPath = model->resourceRoot + "/" + model->bookName + ".bin";
@@ -186,8 +200,25 @@ public:
         
         string fenStr = fenparser->parse(model->board);
         model->fenStr = fenStr;
-        engineWrapper->toEngine( ("position fen " + fenStr + " \n").c_str() );
-        engineWrapper->toEngine("go movetime 5000 \n");
+        engineBlack->toEngine( ("position fen " + fenStr + " \n").c_str() );
+        engineBlack->toEngine("go movetime 5000 \n");
+    }
+    
+    void makeEngineMoveWhite(){
+        // can we handle in the book
+        if(model->useBook){
+            polyglot->bookPath = model->resourceRoot + "/" + model->bookName + ".bin";
+            Ply ply = polyglot->getBookMove(model->board);
+            if(ply.isLegal){
+                move(ply);
+                return;
+            }
+        }
+        
+        string fenStr = fenparser->parse(model->board);
+        model->fenStr = fenStr;
+        engineWhite->toEngine( ("position fen " + fenStr + " \n").c_str() );
+        engineWhite->toEngine("go movetime 5000 \n");
     }
     
     void handlePromotion(int figure){
@@ -280,7 +311,7 @@ public:
          model->enginePlaysWhite = true;
          model->startPos();
          model->isFlipped = true;
-        makeEngineMove();
+        makeEngineMoveBlack();
     }
     
     void flip(){
