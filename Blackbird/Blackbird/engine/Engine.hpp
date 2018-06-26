@@ -20,6 +20,7 @@
 #include "Fen.hpp"
 #include "Observer.hpp"
 #include "Polyglot.hpp"
+#include "Zobrist.hpp"
 
 using namespace std;
 
@@ -34,7 +35,7 @@ private:
     
 public:
 
-    
+    Zobrist *zobrist = new Zobrist();
     Fen *fenparser = new Fen();
     Eval *eval = new Eval();
     MoveGen *gen = new MoveGen();
@@ -154,6 +155,9 @@ public:
         ply2.from = from;
         ply2.to = to;
         model->board->move(ply2);
+        
+        // get Zobrist Hash
+        cout << "Zobrist Hash: " << zobrist->hash(model->board);
         
         if(model->isPromotion ){
             return;

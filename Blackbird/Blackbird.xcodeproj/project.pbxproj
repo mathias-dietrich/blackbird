@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		40378C3C20D5DBB200BCE787 /* Eval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40378C3A20D5DBB200BCE787 /* Eval.cpp */; };
 		40378C3F20D6064200BCE787 /* EngineWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40378C3D20D6064200BCE787 /* EngineWrapper.cpp */; };
-		4056A9F720D987D2009A29D2 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4056A9F620D987D2009A29D2 /* WebKit.framework */; };
 		4056A9FB20D9B86E009A29D2 /* Akobian.pgn in Resources */ = {isa = PBXBuildFile; fileRef = 4056A9F920D9B86E009A29D2 /* Akobian.pgn */; };
 		4056A9FC20D9B86E009A29D2 /* Adams.pgn in Resources */ = {isa = PBXBuildFile; fileRef = 4056A9FA20D9B86E009A29D2 /* Adams.pgn */; };
 		40786EC120D70839003C3E52 /* Arasanx in Resources */ = {isa = PBXBuildFile; fileRef = 40786EB920D70815003C3E52 /* Arasanx */; };
@@ -60,6 +59,7 @@
 		4056A9F620D987D2009A29D2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4056A9F920D9B86E009A29D2 /* Akobian.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Akobian.pgn; sourceTree = "<group>"; };
 		4056A9FA20D9B86E009A29D2 /* Adams.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Adams.pgn; sourceTree = "<group>"; };
+		4056A9FD20E08D00009A29D2 /* Zobrist.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Zobrist.hpp; sourceTree = "<group>"; };
 		40786EB920D70815003C3E52 /* Arasanx */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = Arasanx; sourceTree = "<group>"; };
 		40786EBA20D70815003C3E52 /* Komodo */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = Komodo; sourceTree = "<group>"; };
 		40786EBB20D70815003C3E52 /* Fruit */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = Fruit; sourceTree = "<group>"; };
@@ -126,7 +126,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4056A9F720D987D2009A29D2 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +265,7 @@
 				40786ED220D80101003C3E52 /* Polyglot.hpp */,
 				40786ED420D8022A003C3E52 /* pg_key.h */,
 				40786ED520D8024A003C3E52 /* pg_show.h */,
+				4056A9FD20E08D00009A29D2 /* Zobrist.hpp */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -301,6 +301,11 @@
 				TargetAttributes = {
 					40C14A6720D2BEDF00EDDE27 = {
 						CreatedOnToolsVersion = 9.4;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -516,7 +521,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CXX0X_EXTENSIONS = YES;
 				CODE_SIGN_ENTITLEMENTS = Blackbird/Blackbird.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R2WLDRKRB6;
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /usr/local/Cellar/boost/1.67.0_1;
@@ -533,8 +539,10 @@
 					"-lboost_filesystem",
 					"-lboost_system",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.etiamo.blackbird.Blackbird;
+				PRODUCT_BUNDLE_IDENTIFIER = com.etiamo.blackbird.Chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d98f8e23-bd8c-4178-8049-a96ab5810e6a";
+				PROVISIONING_PROFILE_SPECIFIER = chess;
 			};
 			name = Debug;
 		};
@@ -547,7 +555,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CXX0X_EXTENSIONS = YES;
 				CODE_SIGN_ENTITLEMENTS = Blackbird/Blackbird.entitlements;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = R2WLDRKRB6;
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = /usr/local/Cellar/boost/1.67.0_1;
@@ -563,8 +572,10 @@
 					"-lboost_filesystem",
 					"-lboost_system",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.etiamo.blackbird.Blackbird;
+				PRODUCT_BUNDLE_IDENTIFIER = com.etiamo.blackbird.Chess;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d98f8e23-bd8c-4178-8049-a96ab5810e6a";
+				PROVISIONING_PROFILE_SPECIFIER = chess;
 			};
 			name = Release;
 		};
