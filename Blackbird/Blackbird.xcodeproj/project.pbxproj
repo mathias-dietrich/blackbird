@@ -56,6 +56,7 @@
 		40378C3B20D5DBB200BCE787 /* Eval.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Eval.hpp; sourceTree = "<group>"; };
 		40378C3D20D6064200BCE787 /* EngineWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EngineWrapper.cpp; sourceTree = "<group>"; };
 		40378C3E20D6064200BCE787 /* EngineWrapper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EngineWrapper.hpp; sourceTree = "<group>"; };
+		403B1EAA20E1E5B300348328 /* Transposition.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transposition.hpp; sourceTree = "<group>"; };
 		4056A9F620D987D2009A29D2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4056A9F920D9B86E009A29D2 /* Akobian.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Akobian.pgn; sourceTree = "<group>"; };
 		4056A9FA20D9B86E009A29D2 /* Adams.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Adams.pgn; sourceTree = "<group>"; };
@@ -266,6 +267,7 @@
 				40786ED420D8022A003C3E52 /* pg_key.h */,
 				40786ED520D8024A003C3E52 /* pg_show.h */,
 				4056A9FD20E08D00009A29D2 /* Zobrist.hpp */,
+				403B1EAA20E1E5B300348328 /* Transposition.hpp */,
 			);
 			path = engine;
 			sourceTree = "<group>";

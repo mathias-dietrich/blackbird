@@ -21,6 +21,7 @@
 #include "Observer.hpp"
 #include "Polyglot.hpp"
 #include "Zobrist.hpp"
+#include "Transposition.hpp"
 
 using namespace std;
 
@@ -34,7 +35,7 @@ private:
     static  Engine * m_pInstance;
     
 public:
-
+    Transposition  *transposition = new Transposition();
     Zobrist *zobrist = new Zobrist();
     Fen *fenparser = new Fen();
     Eval *eval = new Eval();
