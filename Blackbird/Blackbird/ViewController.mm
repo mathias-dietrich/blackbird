@@ -12,10 +12,6 @@
 
 @synthesize ui;
 
-- (IBAction)btnSetEngine:(id)sender{
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 }
@@ -91,5 +87,8 @@
 }
 - (IBAction)openingBookDidChange:(id)sender{
     [ui openingBookDidChange];
+}
+- (IBAction)btnSetFen:(id)sender{
+    [ui setFen];
 }
 @end

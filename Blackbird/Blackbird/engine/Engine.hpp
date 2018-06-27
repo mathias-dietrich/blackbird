@@ -436,6 +436,17 @@ public:
         return "";
     }
     
+    void setFen(string fen){
+        Board *b = fenparser->parse(fen);
+        model->fenStr = fen;
+        model->board = b;
+        model->boards[0] = b;
+        model->boardIndex = 0;
+        model->boardMax = 1;
+        model->pausedWhite = true;
+        model->pausedBlack = true;
+    }
+    
 private:
      pthread_t threads[1];
 };

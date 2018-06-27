@@ -783,7 +783,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="btnDraw:" target="XfG-lQ-9wD" id="sJF-Ia-5hB"/>
+                                    <action selector="btnSetFen:" target="XfG-lQ-9wD" id="u6g-v2-Abd"/>
                                 </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bYL-Tp-G2J">

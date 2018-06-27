@@ -104,13 +104,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/NSView+UI.mm"
-            timestampString = "551205286.237236"
+            timestampString = "551765025.255748"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "571"
-            endingLineNumber = "571"
-            landmarkName = "-forward"
-            landmarkType = "7">
+            startingLineNumber = "578"
+            endingLineNumber = "578"
+            landmarkName = "UI"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -120,7 +120,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/NSView+UI.mm"
-            timestampString = "551205286.2373689"
+            timestampString = "551765025.256145"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "158"
@@ -152,7 +152,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/engine/Engine.hpp"
-            timestampString = "551674316.469179"
+            timestampString = "551765025.256412"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "162"

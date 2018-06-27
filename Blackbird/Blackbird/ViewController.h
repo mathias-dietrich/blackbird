@@ -29,7 +29,7 @@
 - (IBAction)btnDebug:(id)sender;
 - (IBAction)btnClear:(id)sender;
 - (IBAction)btnDraw:(id)sender;
-- (IBAction)btnSetEngine:(id)sender;
+- (IBAction)btnSetFen:(id)sender;
 
 
 - (IBAction)radioPng:(id)sender;

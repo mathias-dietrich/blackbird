@@ -82,6 +82,8 @@
 - (void)engineWhiteDidChange;
 - (void)engineBlackDidChange;
 - (void)openingBookDidChange;
+
+- (void)setFen;
 @end
 
 

@@ -14,6 +14,7 @@
 #include <vector>
 #include <sstream>
 
+#include "Type.hpp"
 #include "Helper.hpp"
 #include "Board.hpp"
 #include "m42.h"
@@ -21,6 +22,202 @@
 class Fen{
 public:
     
+    Board * parse(string fen){
+        Board *cboard = new Board();
+
+        for(int i=0; i < 64; i++){
+            cboard->fields[i] = 0;
+        }
+        
+        int column = 0;
+        int row = 7;
+        
+        bool parseEnd = false;
+        for(int i=0; i < fen.length(); i++){
+            
+            if(parseEnd){
+                string end = "";
+                for(; i < fen.length(); i++){
+                    end +=fen.at(i);
+                }
+                
+                std::stringstream os(end); // a standard stringstream which parses 's'
+                std::string temp;
+                
+                int state = 0;
+                while (os >> temp) {
+                    
+                    switch(state){
+                            
+                        case 0:
+                            if(temp =="w"){
+                                cboard->whiteToMove = true;
+                            }else{
+                                cboard->whiteToMove = false;
+                            }
+                            state++;
+                            break;
+                            
+                        case 1:
+                            cboard->b_casteS = false;
+                            cboard->w_casteS = false;
+                            cboard->w_casteL = false;
+                            cboard->b_casteL = false;
+                            if (temp.find("K") != std::string::npos) {
+                                cboard->w_casteS = true;
+                            }
+                            if (temp.find("Q") != std::string::npos) {
+                                cboard->w_casteL = true;
+                            }
+                            if (temp.find("k") != std::string::npos) {
+                                cboard->b_casteS = true;
+                            }
+                            if (temp.find("q") != std::string::npos) {
+                                cboard->b_casteL = true;
+                            }
+                            state++;
+                            break;
+                            
+                        case 2:
+                            if(temp.find("3") !=std::string::npos)
+                            {
+                                int r = temp[0]-64;
+                                cboard->w_enPasse = MASK[27+r];
+                            }
+                            if(temp.find("4")!=std::string::npos)
+                            {
+                                int r = temp[0]-64;
+                                cboard->w_enPasse = MASK[43+r];
+                            }
+                            state++;
+                            break;
+                            
+                        case 3:
+                            int num;
+                            std::istringstream(temp) >> num;
+                            cboard->rule50 = num;
+                            state++;
+                            break;
+                            
+                        case 4:
+                            int num2;
+                            std::istringstream(temp) >> num2;
+                          //  cboard->fullmoves = (num2-1) ;
+                            if(!cboard->whiteToMove){
+                                //cboard->fullmoves++;
+                            }
+                            state++;
+                    }
+                }
+                return cboard;
+            }
+            
+            switch(fen.at(i)){
+                    
+                case ' ':
+                    parseEnd = true;
+                    break;
+                    
+                case '/':
+                    row--;
+                    column = 0;
+                    break;
+                    
+                case '1':
+                    column++;
+                    break;
+                    
+                case '2':
+                    column+=2;
+                    break;
+                    
+                case '3':
+                    column+=3;
+                    break;
+                    
+                case '4':
+                    column+=4;
+                    break;
+                    
+                case '5':
+                    column+=5;
+                    break;
+                    
+                case '6':
+                    column+=6;
+                    break;
+                    
+                case '7':
+                    column+=7;
+                    break;
+                    
+                case '8':
+                    column+=8;
+                    break;
+                    
+                case 'r':
+                    cboard->fields[row*8+column] = B_ROOK;
+                    column++;
+                    break;
+                    
+                case 'n':
+                    cboard->fields[row*8+column] = B_KNIGHT;
+                    column++;
+                    break;
+                    
+                case 'b':
+                    cboard->fields[row*8+column] = B_BISHOP;
+                    column++;
+                    break;
+                    
+                case 'q':
+                    cboard->fields[row*8+column] = B_QUEEN;
+                    column++;
+                    break;
+                    
+                case 'k':
+                    cboard->fields[row*8+column] = B_KING;
+                    column++;
+                    break;
+                    
+                case 'p':
+                    cboard->fields[row*8+column] = B_PAWN;
+                    column++;
+                    break;
+                    
+                case 'R':
+                    cboard->fields[row*8+column] = W_ROOK;
+                    column++;
+                    break;
+                    
+                case 'N':
+                    cboard->fields[row*8+column] = W_KNIGHT;
+                    column++;
+                    break;
+                    
+                case 'B':
+                    cboard->fields[row*8+column] = W_BISHOP;
+                    column++;
+                    break;
+                    
+                case 'Q':
+                    cboard->fields[row*8+column] = W_QUEEN;
+                    column++;
+                    break;
+                    
+                case 'K':
+                    cboard->fields[row*8+column] = W_KING;
+                    column++;
+                    break;
+                    
+                case 'P':
+                    cboard->fields[row*8+column] = W_PAWN;
+                    column++;
+                    break;
+            }
+        }
+        return cboard;
+    }
     
     string parse(Board * board){
         string fen = "";

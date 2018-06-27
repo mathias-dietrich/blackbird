@@ -149,7 +149,7 @@ Engine *engine;
     }
     
     boxMove.stringValue = [NSString stringWithFormat:@"Move: %d", engine->model->board->moveId];
-    fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
+   // fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
     [self setNeedsDisplay:YES];
 }
 
@@ -187,6 +187,9 @@ Engine *engine;
                                                  selector:@selector(listenUCI:)
                                                    object:nil]; //how to pass callback block here?
     [myThread start];
+    
+     fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
+    
     [self update];
 }
 
@@ -549,6 +552,7 @@ Engine *engine;
     engine->model->startTime = std::chrono::system_clock::now();
     engine->newWhite();
     engine->model->runClock = true;
+     fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
     [self update];
 }
 
@@ -556,6 +560,9 @@ Engine *engine;
     engine->model->startTime = std::chrono::system_clock::now();
     engine->newBlack();
     engine->model->runClock = true;
+    
+    fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
+    
     [self update];
 }
 
@@ -658,6 +665,11 @@ Engine *engine;
     }
     engine->model->bookName = bookName;
     engine->model->useBook = true;
+    [self update];
+}
+- (void)setFen{
+     string fen = std::string([fenField.stringValue UTF8String]);
+     engine->setFen(fen);
     [self update];
 }
 @end

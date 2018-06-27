@@ -20,7 +20,6 @@ class Model {
     
 public:
     
-    
     int engineTimeoutWhite = 10000;
     int engineTimeoutBlack = 10000;
     
@@ -39,7 +38,6 @@ public:
         selField = -1;
     }
     
-   
     bool useBook = true;
     
     string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
