@@ -25,10 +25,8 @@
 #include "Helper.hpp"
 #include "Board.hpp"
 #include "m42.h"
-#include <boost/process.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/asio.hpp>
 #include "Observer.hpp"
+
 
 using namespace std;
 
@@ -47,9 +45,9 @@ public:
         
         Ply ply;
         if(isEngineWhite){
-            observer->makeMoveWhite(ply);
+           // observer->makeMoveWhite(ply);
         }else{
-            observer->makeMoveBlack(ply);
+           // observer->makeMoveBlack(ply);
         }
     }
 };
