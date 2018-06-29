@@ -876,12 +876,13 @@
                             <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P1W-9l-A4z">
                                 <rect key="frame" x="866" y="835" width="206" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Komodo" drawsBackground="YES" completes="NO" numberOfVisibleItems="8" id="BA7-HA-JOg">
+                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="User" drawsBackground="YES" completes="NO" numberOfVisibleItems="8" id="BA7-HA-JOg">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <objectValues>
                                         <string>User</string>
+                                        <string>Blackbird</string>
                                         <string>Fruit</string>
                                         <string>Stockfish</string>
                                         <string>BBEngine</string>
@@ -937,12 +938,13 @@
                             <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UfS-DO-q3D">
                                 <rect key="frame" x="1166" y="836" width="205" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Fruit" drawsBackground="YES" completes="NO" numberOfVisibleItems="8" id="cxJ-Ed-xJI">
+                                <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="Blackbird" drawsBackground="YES" completes="NO" numberOfVisibleItems="8" id="cxJ-Ed-xJI">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <objectValues>
                                         <string>User</string>
+                                        <string>Blackbird</string>
                                         <string>Fruit</string>
                                         <string>Stockfish</string>
                                         <string>BBEngine</string>

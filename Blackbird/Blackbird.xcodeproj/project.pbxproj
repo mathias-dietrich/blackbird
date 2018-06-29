@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		40378C3C20D5DBB200BCE787 /* Eval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40378C3A20D5DBB200BCE787 /* Eval.cpp */; };
 		40378C3F20D6064200BCE787 /* EngineWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40378C3D20D6064200BCE787 /* EngineWrapper.cpp */; };
+		404CBFCF20E5ED4D00F59997 /* Uci.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 404CBFCD20E5ED4D00F59997 /* Uci.cpp */; };
 		4056A9FB20D9B86E009A29D2 /* Akobian.pgn in Resources */ = {isa = PBXBuildFile; fileRef = 4056A9F920D9B86E009A29D2 /* Akobian.pgn */; };
 		4056A9FC20D9B86E009A29D2 /* Adams.pgn in Resources */ = {isa = PBXBuildFile; fileRef = 4056A9FA20D9B86E009A29D2 /* Adams.pgn */; };
 		40786EC120D70839003C3E52 /* Arasanx in Resources */ = {isa = PBXBuildFile; fileRef = 40786EB920D70815003C3E52 /* Arasanx */; };
@@ -57,6 +58,8 @@
 		40378C3D20D6064200BCE787 /* EngineWrapper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EngineWrapper.cpp; sourceTree = "<group>"; };
 		40378C3E20D6064200BCE787 /* EngineWrapper.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EngineWrapper.hpp; sourceTree = "<group>"; };
 		403B1EAA20E1E5B300348328 /* Transposition.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Transposition.hpp; sourceTree = "<group>"; };
+		404CBFCD20E5ED4D00F59997 /* Uci.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Uci.cpp; sourceTree = "<group>"; };
+		404CBFCE20E5ED4D00F59997 /* Uci.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Uci.hpp; sourceTree = "<group>"; };
 		4056A9F620D987D2009A29D2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		4056A9F920D9B86E009A29D2 /* Akobian.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Akobian.pgn; sourceTree = "<group>"; };
 		4056A9FA20D9B86E009A29D2 /* Adams.pgn */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Adams.pgn; sourceTree = "<group>"; };
@@ -268,6 +271,8 @@
 				40786ED520D8024A003C3E52 /* pg_show.h */,
 				4056A9FD20E08D00009A29D2 /* Zobrist.hpp */,
 				403B1EAA20E1E5B300348328 /* Transposition.hpp */,
+				404CBFCD20E5ED4D00F59997 /* Uci.cpp */,
+				404CBFCE20E5ED4D00F59997 /* Uci.hpp */,
 			);
 			path = engine;
 			sourceTree = "<group>";
@@ -384,6 +389,7 @@
 				40DBFA8620D4778B005529E1 /* m42.cpp in Sources */,
 				40DBFA8020D40DB7005529E1 /* MoveGen.cpp in Sources */,
 				40786ECE20D735A6003C3E52 /* Global.cpp in Sources */,
+				404CBFCF20E5ED4D00F59997 /* Uci.cpp in Sources */,
 				40378C3F20D6064200BCE787 /* EngineWrapper.cpp in Sources */,
 				40C14A8A20D2C0BA00EDDE27 /* NSView+UI.mm in Sources */,
 			);
