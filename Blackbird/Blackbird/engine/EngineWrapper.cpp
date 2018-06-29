@@ -14,9 +14,16 @@
 bool isEngineRunning = false;
 
 void EngineWrapper::setup(string engine){
+   
     if(isEngineRunning){
         quit();
     }
+    if(engine.substr(engine.length()-9) == "Blackbird"){
+        isEngineRunning = true;
+        isUci = true;
+        return;
+    }
+     isUci = false;
     const char *cstr = engine.c_str();
     createChild(cstr);
     pthread_create(&threads[0], NULL,  staticFunction, this);
@@ -24,6 +31,9 @@ void EngineWrapper::setup(string engine){
 }
 
 void EngineWrapper::quit(){
+    if(isUci){
+        return;
+    }
     toEngine("quit\n");
 }
 
@@ -109,6 +119,11 @@ void EngineWrapper::memberFunction()
 
 // Include error check here
 void EngineWrapper::toEngine(const char* msg) {
+    if(isUci){
+        string cmd(msg);
+        uci->listen(cmd);
+        return;
+    }
     write(aStdinPipe[PIPE_WRITE], msg, strlen(msg));
 }
 

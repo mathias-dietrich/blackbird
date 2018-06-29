@@ -49,6 +49,18 @@ public:
     
     void memberFunction();
     
+    void listen(string cmd){
+        
+        // split
+        
+        
+        // position
+        
+        // go
+        
+        cout << cmd << endl;
+    }
+    
     void analyse(string fen){
          fenStr = fen;
          pthread_create(&threads[0], NULL,  staticFunction, this);

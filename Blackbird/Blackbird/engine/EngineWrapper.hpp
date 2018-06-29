@@ -34,6 +34,7 @@
 #include <boost/asio.hpp>
 
 #include "Observer.hpp"
+#include "Uci.hpp"
 
 
 using namespace std;
@@ -44,7 +45,10 @@ namespace bp = ::boost::process;
 
 class EngineWrapper {
 public:
-
+    bool isUci = false;
+    
+    Uci *uci = new Uci();
+    
     bool isEngineWhite;
     static void* staticFunction(void* p)
     {

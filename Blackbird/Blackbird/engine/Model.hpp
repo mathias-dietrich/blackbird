@@ -45,9 +45,9 @@ public:
     
     std::chrono::time_point<std::chrono::system_clock> startTime ;
     
-    string engineNameBlack = "Fruit";
     string engineNameWhite = "Komodo";
-    string bookName = "Komodo";
+    string engineNameBlack = "Blackbird";
+    string bookName = "No Opening Book";
     
     int w_time;
     int b_time;
