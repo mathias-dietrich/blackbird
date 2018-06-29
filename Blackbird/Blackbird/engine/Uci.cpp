@@ -20,13 +20,7 @@ void Uci::memberFunction()
     
     // sort moves
     
+    analyzer->analyze(maxDepth, maxTime, fenStr);
     
-    bool isEngineWhite = true;
-    
-    Ply ply;
-    if(isEngineWhite){
-        observer->makeMoveWhite(ply);
-    }else{
-        observer->makeMoveBlack(ply);
-    }
+   
 }

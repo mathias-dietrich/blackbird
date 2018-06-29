@@ -72,7 +72,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/engine/EngineWrapper.hpp"
-            timestampString = "551941238.040884"
+            timestampString = "551942069.8242871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "75"
@@ -88,7 +88,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/engine/EngineWrapper.hpp"
-            timestampString = "551941238.040939"
+            timestampString = "551942069.824352"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "75"
@@ -136,7 +136,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/engine/EngineWrapper.cpp"
-            timestampString = "551941238.041005"
+            timestampString = "551942069.82443"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "27"
@@ -164,16 +164,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Blackbird/Blackbird/engine/Uci.hpp"
-            timestampString = "551941238.041293"
+            filePath = "Blackbird/Blackbird/engine/EngineWrapper.cpp"
+            timestampString = "551942069.824501"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "listen(string cmd)"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "EngineWrapper::setup(string engine)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -183,13 +183,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Blackbird/Blackbird/engine/EngineWrapper.cpp"
-            timestampString = "551941238.041337"
+            filePath = "Blackbird/Blackbird/engine/Uci.hpp"
+            timestampString = "551942069.824546"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "EngineWrapper::setup(string engine)"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "listen(string cmd)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
