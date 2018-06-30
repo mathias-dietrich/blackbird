@@ -120,7 +120,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/engine/Engine.hpp"
-            timestampString = "551765025.256412"
+            timestampString = "552067155.158666"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "162"
@@ -148,15 +148,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/engine/Uci.hpp"
-            timestampString = "552007117.886029"
+            timestampString = "552067433.853928"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "listen(string cmd)"
             landmarkType = "7">
          </BreakpointContent>
@@ -167,29 +167,61 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Blackbird/BlackirdEngine/main.cpp"
-            timestampString = "552007117.886137"
+            filePath = "Blackbird/Blackbird/engine/Analyzer.hpp"
+            timestampString = "552067433.853997"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "main(int argc, const char * argv[])"
-            landmarkType = "9">
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "minmax(int depth, Board * board, bool playerColor,int alpha ,int beta, bool isMaximizingPlayer)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Analyzer::Analyzer()"
+                  moduleName = "BlackirdEngine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mat/blackbird/Blackbird/BlackirdEngine/../Blackbird/engine/Analyzer.hpp"
+                  timestampString = "552066740.57805"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "162"
+                  endingLineNumber = "162"
+                  offsetFromSymbolStart = "572">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Analyzer::minmax(int, Board*, bool, int, int, bool)"
+                  moduleName = "BlackirdEngine"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mat/blackbird/Blackbird/Blackbird/engine/Analyzer.hpp"
+                  timestampString = "552066740.580115"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "65"
+                  endingLineNumber = "65"
+                  offsetFromSymbolStart = "101">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Blackbird/Blackbird/engine/Analyzer.hpp"
-            timestampString = "552007117.8862081"
+            filePath = "Blackbird/Blackbird/engine/Board.hpp"
+            timestampString = "552067433.85412"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "analyze(int depth, int time, string fen)"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "calcBitboards()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

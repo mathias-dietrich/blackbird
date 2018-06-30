@@ -21,6 +21,7 @@
 		404CBFE620E6DD9C00F59997 /* Global.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40786ECD20D735A6003C3E52 /* Global.cpp */; };
 		404CBFE720E6DDA000F59997 /* Polyglot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 40786ED120D80101003C3E52 /* Polyglot.cpp */; };
 		404CBFE820E6DDA800F59997 /* Analyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 404CBFD020E6DA2B00F59997 /* Analyzer.cpp */; };
+		404CBFE920E7CF1D00F59997 /* Uci.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 404CBFCD20E5ED4D00F59997 /* Uci.cpp */; };
 		4056A9FB20D9B86E009A29D2 /* Akobian.pgn in Resources */ = {isa = PBXBuildFile; fileRef = 4056A9F920D9B86E009A29D2 /* Akobian.pgn */; };
 		4056A9FC20D9B86E009A29D2 /* Adams.pgn in Resources */ = {isa = PBXBuildFile; fileRef = 4056A9FA20D9B86E009A29D2 /* Adams.pgn */; };
 		40786EC120D70839003C3E52 /* Arasanx in Resources */ = {isa = PBXBuildFile; fileRef = 40786EB920D70815003C3E52 /* Arasanx */; };
@@ -456,6 +457,7 @@
 				404CBFE220E6DD8400F59997 /* Board.cpp in Sources */,
 				404CBFE320E6DD8A00F59997 /* MoveGen.cpp in Sources */,
 				404CBFE020E6DD7B00F59997 /* Eval.cpp in Sources */,
+				404CBFE920E7CF1D00F59997 /* Uci.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

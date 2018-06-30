@@ -109,6 +109,7 @@ public:
                             state++;
                     }
                 }
+                cboard->calcBitboards();
                 return cboard;
             }
             
@@ -216,6 +217,7 @@ public:
                     break;
             }
         }
+        cboard->calcBitboards();
         return cboard;
     }
     

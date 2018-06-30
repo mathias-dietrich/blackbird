@@ -21,11 +21,47 @@ using namespace std;
 
 class MoveGen{
 public:
+    
     uint64_t w_prawnMoves[64];
     uint64_t b_prawnMoves[64];
     uint64_t w_prawnCatch[64];
     uint64_t b_prawnCatch[64];
     uint64_t knight[64];
+    
+    // TODO what do we need to sort the moves? Ply needs more info
+    vector<Ply> generateAll(Board * board){
+        vector<Ply> moves;
+        if(board->whiteToMove){
+            for (int i=0; i < 64; i++)
+            {
+                if(board->fields[i] > 0 ){
+                    uint64_t f = generate(board, i);
+                    vector<int> to = convertToPositions(f);
+                    for(int j=0 ; j< to.size();j++){
+                        Ply ply;
+                        ply.from = i;
+                        ply.to = to.at(j);
+                        moves.push_back(ply);
+                    }
+                }
+            }
+        }else{
+            for (int i=0; i < 64; i++)
+            {
+                if(board->fields[i] < 0 ){
+                     uint64_t f = generate(board, i);
+                    vector<int> to = convertToPositions(f);
+                    for(int j=0 ; j< to.size();j++){
+                        Ply ply;
+                        ply.from = i;
+                        ply.to = to.at(j);
+                        moves.push_back(ply);
+                    }
+                }
+            }
+        }
+        return moves;
+    }
     
     MoveGen(){
         
@@ -541,12 +577,6 @@ public:
                 // short castle
                 if(board->w_casteS && board->fields[5]==EMPTY && board->fields[6]==EMPTY){
                     if(reachable(board, true, 4) || reachable(board, true, 5) || reachable(board, true, 6)){
-                        
-                        
-                        cout << "reachable" << endl;
-                        bool a = reachable(board, true, 4);
-                        bool b = reachable(board, true, 5);
-                        bool c =reachable(board, true, 6);
                     }else{
                         r = r | s << 6;
                     }

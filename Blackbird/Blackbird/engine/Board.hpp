@@ -21,9 +21,8 @@ using namespace std;
 class Board{
     
 public:
+    vector<Board *> history;
     
-    //Board * parent;
-    //vector<Board *> childen;
     int boardId = 0;
     
     Ply ply;
@@ -196,10 +195,64 @@ public:
         all = ~empty;
     }
     
+    
+    void undoMove(){
+        Board *b = history.back();
+        set(b);
+        history.pop_back();
+    }
+    
+    void set(Board * b){
+        all =  b->all;
+        empty = b->empty;
+        
+        b_all = b->b_all;
+        w_all = b->w_all;
+        
+        b_rook = b->b_rook;
+        w_rook = b->w_rook;
+        
+        b_knight = b->b_knight;
+        w_knight = b->w_knight;
+        
+        b_bishop = b->b_bishop;
+        w_bishop = b->w_bishop;
+        
+        b_queen = b->b_queen;
+        w_queen = b->w_queen;
+        
+        b_king = b->b_king;
+        w_king = b->w_king;
+        
+        b_pawn = b->b_pawn;
+        w_pawn = b->w_pawn;
+        
+        w_casteL = b->w_casteL;
+        w_casteS = b->w_casteS;
+        
+        b_casteL = b->b_casteL;
+        b_casteS = b->b_casteS;
+        
+        boardId = b->boardId;
+        moveId = b->moveId;
+        moveStr = b->moveStr;
+        
+        w_enPasse = b->w_enPasse;
+        b_enPasse = b->b_enPasse;
+        
+        for(int i=0; i < 64; i++){
+            fields[i] = b->fields[i];
+        }
+        comment = b->comment;
+        rule50 = b->rule50;
+    }
+    
     /*
      Moving a Piece
      */
     void move(Ply ply){
+        history.push_back(this->copy());
+        
         int from = ply.from;
         int to = ply.to;
         
@@ -362,6 +415,7 @@ public:
         c->whiteToMove = whiteToMove;
         c->boardId = boardId;
         c->moveId = moveId;
+        c->moveStr = moveStr;
         c->ply = ply;
         
         return c;

@@ -5,6 +5,7 @@
 //  Created by Mathias Dietrich on 6/28/18.
 //  Copyright © 2018 Mathias Dietrich. All rights reserved.
 //
+// http://wbec-ridderkerk.nl/html/UCIProtocol.html
 
 #pragma once
 
@@ -43,6 +44,8 @@ public:
     string fenStr = "";
     int maxTime = 5000;
     int maxDepth = 32;
+    
+    //  MinMax itself
     Analyzer *analyzer = new Analyzer();
     
     static void* staticFunction(void* p)
@@ -53,7 +56,7 @@ public:
     
     void memberFunction();
     
-    void listen(string cmd){
+    bool listen(string cmd){
         
         // split
         stringstream ss(cmd);
@@ -63,6 +66,23 @@ public:
             tokens.push_back(item);
         }
         
+        if(tokens.size() == 0){
+            return true;
+        }
+        if(tokens.at(0) == "quit"){
+            return false;
+            
+        }
+        if(tokens.at(0) == "stop"){
+            analyzer->stop();
+            return true;
+            
+        }
+        if(tokens.at(0) == "uci"){
+            cout << "uci ok" << endl;
+            return true;
+            
+        }
         if(tokens.at(0) == "position"){
             
             string fen = "";
@@ -71,12 +91,13 @@ public:
                 fen += tokens.at(i) + " ";
             }
             cout << fen << endl;
+            fenStr = fen;
             
             // https://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring    trim
         }
         
         if(tokens.at(0) == "go"){
-            
+            analyse();
         }
         
         
@@ -85,10 +106,10 @@ public:
         // go
         
         cout << cmd << endl;
+        return true;
     }
     
-    void analyse(string fen){
-         fenStr = fen;
+    void analyse(){
          pthread_create(&threads[0], NULL,  staticFunction, this);
     }
     
