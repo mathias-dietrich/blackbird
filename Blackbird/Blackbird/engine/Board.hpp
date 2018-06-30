@@ -251,8 +251,12 @@ public:
      Moving a Piece
      */
     void move(Ply ply){
+       
+        //copy
         history.push_back(this->copy());
         
+        //
+        this->ply = ply;
         int from = ply.from;
         int to = ply.to;
         
@@ -375,6 +379,7 @@ public:
         cout << "whiteToMove " << whiteToMove << endl;
         cout << "boardId " << boardId << endl;
         
+        ply.printAll();
         delete helper;
     }
     

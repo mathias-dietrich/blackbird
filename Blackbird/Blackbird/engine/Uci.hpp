@@ -43,7 +43,7 @@ public:
     
     string fenStr = "";
     int maxTime = 5000;
-    int maxDepth = 32;
+    int maxDepth = 2;
     
     //  MinMax itself
     Analyzer *analyzer = new Analyzer();

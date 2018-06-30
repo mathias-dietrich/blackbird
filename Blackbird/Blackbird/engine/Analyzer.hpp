@@ -46,6 +46,11 @@ public:
     bool isStop = false;
     Eval *eval = new Eval();
     MoveGen *moveGen = new MoveGen();
+    int value;
+    
+    bool isDebug = true;
+    
+     Board *boardFinal;
     
     void stop(){
         isStop = true;
@@ -55,76 +60,76 @@ public:
         return eval->eval(board, board->whiteToMove);
     }
     
+    
+    void sortMoves(vector<Ply> * moves, bool randomize){
+        
+    }
+    
     int minmax(int depth, Board * board, bool playerColor,int alpha ,int beta, bool isMaximizingPlayer){
    
          if (depth == 0) {
+              boardFinal = board;
              return evaluateBoard(board);
+            
          }
         
+        // Recursive case: search possible movesb
         Ply bestMove;
         vector<Ply> possibleMoves = moveGen->generateAll(board);
         int count = 0;
-        for(int i=0; i< possibleMoves.size(); i++){
-            Ply p = possibleMoves.at(i);
-            cout << "===========================" << endl;
-            cout << count << endl;
-            count++;
-            p.printAll();
+        
+        //Debug print moves
+        if(isDebug){
+            for(int i=0; i< possibleMoves.size(); i++){
+                Ply p = possibleMoves.at(i);
+                cout << "===========================" << endl;
+                cout << count << endl;
+                count++;
+                p.printAll();
+            }
         }
-    /*
-         // Recursive case: search possible movesb
-         var bestMove = null; // best move not set yet
-         var possibleMoves = game.moves();
-     
-         // Set random order for possible moves
-         possibleMoves.sort(function(a, b){return 0.5 - Math.random()});
-     
-         // Set a default best move value
-         var bestMoveValue = isMaximizingPlayer ? Number.NEGATIVE_INFINITY: Number.POSITIVE_INFINITY;
-     
-         // Search through all possible moves
-         for (var i = 0; i < possibleMoves.length; i++) {
-             var move = possibleMoves[i];
-              
-             // Make the move, but undo before exiting loop
-             game.move(move);
-              
-              
-             // Recursively get the value from this move
-             value = calcBestMove(depth-1, game, playerColor, alpha, beta, !isMaximizingPlayer)[0];
-              
-             // Log the value of this move
-             console.log(isMaximizingPlayer ? 'Max: ' : 'Min: ', depth, move, value,
-             bestMove, bestMoveValue);
-             
-             if (isMaximizingPlayer) {
-                 // Look for moves that maximize position
-                 if (value > bestMoveValue) {
-                 bestMoveValue = value;
-                 bestMove = move;
-             }
-             alpha = Math.max(alpha, value);
-              
-             } else {
-                 // Look for moves that minimize position
-                 if (value < bestMoveValue) {
-                 bestMoveValue = value;
-                 bestMove = move;
-             }
-             beta = Math.min(beta, value);
-         }
-              
-         // Undo previous move
-         game.undo();
-              
-         // Check for alpha beta pruning
-         if (beta <= alpha) {
-              console.log('Prune', alpha, beta);
-              break;
-         }
-         */
-             
-        return 0;
+        
+        // Sort
+        sortMoves(&possibleMoves, true);
+        
+        // Set a default best move value
+        int bestMoveValue = isMaximizingPlayer ? -100000 : 100000;
+        
+        // Search through all possible moves
+        for (int i = 0; i < possibleMoves.size(); i++) {
+            
+            Ply move = possibleMoves.at(i);
+            board->move(move);
+            
+            value = minmax(depth-1, board, playerColor, alpha, beta, !isMaximizingPlayer);
+            cout << "value; " << value <<  " playerColor: " << playerColor <<  " alpha: "  << alpha <<  " beta: "  << beta << endl;
+            
+            if (isMaximizingPlayer) {
+                // Look for moves that maximize position
+                if (value > bestMoveValue) {
+                    bestMoveValue = value;
+                    bestMove = move;
+                }
+                 alpha = max(alpha, value);
+            }else {
+                // Look for moves that minimize position
+                if (value < bestMoveValue) {
+                    bestMoveValue = value;
+                    bestMove = move;
+                }
+                beta = min(beta, value);
+            }
+            
+            // undo move
+            board->undoMove();
+            
+            // prune
+            if (beta <= alpha) {
+                cout << "Prune: alpha: " << alpha << " beta: " <<  beta << endl;
+                break;
+            }
+        }
+        return value;
     }
                 
     void analyze(int depth, int time, string fenStr){
@@ -141,9 +146,13 @@ public:
         int beta = 10000000;
         
         // minmax
-        minmax(depth, this->board, board->whiteToMove, alpha, beta, true);
+        int val = minmax(depth, this->board, board->whiteToMove, alpha, beta, true);
+        cout << "==================================" << endl;
+        cout << "best move eval: " << val << endl;
        
+        boardFinal->printAll();
         
+         cout << "==================================" << endl;
         // sorting
         
         // SSE

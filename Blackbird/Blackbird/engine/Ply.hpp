@@ -21,6 +21,7 @@ using namespace std;
 typedef struct
 {
     void printAll(){
+         cout << "====== PLY =========="  << endl;
         cout << "from " << from << endl;
         cout << "to " << to << endl;
         cout << "isCapture " << isCapture << endl;
