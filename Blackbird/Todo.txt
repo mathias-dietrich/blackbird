@@ -1,22 +1,21 @@
 Todo
 ====
 
-
-Get the engine timeout parsed from UI
-select engine dropdown - engine time // needs restructering of code to run two engines
-- terminate engines correctly - done - needs testing
-
-
-Engine makes a promotion
-
+Eval Function  - center positions
+Move ordering
+SSE function
 
 save - load PNG
 
-set FEN
+- Get the engine timeout parsed from UI fields
 
-UCI interface
+- select engine dropdown - test: engine time engine change working whileplaying?
 
-Eval Function
+- Engine Move updates UI even when the clokcs are stopped Observer pattern for the UI Objecdtive-C class called from C++
 
-Min Max
+- Engine makes a promotion
+
+- terminate engines correctly - done - needs testing
+
+- FEN shows wrong move count
 

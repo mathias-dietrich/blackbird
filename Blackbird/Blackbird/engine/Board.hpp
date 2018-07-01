@@ -22,14 +22,16 @@ class Board{
     
 public:
     vector<Board *> history;
-    
     int boardId = 0;
-    
     Ply ply;
-    
+    vector<Ply> plies;
     string moveStr = "";
     int moveId = 1;
     string comment = "";
+    
+    int score = 0;
+    int materialWhite = 82000;
+    int materialBlack = 82000;
     
     Board(){
         for(int i=0;i < 64;i++){
@@ -89,6 +91,7 @@ public:
         
         calcBitboards();
     }
+    
     bool whiteToMove = true;
     
     bool w_casteL;
@@ -251,9 +254,11 @@ public:
      Moving a Piece
      */
     void move(Ply ply){
-       
+
         //copy
         history.push_back(this->copy());
+        
+        plies.push_back(ply);
         
         //
         this->ply = ply;
@@ -422,7 +427,14 @@ public:
         c->moveId = moveId;
         c->moveStr = moveStr;
         c->ply = ply;
+        c->score = score;
+        c->materialWhite = materialWhite;
+        c->materialBlack = materialWhite;
         
+        for(int i=0; i < plies.size();i++){
+            c->plies.push_back(ply);
+        }
+       
         return c;
     }
 };

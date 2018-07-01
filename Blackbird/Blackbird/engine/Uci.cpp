@@ -21,6 +21,4 @@ void Uci::memberFunction()
     // sort moves
     
     analyzer->analyze(maxDepth, maxTime, fenStr);
-    
-   
 }

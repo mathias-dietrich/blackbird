@@ -53,6 +53,7 @@
 @property (nonatomic, retain) IBOutlet NSComboBox *boxEngineWhite;
 @property (nonatomic, retain) IBOutlet NSComboBox *boxEngineBlack;
 @property (nonatomic, retain) IBOutlet NSComboBox *boxOpeningBook;
+@property (nonatomic, retain) IBOutlet NSTextField *boxScore;
 
 -(void)setup;
 -(void)newWhite;

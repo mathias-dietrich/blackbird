@@ -18,6 +18,7 @@ using namespace std;
 int main(int argc, const char * argv[]) {
 
     Uci *uci = new Uci();
+    uci->isEmbedded = false;
     
     uci->listen("uci");
     

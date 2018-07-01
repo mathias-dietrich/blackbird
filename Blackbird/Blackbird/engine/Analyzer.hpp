@@ -7,6 +7,12 @@
 //
 // https://gist.github.com/byanofsky/c8dd06cd1b1fb8d06a9dd695d07e403e
 
+// https://chessprogramming.wikispaces.com/Alpha-Beta
+
+// https://github.com/official-stockfish/Stockfish/blob/master/src/search.cpp
+
+// https://chessprogramming.wikispaces.com/Principal%20Variation%20Search
+
 #pragma once
 
 #include <stdio.h>
@@ -38,100 +44,93 @@ class Analyzer{
     
 public:
     const string engineName = "Blackbird 1  by Mathias Dietrich";
-    bool isEmbedded = false;
+    bool isEmbedded = true;
     int depth;
     int time;
     string fenStr;
     Board *board;
     bool isStop = false;
-    Eval *eval = new Eval();
-    MoveGen *moveGen = new MoveGen();
     int value;
-    
-    bool isDebug = true;
-    
-     Board *boardFinal;
-    
+    bool isDebug = false;
+    Board *boardBest;
+    int bestScore = 0;
+
     void stop(){
         isStop = true;
     }
-    
-    int evaluateBoard(Board * board){
-        return eval->eval(board, board->whiteToMove);
-    }
-    
-    
+
     void sortMoves(vector<Ply> * moves, bool randomize){
         
     }
     
-    int minmax(int depth, Board * board, bool playerColor,int alpha ,int beta, bool isMaximizingPlayer){
-   
-         if (depth == 0) {
-              boardFinal = board;
-             return evaluateBoard(board);
-            
-         }
-        
-        // Recursive case: search possible movesb
-        Ply bestMove;
-        vector<Ply> possibleMoves = moveGen->generateAll(board);
-        int count = 0;
-        
-        //Debug print moves
-        if(isDebug){
-            for(int i=0; i< possibleMoves.size(); i++){
-                Ply p = possibleMoves.at(i);
-                cout << "===========================" << endl;
-                cout << count << endl;
-                count++;
-                p.printAll();
-            }
+    // TODO implent and add SEE  Static Exchange Evaluation
+    int quiesce(Board * board, int alpha, int beta, bool whiteToMove ){
+        int score = eval->eval(board, board->whiteToMove);
+        if(board->whiteToMove == whiteToMove && score > bestScore){
+            boardBest = board;
+            bestScore = score;
+            boardBest->score = score;
+            boardBest->ply.score = score;
+            cout << "quiesce white from: " << board->ply.from << " to: " << board->ply.to << " score: " <<  board->ply.score << endl;
         }
-        
-        // Sort
-        sortMoves(&possibleMoves, true);
-        
-        // Set a default best move value
-        int bestMoveValue = isMaximizingPlayer ? -100000 : 100000;
-        
-        // Search through all possible moves
-        for (int i = 0; i < possibleMoves.size(); i++) {
-            
-            Ply move = possibleMoves.at(i);
-            board->move(move);
-            
-            value = minmax(depth-1, board, playerColor, alpha, beta, !isMaximizingPlayer);
-            cout << "value; " << value <<  " playerColor: " << playerColor <<  " alpha: "  << alpha <<  " beta: "  << beta << endl;
-            
-            if (isMaximizingPlayer) {
-                // Look for moves that maximize position
-                if (value > bestMoveValue) {
-                    bestMoveValue = value;
-                    bestMove = move;
-                }
-                 alpha = max(alpha, value);
-            }else {
-                // Look for moves that minimize position
-                if (value < bestMoveValue) {
-                    bestMoveValue = value;
-                    bestMove = move;
-                }
-                beta = min(beta, value);
-            }
-            
-            // undo move
-            board->undoMove();
-            
-            // prune
-            if (beta <= alpha) {
-                cout << "Prune: alpha: " << alpha << " beta: " <<  beta << endl;
-                break;
-            }
+        if(!board->whiteToMove == whiteToMove && score < bestScore){
+            boardBest = board;
+            bestScore = score;
+            boardBest->ply.score = score;
+            boardBest->score = score;
+            cout << "quiesce black from: " << board->ply.from << " to: " << board->ply.to << " score: " <<  board->ply.score << endl;
         }
-        return value;
+        return score;
     }
-                
+    
+    int pvSearch(Board * board, int alpha, int beta, int depth, bool whiteToMove ) {
+        if( depth == 0 ) {
+            return quiesce(board, alpha, beta, whiteToMove);
+        }
+        bool bSearchPv = true;
+        
+        vector<Ply> moves = moveGen->generateAll(board);
+        for ( int i=0;i<moves.size();i++)  {
+            Board *b = board->copy();
+            b->move(moves.at(i));
+            b->whiteToMove = ! b->whiteToMove;
+            int score;
+            if ( bSearchPv ) {
+                 score = -pvSearch(b, -beta, -alpha, depth - 1,whiteToMove);
+            } else {
+                 score = -zwSearch(b, -alpha, depth - 1,whiteToMove);
+                if ( score > alpha ) // in fail-soft ... && score < beta ) is common
+                    score = -pvSearch(b, -beta, -alpha, depth - 1,whiteToMove); // re-search
+            }
+            delete b;
+            if( score >= beta )
+                return beta;   // fail-hard beta-cutoff
+            if( score > alpha ) {
+                alpha = score; // alpha acts like max in MiniMax
+                bSearchPv = false;   // *1)
+            }
+        }
+        return alpha;
+    }
+    
+    // fail-hard zero window search, returns either beta-1 or beta
+    int zwSearch(Board *board, int beta, int depth,bool whiteToMove  ) {
+        // alpha == beta - 1
+        // this is either a cut- or all-node
+        if( depth == 0 ) return quiesce(board, beta-1, beta,whiteToMove);
+        vector<Ply> moves = moveGen->generateAll(board);
+         for ( int i=0;i<moves.size();i++)  {
+            Board *b = board->copy();
+            b->move(moves.at(i));
+            b->whiteToMove = ! b->whiteToMove;
+            int score = -zwSearch(b, 1-beta, depth - 1,whiteToMove);
+             delete b;
+            if( score >= beta )
+                return beta;   // fail-hard beta-cutoff
+        }
+        return beta-1; // fail-hard, return alpha
+    }
+
     void analyze(int depth, int time, string fenStr){
         isStop = false;
         this->depth = depth;
@@ -142,31 +141,30 @@ public:
         // Engine says Hello
         cout << engineName << endl;
         
-        int alpha = -10000000;
-        int beta = 10000000;
+        int alpha = INT_MIN;
+        int beta = INT_MAX;
+        if(board->whiteToMove){
+            bestScore = INT_MIN;
+        }else{
+            bestScore = INT_MAX;
+        }
         
         // minmax
-        int val = minmax(depth, this->board, board->whiteToMove, alpha, beta, true);
-        cout << "==================================" << endl;
-        cout << "best move eval: " << val << endl;
-       
-        boardFinal->printAll();
-        
-         cout << "==================================" << endl;
-        // sorting
-        
-        // SSE
-        
-        /*
-        Ply ply;
-        if(isEngineWhite){
-           // observer->makeMoveWhite(ply);
-        }else{
-           // observer->makeMoveBlack(ply);
+        int val = pvSearch(this->board, alpha, beta, depth, board->whiteToMove);
+        if(isEmbedded)
+        {
+            cout << "best move eval: " << val << endl;
+            
+            if( board->whiteToMove){
+                observer->makeMoveWhite(boardBest->ply);
+            }else{
+                observer->makeMoveBlack(boardBest->ply);
+            }
         }
-        */
     }
     
 private:
-     Fen *fen = new Fen();
+    Eval *eval = new Eval();
+    MoveGen *moveGen = new MoveGen();
+    Fen *fen = new Fen();
 };

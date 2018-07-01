@@ -27,24 +27,9 @@ using namespace std;
 
 class Engine : Observer{
  
-private:
-    Engine(){
-        observer = this;
-    }
-    
-    static  Engine * m_pInstance;
-    
 public:
-    Transposition  *transposition = new Transposition();
-    Zobrist *zobrist = new Zobrist();
-    Fen *fenparser = new Fen();
-    Eval *eval = new Eval();
-    MoveGen *gen = new MoveGen();
     Model *model = new Model();
-    Polyglot *polyglot = new Polyglot();
-    
-    EngineWrapper  *engineWhite = new EngineWrapper();
-    EngineWrapper  *engineBlack = new EngineWrapper();
+    MoveGen *gen = new MoveGen();
     
     void makeMoveWhite(Ply ply){
         if(!model->pausedWhite){
@@ -60,11 +45,6 @@ public:
     
     void logEngine(string msg){
         model->engineList = msg +  model->engineList;
-    }
-    
-    void evaluate(){
-        model->w_eval = eval->eval(model->board, true);
-        model->b_eval = eval->eval(model->board, false);
     }
     
     void setupEngines(){
@@ -83,6 +63,7 @@ public:
         model->lastField = to;
         Board *newBoard = model->board->copy();
         newBoard->boardId++;
+        newBoard->score = ply.score;
        
         model->boardIndex++;
         model->boardMax = model->boardIndex;
@@ -100,10 +81,10 @@ public:
                 model->rule50CaptureOrPawn = true;
             }
             if(model->board->fields[to] != EMPTY){ // capture
-                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "x" + fieldToLetter(to);
+                 model->board->moveStr =  pieceToLetter(figure) + fieldToLetter(from) +  "x" + fieldToLetter(to);
                  model->rule50CaptureOrPawn = true;
             }else{
-                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
+                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) +   "-" + fieldToLetter(to);
             }
           
             // castling
@@ -126,10 +107,10 @@ public:
                 model->rule50CaptureOrPawn = true;
             }
             if(model->board->fields[to] != EMPTY){ // capture
-                model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "x" + fieldToLetter(to);
+                model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) +  "x" + fieldToLetter(to);
                 model->rule50CaptureOrPawn = true;
             }else{
-                model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) + "-" + fieldToLetter(to);
+                model->board->moveStr = pieceToLetter(figure) +  fieldToLetter(from) + "-" + fieldToLetter(to);
             }
             
             // castling
@@ -180,11 +161,10 @@ public:
 
         // flip color
         model->board->whiteToMove = !model->board->whiteToMove;
-        
-        // evalute
-        evaluate();
-        
+
         model->clearSelection();
+        
+        model->fenStr = fenparser->parse( model->board);
         
         // if engine is black
         if(model->board->whiteToMove ){
@@ -323,7 +303,7 @@ public:
     // Methods - Button Handler
     void startPos(){
         model->startPos();
-        evaluate();
+        eval->eval(model->board, model->board->whiteToMove);
     }
     
     void newWhite(){
@@ -403,7 +383,7 @@ public:
     }
     
     string fieldToLetter(int field){
-        return string(1,char(49 + field / 8 )) + string(1,char(97 + field % 8));
+        return string(1,char(97 + field % 8)) + string(1,char(49 + field / 8));
     }
     
     // Helper
@@ -438,6 +418,7 @@ public:
     
     void setFen(string fen){
         Board *b = fenparser->parse(fen);
+        eval->eval(b, b->whiteToMove);
         model->fenStr = fen;
         model->board = b;
         model->boards[0] = b;
@@ -448,7 +429,22 @@ public:
     }
     
 private:
-     pthread_t threads[1];
+    Engine(){
+        observer = this;
+    }
+    
+    static  Engine * m_pInstance;
+    pthread_t threads[1];
+    Transposition  *transposition = new Transposition();
+    Zobrist *zobrist = new Zobrist();
+    Fen *fenparser = new Fen();
+    Eval *eval = new Eval();
+   
+   
+    Polyglot *polyglot = new Polyglot();
+    
+    EngineWrapper  *engineWhite = new EngineWrapper();
+    EngineWrapper  *engineBlack = new EngineWrapper();
 };
 
 // Instance singleton

@@ -27,7 +27,6 @@
 #include "Board.hpp"
 #include "m42.h"
 
-
 #include <boost/process.hpp>
 #include <boost/filesystem.hpp>
 #include <boost/asio.hpp>
@@ -37,13 +36,14 @@
 
 using namespace std;
 
-class Uci{
+class Uci {
     
 public:
     
     string fenStr = "";
     int maxTime = 5000;
-    int maxDepth = 2;
+    int maxDepth = 1; // minimum 1
+    bool isEmbedded = true;
     
     //  MinMax itself
     Analyzer *analyzer = new Analyzer();
@@ -54,9 +54,15 @@ public:
         return NULL;
     }
     
+    Uci(){
+       
+    }
+    
     void memberFunction();
     
     bool listen(string cmd){
+        
+         analyzer->isEmbedded = isEmbedded;
         
         // split
         stringstream ss(cmd);
@@ -99,7 +105,6 @@ public:
         if(tokens.at(0) == "go"){
             analyse();
         }
-        
         
         // position
         

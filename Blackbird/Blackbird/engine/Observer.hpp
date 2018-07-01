@@ -16,7 +16,6 @@ using namespace std;
 
 class  Observer
 {
-    
 public:
     virtual void makeMoveWhite(Ply ply) = 0;
     virtual void makeMoveBlack(Ply ply) = 0;

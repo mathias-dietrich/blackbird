@@ -46,7 +46,7 @@
 @synthesize boxOpeningBook;
 @synthesize timeOutW;
 @synthesize timeOutB;
-
+@synthesize boxScore;
 Engine *engine;
 
 -(void)update{
@@ -109,8 +109,8 @@ Engine *engine;
     rule50.stringValue = string;
     
     // Eval
-    w_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->w_eval];
-    b_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->b_eval];
+    w_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->board->materialWhite];
+    b_eval.stringValue = [NSString stringWithFormat:@"%d",engine->model->board->materialBlack];
     
     // Clocks
     if(engine->model->isDraw || engine->model->isMate){
@@ -149,7 +149,8 @@ Engine *engine;
     }
     
     boxMove.stringValue = [NSString stringWithFormat:@"Move: %d", engine->model->board->moveId];
-   // fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
+    fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
+    boxScore.stringValue = [NSString stringWithFormat:@"%d", engine->model->board->score];
     [self setNeedsDisplay:YES];
 }
 
@@ -187,8 +188,9 @@ Engine *engine;
                                                  selector:@selector(listenUCI:)
                                                    object:nil]; //how to pass callback block here?
     [myThread start];
-    
-     fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
+
+    // debug
+    [self newWhite];
     
     [self update];
 }
@@ -547,12 +549,11 @@ Engine *engine;
 
 }
 
-
 -(void)newWhite{
     engine->model->startTime = std::chrono::system_clock::now();
     engine->newWhite();
     engine->model->runClock = true;
-     fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
+    fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
     [self update];
 }
 
@@ -560,9 +561,7 @@ Engine *engine;
     engine->model->startTime = std::chrono::system_clock::now();
     engine->newBlack();
     engine->model->runClock = true;
-    
     fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
-    
     [self update];
 }
 
@@ -615,14 +614,17 @@ Engine *engine;
     engine->draw();
     [self update];
 }
+
 - (void)radioPng{
     engine->model->winstate = PNG;
      [self update];
 }
+
 - (void)radioEngine{
      engine->model->winstate = ENGINE;
      [self update];
 }
+
 - (void)radioDebug{
      engine->model->winstate = DEBUGWIN;
      [self update];
@@ -637,10 +639,12 @@ Engine *engine;
     engine->model->pausedBlack = ! engine->model->pausedBlack;
     [self update];
 }
+
 - (void)pauseWhite{
     engine->model->pausedWhite = ! engine->model->pausedWhite;
     [self update];
 }
+
 - (void)engineWhiteDidChange{
     string engineName = std::string([boxEngineWhite.stringValue UTF8String]);
     if(engineName.compare("User")==0){
@@ -649,6 +653,7 @@ Engine *engine;
     engine->model->engineNameWhite = engineName;
     [self update];
 }
+
 - (void)engineBlackDidChange{
      string engineName = std::string([boxEngineBlack.stringValue UTF8String]);
     if(engineName.compare("User")==0){
@@ -657,6 +662,7 @@ Engine *engine;
     engine->model->engineNameBlack = engineName;
     [self update];
 }
+
 - (void)openingBookDidChange{
      string bookName = std::string([boxOpeningBook.stringValue UTF8String]);
     if(bookName.compare("No Opening Book")==0){
@@ -667,6 +673,7 @@ Engine *engine;
     engine->model->useBook = true;
     [self update];
 }
+
 - (void)setFen{
      string fen = std::string([fenField.stringValue UTF8String]);
      engine->setFen(fen);

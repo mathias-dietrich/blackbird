@@ -35,8 +35,9 @@ typedef struct
         cout << "enpassW " << enpassW << endl;
         cout << "enpassB " << enpassB << endl;
         cout << "isWhite " << isWhite << endl;
+        cout << "score " << score << endl;
     }
-    
+    int score;
     int from;
     int to;
     bool isCapture;

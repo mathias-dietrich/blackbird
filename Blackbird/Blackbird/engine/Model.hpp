@@ -25,7 +25,7 @@ public:
     
     bool runClock = false;
     bool pausedWhite = true;
-    bool pausedBlack = true;
+    bool pausedBlack = false;
     WINSTATE winstate = PNG;
     
     //bool enginePlaysWhite = true;
@@ -62,8 +62,6 @@ public:
     int boardIndex = 0;
     int boardMax = 0;
     
-    int w_eval = 0;
-    int b_eval = 0;
    
     bool debugMode = false;
     
