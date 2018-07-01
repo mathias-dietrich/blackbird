@@ -41,6 +41,7 @@ public:
                         Ply ply;
                         ply.from = i;
                         ply.to = to.at(j);
+                        ply.isWhite = true;
                         moves.push_back(ply);
                     }
                 }
@@ -55,6 +56,7 @@ public:
                         Ply ply;
                         ply.from = i;
                         ply.to = to.at(j);
+                        ply.isWhite = false;
                         moves.push_back(ply);
                     }
                 }
@@ -594,6 +596,7 @@ public:
                 
             case W_PAWN:
             {
+ 
                 uint64_t r = (w_prawnMoves[piecePos] & board->empty) | (w_prawnCatch[piecePos]  & board->b_all);
                 if(board->b_enPasse > 0){
                     if(board->b_enPasse==32 && piecePos==33){
@@ -638,6 +641,9 @@ public:
                     if(board->b_enPasse==39 && piecePos==38){
                         r = r | s << 47;
                     }
+                }
+                if(piecePos < 16 && board->fields[piecePos + 8] != 0) {
+                    r = r - (s << (piecePos + 16));
                 }
                 return r;
             }
@@ -738,6 +744,9 @@ public:
                     if(board->w_enPasse==31 && piecePos==30){
                         r = r | s << 23;
                     }
+                }
+                if(piecePos > 47 && board->fields[piecePos - 8] != 0) {
+                    r = r - (s << (piecePos - 16));
                 }
                 return r;
             }

@@ -37,6 +37,7 @@ typedef struct
         cout << "isWhite " << isWhite << endl;
         cout << "score " << score << endl;
     }
+    bool isWhite;
     int score;
     int from;
     int to;
@@ -52,7 +53,6 @@ typedef struct
     bool isPromotion;
     bool enpassW;
     bool enpassB;
-    bool isWhite;
 } Ply;
 
 #endif /* Ply_h */

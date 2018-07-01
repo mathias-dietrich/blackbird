@@ -59,8 +59,48 @@ public:
         isStop = true;
     }
 
-    void sortMoves(vector<Ply> * moves, bool randomize){
-        
+    // Sorting moves - for now only by score
+    vector<Ply> sortMoves(vector<Ply>  moves, bool randomize){
+        vector<Ply> sorted;
+        int pos = 0;
+        bool sorting = true;
+        Ply bestMove;
+        while(sorting)
+        {
+            if(moves.at(0).isWhite)
+            {
+                int score = INT_MIN;
+                for(int i=0; i < moves.size();i++){
+                    Ply ply = moves.at(i);
+                    if(ply.score > score){
+                        bestMove = ply;
+                        score = ply.score ;
+                        pos = i;
+                    }
+                }
+                sorted.push_back(bestMove);
+                moves.erase(moves.begin()+pos);
+                if(moves.size() < 1){
+                    sorting = false;
+                }
+            }else{
+                int score = INT_MAX;
+                for(int i=0; i < moves.size();i++){
+                    Ply ply = moves.at(i);
+                    if(ply.score < score){
+                        bestMove = ply;
+                        score = ply.score ;
+                        pos = i;
+                    }
+                }
+                sorted.push_back(bestMove);
+                moves.erase(moves.begin()+pos);
+                if(moves.size() < 1){
+                     sorting = false;
+                }
+            }
+        }
+        return sorted;
     }
     
     // TODO implent and add SEE  Static Exchange Evaluation
@@ -84,12 +124,30 @@ public:
     }
     
     int pvSearch(Board * board, int alpha, int beta, int depth, bool whiteToMove ) {
+        
+        // return at depth 0 - also TODO at check mate
         if( depth == 0 ) {
             return quiesce(board, alpha, beta, whiteToMove);
         }
         bool bSearchPv = true;
+
+        // Generate Moves
+         vector<Ply> moves = moveGen->generateAll(board);
         
-        vector<Ply> moves = moveGen->generateAll(board);
+        // eval the moves for the sort
+        for(int i=0; i< moves.size();i++){
+            
+            Board *b = board->copy();
+            b->move(moves.at(i));
+            b->whiteToMove = ! b->whiteToMove;
+            moves.at(i).score = eval->eval(b, b->whiteToMove);
+            delete b;
+        }
+        
+        // Sort Moves
+        moves = sortMoves(moves, false);
+
+        // Try next move
         for ( int i=0;i<moves.size();i++)  {
             Board *b = board->copy();
             b->move(moves.at(i));

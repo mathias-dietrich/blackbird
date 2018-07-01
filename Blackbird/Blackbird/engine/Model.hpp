@@ -38,7 +38,7 @@ public:
         selField = -1;
     }
     
-    bool useBook = true;
+    bool useBook = false;
     
     string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     string resourceRoot = "";
