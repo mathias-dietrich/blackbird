@@ -257,20 +257,14 @@ public:
         
         // minmax
         int val = pvSearch(this->board, alpha, beta, depth, board->whiteToMove);
-        if(moveFound){
-            cout << "found move " << endl;
-        }
         if(isEmbedded)
         {
             cout << "best move eval: " << val << " ply " << endl;
             boardSel->ply.printAll();
-            
             if( board->whiteToMove){
                observer->makeMoveWhite(boardSel->history.at(1)->ply);
-               // observer->makeMoveWhite(boardSel->ply);
             }else{
                 observer->makeMoveBlack(boardSel->history.at(1)->ply);
-               // observer->makeMoveBlack(boardSel->ply);
             }
         }
     }
