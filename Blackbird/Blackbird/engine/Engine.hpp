@@ -159,9 +159,6 @@ public:
         // rewrite the move list
         calcMoveList();
 
-        // flip color
-        model->board->whiteToMove = !model->board->whiteToMove;
-
         model->clearSelection();
         
         model->fenStr = fenparser->parse( model->board);
@@ -247,10 +244,7 @@ public:
         }
         // rewrite the move list
         calcMoveList();
-        
-        // flip color
-        model->board->whiteToMove = !model->board->whiteToMove;
-        
+
         // Reset UI fields
         model->selField = -1;
         

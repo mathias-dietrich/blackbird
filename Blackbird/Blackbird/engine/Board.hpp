@@ -248,6 +248,14 @@ public:
         }
         comment = b->comment;
         rule50 = b->rule50;
+        whiteToMove = b->whiteToMove;
+        
+        moveId = b->moveId;
+        boardId = b->boardId;
+        
+        ply = b->ply;
+        moveStr = b->moveStr;
+        score = b->score;
     }
     
     /*
@@ -325,6 +333,74 @@ public:
          if(figure==B_PAWN && (to-from == -16)){
              b_enPasse = to;
          }
+        whiteToMove = !whiteToMove;
+        boardId++;
+    }
+    
+    void printNice(){
+        cout << "   A B C D E F G H " << endl << endl;
+        for(int r=7;r >-1;r--){
+            cout << r+1 << "  ";
+            for(int c=0;c < 8;c++){
+                int pos = r * 8 + c;
+                int piece = fields[pos];
+                switch(piece){
+                    case EMPTY:
+                        cout << "- ";
+                        break;
+                        
+                    case W_PAWN:
+                        cout << "P ";
+                        break;
+                        
+                    case W_ROOK:
+                        cout << "R ";
+                        break;
+                        
+                    case W_KNIGHT:
+                        cout << "N ";
+                        break;
+                        
+                    case W_BISHOP:
+                        cout << "B ";
+                        break;
+                        
+                    case W_QUEEN:
+                        cout << "Q ";
+                        break;
+                        
+                    case W_KING:
+                        cout << "K ";
+                        break;
+                        
+                    case B_PAWN:
+                        cout << "p ";
+                        break;
+                        
+                    case B_ROOK:
+                        cout << "r ";
+                        break;
+                        
+                    case B_KNIGHT:
+                        cout << "n ";
+                        break;
+                        
+                    case B_BISHOP:
+                        cout << "b ";
+                        break;
+                        
+                    case B_QUEEN:
+                        cout << "q ";
+                        break;
+                        
+                    case B_KING:
+                        cout << "k ";
+                        break;
+                }
+            }
+            cout << " " << r+1 << endl;
+        }
+        cout << endl << "   A B C D E F G H " << endl;
     }
     
     void printAll(){
@@ -374,6 +450,8 @@ public:
         cout << "empty" << endl;
         helper->printBitboard(empty);
         
+         printNice();
+        
         cout << "w_enPasse " << w_enPasse << endl;
         cout << "b_enPasse " << b_enPasse << endl;
         cout << "w_casteL " << w_casteL << endl;
@@ -383,7 +461,7 @@ public:
         cout << "rule50 " << rule50 << endl;
         cout << "whiteToMove " << whiteToMove << endl;
         cout << "boardId " << boardId << endl;
-        
+
         ply.printAll();
         delete helper;
     }

@@ -40,9 +40,11 @@ class Uci {
     
 public:
     
+    Uci(){}
+    
     string fenStr = "";
     int maxTime = 5000;
-    int maxDepth = 1; // minimum 1
+    int maxDepth = 3; // minimum 1 needs odd numnbers?
     bool isEmbedded = true;
     
     //  MinMax itself
@@ -53,16 +55,12 @@ public:
         static_cast<Uci*>(p)->memberFunction();
         return NULL;
     }
-    
-    Uci(){
-       
-    }
-    
+
     void memberFunction();
     
     bool listen(string cmd){
         
-         analyzer->isEmbedded = isEmbedded;
+        analyzer->isEmbedded = isEmbedded;
         
         // split
         stringstream ss(cmd);
@@ -77,47 +75,33 @@ public:
         }
         if(tokens.at(0) == "quit"){
             return false;
-            
         }
         if(tokens.at(0) == "stop"){
             analyzer->stop();
             return true;
-            
         }
         if(tokens.at(0) == "uci"){
             cout << "uci ok" << endl;
             return true;
-            
         }
         if(tokens.at(0) == "position"){
-            
             string fen = "";
-             cout  << endl;
             for(int i = 2; i < tokens.size(); i++){
                 fen += tokens.at(i) + " ";
             }
-            cout << fen << endl;
             fenStr = fen;
-            
-            // https://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring    trim
         }
         
         if(tokens.at(0) == "go"){
             analyse();
         }
-        
-        // position
-        
-        // go
-        
-        cout << cmd << endl;
         return true;
-    }
-    
-    void analyse(){
-         pthread_create(&threads[0], NULL,  staticFunction, this);
     }
     
 private:
     pthread_t threads[1];
+    
+    void analyse(){
+        pthread_create(&threads[0], NULL,  staticFunction, this);
+    }
 };

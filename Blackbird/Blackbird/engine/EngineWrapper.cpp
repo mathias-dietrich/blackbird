@@ -18,6 +18,9 @@ void EngineWrapper::setup(string engine){
     if(isEngineRunning){
         quit();
     }
+     if(engine.substr(engine.length()-4) == "User"){
+         return;
+     }
     if(engine.substr(engine.length()-9) == "Blackbird"){
         isEngineRunning = true;
         isUci = true;

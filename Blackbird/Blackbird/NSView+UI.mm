@@ -15,6 +15,7 @@
 
 @implementation UI
 
+// UI Elelemnts
 @synthesize BlackBishop;
 @synthesize WhiteBishop;
 @synthesize BlackKing;
@@ -47,6 +48,8 @@
 @synthesize timeOutW;
 @synthesize timeOutB;
 @synthesize boxScore;
+
+//
 Engine *engine;
 
 -(void)update{
@@ -156,14 +159,11 @@ Engine *engine;
 
 - (void)setup
 {
-    NSLog(@"setup");
-
+    // set resource root
     NSString *bundlePath = [[NSBundle mainBundle] resourcePath];
     engine->model->resourceRoot = std::string([bundlePath UTF8String]);;
-    
-    // do any initialization that's common to both -initWithFrame:
-    // and -initWithCoder: in this method
-    
+
+    //load images
     BlackBishop = [NSImage imageNamed:@"BlackBishop.png"];
     WhiteBishop = [NSImage imageNamed:@"WhiteBishop.png"];
     BlackKing = [NSImage imageNamed:@"BlackKing.png"];
@@ -177,25 +177,21 @@ Engine *engine;
     BlackRook = [NSImage imageNamed:@"BlackRook.png"];
     WhiteRook = [NSImage imageNamed:@"WhiteRook.png"];
     
+    // initalize e gine
     engine->startPos();
-    [NSTimer scheduledTimerWithTimeInterval:1
-                                     target:self
-                                   selector:@selector(onTick:)
-                                   userInfo:nil
-                                    repeats:YES];
     
-    NSThread* myThread = [[NSThread alloc] initWithTarget:self
-                                                 selector:@selector(listenUCI:)
-                                                   object:nil]; //how to pass callback block here?
+    // start Timwers and Threads
+    [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(onTick:) userInfo:nil repeats:YES];
+    NSThread* myThread = [[NSThread alloc] initWithTarget:self selector:@selector(setupEngines:) object:nil]; //how to pass callback block here?
     [myThread start];
 
-    // debug
+    // TODO take out - debug
     [self newWhite];
     
     [self update];
 }
 
--(void) listenUCI: (id) sender {
+-(void) setupEngines: (id) sender {
     engine->setupEngines();
 }
 
@@ -224,10 +220,8 @@ Engine *engine;
     // Create Colors
     NSColor *textColor = [NSColor colorWithCalibratedRed:0.3 green:0.3 blue:0.3 alpha:1.0f];
     NSColor *frameColor = [NSColor colorWithCalibratedRed:0.9 green:0.9 blue:0.9 alpha:1.0f];
-    
     NSColor *bgColor = [NSColor colorWithCalibratedRed:0.7 green:0.7 blue:1 alpha:1.0f];
     NSColor *fieldColor = [NSColor colorWithCalibratedRed:0.4 green:0.4 blue:0.7 alpha:1.0f];
-    
     NSColor *noColor = [NSColor colorWithCalibratedRed:1 green:1 blue:1 alpha:1.0f];
    
     // background
@@ -237,7 +231,6 @@ Engine *engine;
     // Fields
     bool flip = false;
     int offset = 25;
-    
     int fildNo = 0;
     
     NSDictionary *attr = [NSDictionary dictionaryWithObjectsAndKeys:[NSFont fontWithName:@"Helvetica" size:11], NSFontAttributeName,noColor, NSForegroundColorAttributeName, nil];
@@ -345,13 +338,11 @@ Engine *engine;
     NSRect r = NSMakeRect(0, 0, 80, 80);
     
     for(int i=0; i < 64;i++){
-
         int pos = i;
         if(engine->model->isFlipped){
             pos = 63 - pos;
         }
-         int piece = engine->model->board->fields[pos];
-        
+        int piece = engine->model->board->fields[pos];
         int colum = i % 8;
         int row = i / 8;
         int xPos = 33 + colum * 100;
@@ -454,8 +445,6 @@ Engine *engine;
             [circlePath stroke];
             [circlePath fill];
         }
-        
-       
     }
 }
 
@@ -463,7 +452,7 @@ Engine *engine;
     if(engine->model->isMate || engine->model->isPromotion || engine->model->isDraw){
         return;
     }
-     NSPoint curPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSPoint curPoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     int row = (((int)curPoint.x) - 25)/100 ;
     int col = (((int)curPoint.y) - 25)/100 ;
     int to = row + 8 * col;

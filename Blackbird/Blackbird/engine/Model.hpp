@@ -19,68 +19,54 @@ using namespace std;
 class Model {
     
 public:
-    
-    int engineTimeoutWhite = 10000;
-    int engineTimeoutBlack = 10000;
-    
+    bool debugMode = false;
     bool runClock = false;
     bool pausedWhite = true;
     bool pausedBlack = false;
+    bool useBook = false;
+    bool rule50CaptureOrPawn;
+    bool isPromotion = false;
+    bool isMate = false;
+    bool isDraw = false;
+    bool isFlipped = false;
+    bool hasLoaded = false;
+    
+    int engineTimeoutWhite = 10000;
+    int engineTimeoutBlack = 10000;
+    int w_time;
+    int b_time;
+    int rule50Count = 0;
+    int boardIndex = 0;
+    int boardMax = 0;
+    int selFields [64] ;
+    int selField = -1;
+    int lastField = -1;
+    int promotionField = 0;
+
+    string engineNameWhite = "User";
+    string engineNameBlack = "Blackbird";
+    string bookName = "No Opening Book";
+    string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    string resourceRoot = "";
+    string debugMsg = "App Starts";
+    string moveList = "";
+    string engineList = "";
+    string w_timeBox = "White";
+    string b_timeBox = "Black";
+
+    Board * boards[2000];
+    Board * board;
+    
     WINSTATE winstate = PNG;
     
-    //bool enginePlaysWhite = true;
-    //bool enginePlaysBlack = true;
-    
+    std::chrono::time_point<std::chrono::system_clock> startTime ;
+
     void clearSelection(){
         for(int i=0;i< 64;i++){
             selFields[i] = EMPTY;
         }
         selField = -1;
     }
-    
-    bool useBook = false;
-    
-    string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-    string resourceRoot = "";
-    
-    std::chrono::time_point<std::chrono::system_clock> startTime ;
-    
-    string engineNameWhite = "Komodo";
-    string engineNameBlack = "Blackbird";
-    string bookName = "No Opening Book";
-    
-    int w_time;
-    int b_time;
-    
-    bool rule50CaptureOrPawn;
-    int rule50Count = 0;
-    
-    int promotionField = 0;
-    bool isPromotion = false;
-    bool isMate = false;
-    bool isDraw = false;
-    int boardIndex = 0;
-    int boardMax = 0;
-    
-   
-    bool debugMode = false;
-    
-    string debugMsg = "App Starts";
-    string moveList = "";
-    string engineList = "";
-    
-    string w_timeBox = "White";
-    string b_timeBox = "Black";
-    
-    bool isFlipped = false;
-    bool hasLoaded = false;
-    
-    Board * boards[2000];
-    Board * board;
-    
-    int selFields [64] ;
-    int selField = -1;
-    int lastField = -1;
     
     void startPos(){
         fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -101,7 +87,6 @@ public:
     }
 
 private:
-   
     
 };
 

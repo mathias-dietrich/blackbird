@@ -21,7 +21,7 @@ using namespace std;
 typedef struct
 {
     void printAll(){
-         cout << "====== PLY =========="  << endl;
+        cout << "====== PLY =========="  << endl;
         cout << "from " << from << endl;
         cout << "to " << to << endl;
         cout << "isCapture " << isCapture << endl;
@@ -37,22 +37,22 @@ typedef struct
         cout << "isWhite " << isWhite << endl;
         cout << "score " << score << endl;
     }
-    bool isWhite;
-    int score;
-    int from;
-    int to;
-    bool isCapture;
-    bool isCheck;
-    bool isCheckMate;
-    PIECE piece;
-    PIECE capturedPiece;
-    bool isLegal;
-    int captureValue;
-    CASTLE castle;
-    int promotion;
-    bool isPromotion;
-    bool enpassW;
-    bool enpassB;
+    bool isWhite = true;
+    int score = 0;
+    int from = -1;
+    int to = -1;
+    bool isCapture = false;
+    bool isCheck = false;
+    bool isCheckMate = false;
+    PIECE piece = 0;
+    PIECE capturedPiece = 0;
+    bool isLegal = false;
+    int captureValue = 0;
+    CASTLE castle = NONE;
+    int promotion = 0;
+    bool isPromotion = false;
+    bool enpassW = -1;
+    bool enpassB = -1;
 } Ply;
 
 #endif /* Ply_h */

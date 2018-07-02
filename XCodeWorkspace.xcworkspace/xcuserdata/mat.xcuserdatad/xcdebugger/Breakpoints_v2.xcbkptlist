@@ -68,16 +68,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Blackbird/Blackbird/engine/Uci.hpp"
-            timestampString = "552161378.985058"
+            filePath = "Blackbird/Blackbird/engine/Polyglot.cpp"
+            timestampString = "552186679.376907"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "listen(string cmd)"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "Polyglot::getBookMove(Board * board)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -87,13 +87,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Blackbird/Blackbird/engine/Uci.hpp"
-            timestampString = "552161378.985147"
+            filePath = "Blackbird/Blackbird/engine/Board.hpp"
+            timestampString = "552187735.02607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "listen(string cmd)"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "undoMove()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -103,13 +103,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Blackbird/Blackbird/engine/Polyglot.cpp"
-            timestampString = "552161378.985221"
+            filePath = "Blackbird/Blackbird/engine/EngineWrapper.cpp"
+            timestampString = "552189504.336905"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
-            landmarkName = "Polyglot::getBookMove(Board * board)"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "EngineWrapper::createChild(const char* szCommand)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

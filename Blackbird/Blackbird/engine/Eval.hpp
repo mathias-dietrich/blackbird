@@ -28,19 +28,21 @@ public:
         sum += material;
         
         //prefer Pawn moves
-        if(board->fields[board->ply.to] == B_PAWN  && isWhiteToMove){
-            sum += 10;
-        }
-        if(board->fields[board->ply.to] == W_PAWN  && !isWhiteToMove){
-            sum -= 10;
-        }
-        
-        if(board->ply.to==27 ||  board->ply.to==28 ||  board->ply.to==35 ||  board->ply.to==36 ){
-            if(isWhiteToMove)
-            {
+        if(board->boardId > 0){
+            if(board->fields[board->ply.to] == B_PAWN  && !isWhiteToMove){
                 sum += 10;
-            }else{
+            }
+            if(board->fields[board->ply.to] == W_PAWN  && isWhiteToMove){
                 sum -= 10;
+            }
+            
+            if(board->ply.to==27 ||  board->ply.to==28 ||  board->ply.to==35 ||  board->ply.to==36 ){
+                if(isWhiteToMove)
+                {
+                    sum -= 10;
+                }else{
+                    sum += 10;
+                }
             }
         }
         board->score = sum;
