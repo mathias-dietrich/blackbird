@@ -62,7 +62,7 @@ public:
         int to = ply.to;
         model->lastField = to;
         Board *newBoard = model->board->copy();
-        newBoard->boardId++;
+   //     newBoard->boardId++;
         newBoard->score = ply.score;
        
         model->boardIndex++;
@@ -75,7 +75,7 @@ public:
         int figure = model->board->fields[from];
         
         if(model->board->whiteToMove){
-            newBoard->moveId++;
+            //newBoard->moveId++;
             model->rule50CaptureOrPawn = false;
             if(figure == W_PAWN){
                 model->rule50CaptureOrPawn = true;
@@ -139,7 +139,7 @@ public:
         model->board->move(ply2);
         
         // get Zobrist Hash
-        cout << "Zobrist Hash: " << zobrist->hash(model->board);
+        cout << "Zobrist Hash: " << zobrist->hash(model->board) << endl;
         
         if(model->isPromotion ){
             return;

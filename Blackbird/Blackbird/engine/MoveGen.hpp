@@ -50,12 +50,15 @@ public:
             for (int i=0; i < 64; i++)
             {
                 if(board->fields[i] < 0 ){
-                     uint64_t f = generate(board, i);
+                    uint64_t f = generate(board, i);
                     vector<int> to = convertToPositions(f);
                     for(int j=0 ; j< to.size();j++){
                         Ply ply;
                         ply.from = i;
                         ply.to = to.at(j);
+                        if(ply.from ==63 &&  ply.to == 39 ){
+                            cout << "39";
+                        }
                         ply.isWhite = false;
                         moves.push_back(ply);
                     }
@@ -652,6 +655,7 @@ public:
             {
                 uint64_t r =  M42::rook_attacks(piecePos, board->all);
                 r = r & ~board->b_all;
+                cout << "B_ROOK" << r << endl;
                 return r;
             }
                 

@@ -44,7 +44,7 @@ public:
     
     string fenStr = "";
     int maxTime = 5000;
-    int maxDepth = 3; // minimum 1 needs odd numnbers?
+    int maxDepth = 5; // minimum 1 needs odd numnbers?
     bool isEmbedded = true;
     
     //  MinMax itself

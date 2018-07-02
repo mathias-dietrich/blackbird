@@ -45,6 +45,7 @@ public:
 
     string engineNameWhite = "User";
     string engineNameBlack = "Blackbird";
+    //string engineNameBlack = "User";
     string bookName = "No Opening Book";
     string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     string resourceRoot = "";

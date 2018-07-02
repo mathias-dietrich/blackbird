@@ -21,18 +21,20 @@ using namespace std;
 class Board{
     
 public:
-    vector<Board *> history;
     int boardId = 0;
-    Ply ply;
-    vector<Ply> plies;
-    string moveStr = "";
     int moveId = 1;
-    string comment = "";
-    
     int score = 0;
     int materialWhite = 82000;
     int materialBlack = 82000;
     
+    string moveStr = "";
+    string comment = "";
+    
+    vector<Board *> history;
+    vector<Ply> plies;
+    
+    Ply ply;
+
     Board(){
         for(int i=0;i < 64;i++){
            fields[i] = EMPTY;
@@ -139,6 +141,7 @@ public:
         b_king = 0;
         b_pawn = 0;
         const uint64_t s = 1;
+        
         for(int i=0; i < 64; i++){
             switch(fields[i]){
                 case W_ROOK:
@@ -193,11 +196,9 @@ public:
         
         w_all = w_rook | w_knight | w_bishop | w_queen | w_king | w_pawn;
         b_all = b_rook | b_knight | b_bishop | b_queen | b_king | b_pawn;
-        
-        empty = ~(w_all | b_all);
-        all = ~empty;
+        all = w_all | b_all;
+        empty = ~w_all;
     }
-    
     
     void undoMove(){
         Board *b = history.back();
@@ -335,6 +336,9 @@ public:
          }
         whiteToMove = !whiteToMove;
         boardId++;
+        if(whiteToMove){
+            moveId++;
+        }
     }
     
     void printNice(){
@@ -450,7 +454,7 @@ public:
         cout << "empty" << endl;
         helper->printBitboard(empty);
         
-         printNice();
+        printNice();
         
         cout << "w_enPasse " << w_enPasse << endl;
         cout << "b_enPasse " << b_enPasse << endl;
@@ -511,6 +515,10 @@ public:
         
         for(int i=0; i < plies.size();i++){
             c->plies.push_back(ply);
+        }
+        
+        for(int i=0; i < history.size();i++){
+            c->history.push_back(history.at(i));
         }
        
         return c;

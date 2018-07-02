@@ -169,6 +169,8 @@ public:
     }
     
     int pvSearch(Board * board, int alpha, int beta, int depth, bool whiteToMove ) {
+        board->printAll();
+        board->printNice();
         if( depth == 0 ) {
             return quiesce(board, alpha, beta, whiteToMove);
         }
@@ -210,7 +212,7 @@ public:
                 if ( score > alpha ) // in fail-soft ... && score < beta ) is common
                     score = -pvSearch(b, -beta, -alpha, depth - 1,whiteToMove); // re-search
             }
-            b->undoMove();
+            delete b;
             if( score >= beta )
                 return beta;   // fail-hard beta-cutoff
             if( score > alpha ) {
@@ -231,7 +233,7 @@ public:
             Board *b = board->copy();
             b->move(moves.at(i));
             int score = -zwSearch(b, 1-beta, depth - 1,whiteToMove);
-            b->undoMove();
+             delete b;
             if( score >= beta )
                 return beta;   // fail-hard beta-cutoff
         }
@@ -264,10 +266,11 @@ public:
             boardSel->ply.printAll();
             
             if( board->whiteToMove){
-                observer->makeMoveWhite(boardSel->history.at(0)->ply);
+               observer->makeMoveWhite(boardSel->history.at(1)->ply);
+               // observer->makeMoveWhite(boardSel->ply);
             }else{
-               // observer->makeMoveBlack(boardBest->history.at(0)->ply);
-                observer->makeMoveBlack(boardSel->ply);
+                observer->makeMoveBlack(boardSel->history.at(1)->ply);
+               // observer->makeMoveBlack(boardSel->ply);
             }
         }
     }
