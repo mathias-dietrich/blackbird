@@ -48,6 +48,7 @@
 @synthesize timeOutW;
 @synthesize timeOutB;
 @synthesize boxScore;
+@synthesize mqttUrl;
 
 //
 Engine *engine;
@@ -152,10 +153,28 @@ Engine *engine;
     }
     
     boxMove.stringValue = [NSString stringWithFormat:@"Move: %d", engine->model->board->moveId];
-    fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
+    
+    if(! hasFocus(fenField)){
+        fenField.stringValue = [NSString stringWithCString:engine->model->fenStr.c_str() encoding:[NSString defaultCStringEncoding]];
+    }
+    
+    if(! hasFocus(boxEngineWhite)){
+        boxEngineWhite.stringValue = [NSString stringWithCString:engine->model->engineNameWhite.c_str() encoding:[NSString defaultCStringEncoding]];
+    }
+       
+    if(! hasFocus(boxEngineBlack)){
+         boxEngineBlack.stringValue = [NSString stringWithCString:engine->model->engineNameBlack.c_str() encoding:[NSString defaultCStringEncoding]];
+    }
+    
     boxScore.stringValue = [NSString stringWithFormat:@"%d", engine->model->board->score];
     [self setNeedsDisplay:YES];
 }
+
+bool hasFocus(id theField) {
+    return   [[[theField window] firstResponder] isKindOfClass:[NSTextView class]]
+    &&        [[theField window] fieldEditor:NO forObject:nil]!=nil
+    && ( (id) [[theField window] firstResponder]          ==theField
+        ||  [(id) [[theField window] firstResponder] delegate]==theField); }
 
 - (void)setup
 {
@@ -186,8 +205,9 @@ Engine *engine;
     [myThread start];
 
     // TODO take out - debug
-    [self newWhite];
+   // [self newWhite];
     
+    [[self window] makeFirstResponder:[self mqttUrl]];
     [self update];
 }
 
@@ -626,29 +646,31 @@ Engine *engine;
 
 - (void)pauseBlack{
     engine->model->pausedBlack = ! engine->model->pausedBlack;
+    if(!engine->model->pausedBlack && !engine->model->board->whiteToMove){
+        engine->makeEngineMoveBlack();
+    }
     [self update];
 }
 
 - (void)pauseWhite{
     engine->model->pausedWhite = ! engine->model->pausedWhite;
+    if(!engine->model->pausedWhite && engine->model->board->whiteToMove){
+         engine->makeEngineMoveWhite();
+    }
     [self update];
 }
 
 - (void)engineWhiteDidChange{
     string engineName = std::string([boxEngineWhite.stringValue UTF8String]);
-    if(engineName.compare("User")==0){
-        engineName = "";
-    }
     engine->model->engineNameWhite = engineName;
+    engine->updateEngineWhite();
     [self update];
 }
 
 - (void)engineBlackDidChange{
-     string engineName = std::string([boxEngineBlack.stringValue UTF8String]);
-    if(engineName.compare("User")==0){
-        engineName = "";
-    }
+    string engineName = std::string([boxEngineBlack.stringValue UTF8String]);
     engine->model->engineNameBlack = engineName;
+    engine->updateEngineBlack();
     [self update];
 }
 
@@ -668,4 +690,5 @@ Engine *engine;
      engine->setFen(fen);
     [self update];
 }
+
 @end

@@ -1,3 +1,4 @@
+
 //
 //  EngineWrapper.cpp
 //  Blackbird
@@ -100,14 +101,56 @@ void EngineWrapper::memberFunction()
             size_t found = reply.find("bestmove");
             
             if (found!=std::string::npos) {
-                string cmd = reply.substr(found + 9,4);
+                string cmd = reply.substr(found + 9,5);
                // int row =cmd[0]-97;
                // int col =(cmd[1]-49);
                 int from = (cmd[0]-97) + 8 * (cmd[1]-49);
                 int to = (cmd[2]-97) + 8 * (cmd[3]-49);
                 
+                 Ply ply;
+                if(cmd.length()>4){
+                    switch((cmd[4])){
+                        case 'q':
+                            ply.isPromotion = true;
+                            if(isEngineWhite){
+                                ply.promotion = W_QUEEN;
+                            }else{
+                                ply.promotion = B_QUEEN;
+                            }
+                           
+                            break;
+                            
+                        case 'r':
+                            ply.isPromotion = true;
+                            if(isEngineWhite){
+                                ply.promotion = W_ROOK;
+                            }else{
+                                ply.promotion = B_ROOK;
+                            }
+                            break;
+                            
+                        case 'b':
+                             ply.isPromotion = true;
+                            if(isEngineWhite){
+                                ply.promotion = W_BISHOP;
+                            }else{
+                                ply.promotion = B_BISHOP;
+                            }
+                            break;
+                            
+                        case 'n':
+                             ply.isPromotion = true;
+                            if(isEngineWhite){
+                                ply.promotion = W_KNIGHT;
+                            }else{
+                                ply.promotion = B_KNIGHT;
+                            }
+                            break;
+                    }
+                }
+                
                 std::cout << "found move: " << cmd << '\n';
-                Ply ply;
+               
                 ply.from = from;
                 ply.to = to;
                 if(isEngineWhite){

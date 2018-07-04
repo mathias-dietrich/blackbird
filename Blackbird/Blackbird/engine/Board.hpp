@@ -274,7 +274,10 @@ public:
         int from = ply.from;
         int to = ply.to;
         
-         int figure = fields[from];
+        int figure = fields[from];
+        if(ply.isPromotion){
+            figure = ply.promotion;
+        }
          if(figure==W_PAWN && to-8 == b_enPasse){
             fields[to-8] = EMPTY;
          }

@@ -54,6 +54,7 @@
 @property (nonatomic, retain) IBOutlet NSComboBox *boxEngineBlack;
 @property (nonatomic, retain) IBOutlet NSComboBox *boxOpeningBook;
 @property (nonatomic, retain) IBOutlet NSTextField *boxScore;
+@property (nonatomic, retain) IBOutlet NSTextField *mqttUrl;
 
 -(void)setup;
 -(void)newWhite;
@@ -83,8 +84,9 @@
 - (void)engineWhiteDidChange;
 - (void)engineBlackDidChange;
 - (void)openingBookDidChange;
-
+- (void)fenDidChange;
 - (void)setFen;
+
 @end
 
 

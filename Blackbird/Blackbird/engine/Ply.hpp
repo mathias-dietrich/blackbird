@@ -49,7 +49,7 @@ typedef struct
     bool isLegal = false;
     int captureValue = 0;
     CASTLE castle = NONE;
-    int promotion = 0;
+    PIECE promotion = 0;
     bool isPromotion = false;
     bool enpassW = -1;
     bool enpassB = -1;

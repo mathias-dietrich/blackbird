@@ -1,7 +1,28 @@
 Todo
 ====
 
-Eval Function  - center positions
+
+Meassure time on analysis call in micro
+
+change to undo
+
+move from plies list
+
+take copy out
+
+add castling to the ply
+
+turn undo into a real undo not using board copies
+
+castling in the move generator should generate 4 castling options
+
+
+
+Eval Function  - center positions - prawn formations - 2 bishops
+
+Eval: Hame State OPENING, MIDDLE, END
+
+
 Move ordering
 SSE function
 
@@ -19,3 +40,10 @@ save - load PNG
 
 - FEN shows wrong move count
 
+- MQTT listener
+
+- Global DEBUG flag
+
+FEN P promotion
+3k/6P/8/8/3K/8/8/8 w KQkq - 0 1
+3k/6P/8/8/3K/8/8/8 b KQkq - 0 1

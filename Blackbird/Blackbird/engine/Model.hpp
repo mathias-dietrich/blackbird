@@ -20,9 +20,9 @@ class Model {
     
 public:
     bool debugMode = false;
-    bool runClock = false;
+    bool runClock = true;
     bool pausedWhite = true;
-    bool pausedBlack = false;
+    bool pausedBlack = true;
     bool useBook = false;
     bool rule50CaptureOrPawn;
     bool isPromotion = false;
@@ -44,7 +44,7 @@ public:
     int promotionField = 0;
 
     string engineNameWhite = "User";
-    string engineNameBlack = "Blackbird";
+    string engineNameBlack = "Fruit";
     //string engineNameBlack = "User";
     string bookName = "No Opening Book";
     string fenStr = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -84,7 +84,6 @@ public:
         clearSelection();
         boardIndex = 0;
         lastField = -1;
-        runClock = false;
     }
 
 private:

@@ -810,6 +810,7 @@
                                     <outlet property="btnPGNDB" destination="gkX-55-fJz" id="u0h-mm-K2e"/>
                                     <outlet property="btnPNG" destination="fZr-uX-ZRd" id="gNf-aD-bjK"/>
                                     <outlet property="fenField" destination="JoD-hy-Cde" id="N0b-yv-IjK"/>
+                                    <outlet property="mqttUrl" destination="NZ6-Fs-h3I" id="zbA-4R-NNE"/>
                                     <outlet property="mypanel" destination="Fb9-iq-i4B" id="mv8-PG-5aY"/>
                                     <outlet property="pauseStateBlack" destination="63w-RZ-ceI" id="83C-V3-brn"/>
                                     <outlet property="pauseStateWhite" destination="vLj-CO-VZi" id="hlu-6v-2u0"/>
@@ -921,8 +922,8 @@
                             <textField verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JoD-hy-Cde">
                                 <rect key="frame" x="867" y="743" width="451" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" selectable="YES" editable="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="Acc-IC-vB7">
-                                    <font key="font" metaFont="system" size="12"/>
+                                <textFieldCell key="cell" selectable="YES" editable="YES" refusesFirstResponder="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="left" drawsBackground="YES" usesSingleLineMode="YES" id="Acc-IC-vB7">
+                                    <font key="font" metaFont="cellTitle"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>

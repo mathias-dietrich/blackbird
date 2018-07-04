@@ -42,6 +42,37 @@ public:
                         ply.from = i;
                         ply.to = to.at(j);
                         ply.isWhite = true;
+                        
+                        // promotion
+                        if(board->fields[i] == W_PAWN && ply.to > 55){
+                            
+                            ply.promotion = W_KNIGHT;
+                            ply.isPromotion = true;
+                            
+                            Ply ply1;
+                            ply1.from = i;
+                            ply1.to = to.at(j);
+                            ply1.isWhite = true;
+                            ply1.promotion = W_QUEEN;
+                            ply1.isPromotion = true;
+                            moves.push_back(ply1);
+                            
+                            Ply ply2;
+                            ply2.from = i;
+                            ply2.to = to.at(j);
+                            ply2.isWhite = true;
+                            ply2.promotion = W_ROOK;
+                            ply2.isPromotion = true;
+                            moves.push_back(ply2);
+                            
+                            Ply ply3;
+                            ply3.from = i;
+                            ply3.to = to.at(j);
+                            ply3.isWhite = true;
+                            ply3.promotion = W_BISHOP;
+                            ply3.isPromotion = true;
+                            moves.push_back(ply3);
+                        }
                         moves.push_back(ply);
                     }
                 }
@@ -56,10 +87,37 @@ public:
                         Ply ply;
                         ply.from = i;
                         ply.to = to.at(j);
-                        if(ply.from ==63 &&  ply.to == 39 ){
-                            cout << "39";
-                        }
                         ply.isWhite = false;
+                        // promotion
+                        if(board->fields[i] == W_PAWN && ply.to < 15){
+                            
+                            ply.promotion = B_KNIGHT;
+                            ply.isPromotion = true;
+                            
+                            Ply ply1;
+                            ply1.from = i;
+                            ply1.to = to.at(j);
+                            ply1.isWhite = true;
+                            ply1.promotion = B_QUEEN;
+                            ply1.isPromotion = true;
+                            moves.push_back(ply1);
+                            
+                            Ply ply2;
+                            ply2.from = i;
+                            ply2.to = to.at(j);
+                            ply2.isWhite = true;
+                            ply2.promotion = B_ROOK;
+                            ply2.isPromotion = true;
+                            moves.push_back(ply2);
+                            
+                            Ply ply3;
+                            ply3.from = i;
+                            ply3.to = to.at(j);
+                            ply3.isWhite = true;
+                            ply3.promotion = B_BISHOP;
+                            ply3.isPromotion = true;
+                            moves.push_back(ply3);
+                        }
                         moves.push_back(ply);
                     }
                 }
@@ -648,6 +706,7 @@ public:
                 if(piecePos < 16 && board->fields[piecePos + 8] != 0) {
                     r = r - (s << (piecePos + 16));
                 }
+       
                 return r;
             }
                 

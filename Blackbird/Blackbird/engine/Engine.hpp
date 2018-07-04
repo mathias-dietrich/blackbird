@@ -54,15 +54,20 @@ public:
         engineBlack->setup(model->resourceRoot + "/"+ model->engineNameBlack);
     }
     
+    void updateEngineWhite(){
+        engineWhite->setup(model->resourceRoot + "/"+ model->engineNameWhite);
+    }
+    
+    void updateEngineBlack(){
+        engineBlack->setup(model->resourceRoot + "/"+ model->engineNameBlack);
+    }
+    
     /*
      Move one move forward, called by UI
      */
     void move(Ply ply){
-        int from = ply.from;
-        int to = ply.to;
-        model->lastField = to;
+        model->lastField = ply.to;
         Board *newBoard = model->board->copy();
-   //     newBoard->boardId++;
         newBoard->score = ply.score;
        
         model->boardIndex++;
@@ -72,60 +77,66 @@ public:
         model->board = newBoard;
         
         // record the move
-        int figure = model->board->fields[from];
+        int figure = model->board->fields[ply.from];
+        
+        if(ply.isPromotion){
+            figure = ply.promotion;
+        }
         
         if(model->board->whiteToMove){
-            //newBoard->moveId++;
+
             model->rule50CaptureOrPawn = false;
             if(figure == W_PAWN){
                 model->rule50CaptureOrPawn = true;
             }
-            if(model->board->fields[to] != EMPTY){ // capture
-                 model->board->moveStr =  pieceToLetter(figure) + fieldToLetter(from) +  "x" + fieldToLetter(to);
+            if(model->board->fields[ply.to] != EMPTY){ // capture
+                 model->board->moveStr =  pieceToLetter(figure) + fieldToLetter(ply.from) +  "x" + fieldToLetter(ply.to);
                  model->rule50CaptureOrPawn = true;
+            }else if(ply.isPromotion){
+                 model->board->moveStr =  fieldToLetter(ply.from) +   "-" + fieldToLetter(ply.to) + pieceToPromortionLetter(ply.promotion);
             }else{
-                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) +   "-" + fieldToLetter(to);
+                 model->board->moveStr = pieceToLetter(figure) + fieldToLetter(ply.from) +   "-" + fieldToLetter(ply.to);
             }
           
             // castling
             if(figure == W_KING){
-                if(from == 4 && to == 6){
+                if(ply.from == 4 && ply.to == 6){
                     model->board->moveStr = "O-O";
                 }
-                if(from == 4 && to == 2){
+                if(ply.from == 4 && ply.to == 2){
                     model->board->moveStr = "O-O-O";
                 }
             }
             
-            // promotion
-            if(figure == W_PAWN && to > 55){
+            // promotion in manula play
+            if(figure == W_PAWN && ply.to > 55){
                 model->isPromotion = true;
-                model->promotionField = to;
+                model->promotionField = ply.to;
             }
         }else{ // black to move
             if(figure == B_PAWN){
                 model->rule50CaptureOrPawn = true;
             }
-            if(model->board->fields[to] != EMPTY){ // capture
-                model->board->moveStr = pieceToLetter(figure) + fieldToLetter(from) +  "x" + fieldToLetter(to);
+            if(model->board->fields[ply.to] != EMPTY){ // capture
+                model->board->moveStr = pieceToLetter(figure) + fieldToLetter(ply.from) +  "x" + fieldToLetter(ply.to);
                 model->rule50CaptureOrPawn = true;
             }else{
-                model->board->moveStr = pieceToLetter(figure) +  fieldToLetter(from) + "-" + fieldToLetter(to);
+                model->board->moveStr = pieceToLetter(figure) +  fieldToLetter(ply.from) + "-" + fieldToLetter(ply.to);
             }
             
             // castling
             if(figure == B_KING){
-                if(from == 60 && to == 62){
+                if(ply.from == 60 && ply.to == 62){
                     model->board->moveStr = "O-O";
                 }
-                if(from == 60 && to == 58){
+                if(ply.from == 60 && ply.to == 58){
                    model->board->moveStr = "O-O-O";
                 }
             }
-            // promotion
-            if(figure == B_PAWN && to < 8){
+            // promotion in manual play
+            if(figure == B_PAWN && ply.to < 8){
                 model->isPromotion = true;
-                model->promotionField = to;
+                model->promotionField = ply.to;
             }
             if(!model->rule50CaptureOrPawn){
                 model->rule50Count++;
@@ -133,25 +144,23 @@ public:
         }
         
         // make the move
-        Ply ply2;
-        ply2.from = from;
-        ply2.to = to;
-        model->board->move(ply2);
+        model->board->move(ply);
         
         // get Zobrist Hash
         cout << "Zobrist Hash: " << zobrist->hash(model->board) << endl;
         
+        // shortcut here if manual play
         if(model->isPromotion ){
             return;
         }
         
         // check if King in check
-        bool isKingInCheck = gen->inCheck(model->board, !model->board->whiteToMove);
+        bool isKingInCheck = gen->inCheck(model->board, model->board->whiteToMove);
         if(isKingInCheck){
             model->board->moveStr += "+";
             
             // Mate ?
-            if(gen->isMate(model->board, !model->board->whiteToMove)){
+            if(gen->isMate(model->board, model->board->whiteToMove)){
                 model->isMate = true;
                  model->board->moveStr += "+";
             }
@@ -225,30 +234,32 @@ public:
     
     void handlePromotion(int figure){
         
-        if(!model->board->whiteToMove){
-            figure = -1 * figure;
-        }
-        model->board->fields[model->promotionField] = figure;
-        string letter = pieceToLetter(figure);
-        model->board->moveStr += letter;
-        
-        // check if King in check
-        bool isKingInCheck = gen->inCheck(model->board, !model->board->whiteToMove);
-        if(isKingInCheck){
-            model->board->moveStr += "+";
-            
-            // Mate ?
-            if(gen->isMate(model->board, !model->board->whiteToMove)){
-                model->board->moveStr += "+";
+        if(model->isPromotion){
+            if(model->board->whiteToMove){
+                figure = -1 * figure;
             }
-        }
-        // rewrite the move list
-        calcMoveList();
+            model->board->fields[model->promotionField] = figure;
+            string letter = pieceToLetter(figure);
+            model->board->moveStr += letter;
+            
+            // check if King in check
+            bool isKingInCheck = gen->inCheck(model->board, !model->board->whiteToMove);
+            if(isKingInCheck){
+                model->board->moveStr += "+";
+                
+                // Mate ?
+                if(gen->isMate(model->board, !model->board->whiteToMove)){
+                    model->board->moveStr += "+";
+                }
+            }
+            // rewrite the move list
+            calcMoveList();
 
-        // Reset UI fields
-        model->selField = -1;
-        
-        model->isPromotion = false;
+            // Reset UI fields
+            model->selField = -1;
+            
+            model->isPromotion = false;
+        }
     }
     
     /*
@@ -368,6 +379,7 @@ public:
     
     void clearDebug(){
         model->debugMsg = "";
+        model->engineList = "";
     }
     
     void draw(){
@@ -406,6 +418,27 @@ public:
             case W_KNIGHT:
             case B_KNIGHT:
                 return "N";
+        }
+        return "";
+    }
+    
+    string pieceToPromortionLetter(int piece){
+        switch(piece){
+            case W_QUEEN:
+            case B_QUEEN:
+                return "q";
+                
+            case W_ROOK:
+            case B_ROOK:
+                return "r";
+                
+            case W_BISHOP:
+            case B_BISHOP:
+                return "b";
+                
+            case W_KNIGHT:
+            case B_KNIGHT:
+                return "n";
         }
         return "";
     }
