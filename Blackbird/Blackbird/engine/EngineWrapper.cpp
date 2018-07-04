@@ -108,7 +108,7 @@ void EngineWrapper::memberFunction()
                 int to = (cmd[2]-97) + 8 * (cmd[3]-49);
                 
                  Ply ply;
-                if(cmd.length()>4){
+                if(cmd.length()>4 && cmd[2] == '-'){
                     switch((cmd[4])){
                         case 'q':
                             ply.isPromotion = true;

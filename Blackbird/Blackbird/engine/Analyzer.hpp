@@ -40,10 +40,12 @@
 
 using namespace std;
 
+//#define LOGDEBUG
+
 class Analyzer{
     
 public:
-    bool isDebug = true;
+    bool isDebug = false;
     bool isEmbedded = true;
     bool isStop = false;
 
@@ -133,7 +135,9 @@ public:
                 bestScore = score;
                 boardSel->score = score;
                 boardSel->ply.score = score;
+#ifdef LOGDEBUG
                 cout << "quiesce white from: " << board->ply.from << " to: " << board->ply.to << " score: " <<  board->ply.score << endl;
+#endif
             }
         }else{
             // black
@@ -156,21 +160,26 @@ public:
                 if(board->fields[board->ply.to] > 0 ){
                     cout << " error color" << endl;
                 }
+#ifdef LOGDEBUG
                 cout << "quiesce black from: " << board->ply.from << " to: " << board->ply.to << " figure: " << board->fields[board->ply.to] << " score: " <<  board->ply.score << endl;
+#endif
+                
             }
         }
         
        
-        if(isDebug){
+#ifdef LOGDEBUG
             board->printNice();
             cout << "score: " << score << " best score: " << bestScore<< endl;
-        }
+#endif
         return score;
     }
     
     int pvSearch(Board * board, int alpha, int beta, int depth, bool whiteToMove ) {
+#ifdef LOGDEBUG
         board->printAll();
         board->printNice();
+#endif
         if( depth == 0 ) {
             return quiesce(board, alpha, beta, whiteToMove);
         }
@@ -189,9 +198,9 @@ public:
             Board *b = board->copy();
             b->move(moves.at(i));
             moves.at(i).score = eval->eval(b, b->whiteToMove);
-            if(isDebug){
+#ifdef LOGDEBUG
                 moves.at(i).printAll();
-            }
+#endif
             delete b;
         }
         
@@ -202,7 +211,9 @@ public:
         for ( int i=0;i<moves.size();i++)  {
             Board *b = board->copy();
             b->move(moves.at(i));
+#ifdef LOGDEBUG
             b->printNice();
+#endif
            
             int score;
             if ( bSearchPv ) {
@@ -233,7 +244,7 @@ public:
             Board *b = board->copy();
             b->move(moves.at(i));
             int score = -zwSearch(b, 1-beta, depth - 1,whiteToMove);
-             delete b;
+            delete b;
             if( score >= beta )
                 return beta;   // fail-hard beta-cutoff
         }
@@ -259,8 +270,10 @@ public:
         int val = pvSearch(this->board, alpha, beta, depth, board->whiteToMove);
         if(isEmbedded)
         {
+#ifdef LOGDEBUG
             cout << "best move eval: " << val << " ply " << endl;
             boardSel->ply.printAll();
+#endif
             if( board->whiteToMove){
                observer->makeMoveWhite(boardSel->history.at(1)->ply);
             }else{

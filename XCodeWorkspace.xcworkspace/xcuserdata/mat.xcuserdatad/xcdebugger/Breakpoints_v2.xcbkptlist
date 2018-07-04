@@ -72,7 +72,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/engine/EngineWrapper.cpp"
-            timestampString = "552423595.451456"
+            timestampString = "552425130.0088871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "177"
@@ -88,7 +88,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/engine/MoveGen.hpp"
-            timestampString = "552423595.451521"
+            timestampString = "552425130.008945"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "718"
@@ -103,40 +103,8 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Blackbird/Blackbird/engine/Analyzer.hpp"
-            timestampString = "552199654.636282"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
-            landmarkName = "pvSearch(Board * board, int alpha, int beta, int depth, bool whiteToMove )"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Blackbird/Blackbird/engine/Analyzer.hpp"
-            timestampString = "552199654.636326"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "pvSearch(Board * board, int alpha, int beta, int depth, bool whiteToMove )"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/NSView+UI.mm"
-            timestampString = "552423595.451591"
+            timestampString = "552425130.008986"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "593"
@@ -152,7 +120,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/NSView+UI.mm"
-            timestampString = "552423595.4516439"
+            timestampString = "552425130.009035"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "594"
@@ -168,7 +136,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Blackbird/Blackbird/NSView+UI.mm"
-            timestampString = "552423595.451692"
+            timestampString = "552425130.0090801"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "595"
@@ -180,17 +148,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Blackbird/Blackbird/engine/EngineWrapper.cpp"
-            timestampString = "552423595.451739"
+            filePath = "Blackbird/Blackbird/engine/Ply.hpp"
+            timestampString = "552425130.0091259"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "EngineWrapper::memberFunction()"
-            landmarkType = "7">
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "struct { void printAll(){ cout &lt;&lt; &quot;====== PLY ==========&quot; &lt;&lt; endl; cout &lt;&lt; &quot;from &quot; &lt;&lt; from &lt;&lt; endl; cout &lt;&lt; &quot;to &quot; &lt;&lt; to &lt;&lt; endl; cout &lt;&lt; &quot;isCapture &quot; &lt;&lt; isCapture &lt;&lt; endl; cout &lt;&lt; &quot;isCheck &quot; &lt;&lt; isCheck &lt;&lt; endl; cout &lt;&lt; &quot;piece &quot; &lt;&lt; piece &lt;&lt; endl; cout &lt;&lt; &quot;capturedPiece &quot; &lt;&lt; capturedPiece &lt;&lt; endl; cout &lt;&lt; &quot;isLegal &quot; &lt;&lt; isLegal &lt;&lt; endl; cout &lt;&lt; &quot;captureValue &quot; &lt;&lt; captureValue &lt;&lt; endl; cout &lt;&lt; &quot;castle &quot; &lt;&lt; castle &lt;&lt; endl; cout &lt;&lt; &quot;promotion &quot; &lt;&lt; promotion &lt;&lt; endl; cout &lt;&lt; &quot;enpassW &quot; &lt;&lt; enpassW &lt;&lt; endl; cout &lt;&lt; &quot;enpassB &quot; &lt;&lt; enpassB &lt;&lt; endl; cout &lt;&lt; &quot;isWhite &quot; &lt;&lt; isWhite &lt;&lt; endl; cout &lt;&lt; &quot;score &quot; &lt;&lt; score &lt;&lt; endl; } bool isWhite = true; int score = 0; int from = -1; int to = -1; bool isCapture = false; bool isCheck = false; bool isCheckMate = false; PIECE piece = 0; PIECE capturedPiece = 0; bool isLegal = false; int captureValue = 0; CASTLE castle = NONE; PIECE promotion = 0; bool isPromotion = false; bool enpassW = -1; bool enpassB = -1; }"
+            landmarkType = "14">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

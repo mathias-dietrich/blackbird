@@ -108,7 +108,7 @@ public:
                 }
             }
             
-            // promotion in manula play
+            // promotion in manual play
             if(figure == W_PAWN && ply.to > 55){
                 model->isPromotion = true;
                 model->promotionField = ply.to;
